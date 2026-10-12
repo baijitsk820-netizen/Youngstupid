@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YOUNG & STUPID | Heavyweight Streetwear & Premium T-Shirts</title>
+    <meta name="description" content="Official store for YOUNG & STUPID. Heavyweight 280-320 GSM combed cotton drop collections." />
+    <meta property="og:title" content="YOUNG & STUPID | Heavyweight Streetwear" />
+    <meta property="og:description" content="Official store for YOUNG & STUPID. Heavyweight 280-320 GSM combed cotton drop collections." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased">
+
+    <!-- Announcement Bar -->
+    <div class="bg-[#0B0B0B] text-[#F7F5F0] py-2 px-4 text-center text-[11px] font-bold tracking-widest uppercase transition-all duration-300 relative z-50">
+      <div id="announcement-text" class="transition-all duration-300">FREE SHIPPING ON ORDERS OVER $75.00</div>
+    </div>
+
+    <!-- Sticky Navigation Bar -->
+    <header id="main-nav" class="sticky top-0 z-40 transition-all duration-300 bg-transparent px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <!-- Brand Logo: Exact YOUNG & STUPID -->
+        <div class="flex items-center gap-6">
+          <a href="/index.html" class="flex items-center gap-2 group">
+            <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B] group-hover:opacity-80 transition-opacity">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E] inline-block"></span>
+          </a>
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">
+          <a href="/products.html" class="hover:text-[#6B6B6B] transition-colors">Shop All</a>
+          <a href="/products.html?category=oversized" class="hover:text-[#6B6B6B] transition-colors">Oversized</a>
+          <a href="/products.html?badge=new" class="hover:text-[#6B6B6B] transition-colors flex items-center gap-1.5">
+            New Drops
+            <span class="w-1.5 h-1.5 rounded-full bg-[#C7FF2E]"></span>
+          </a>
+          <a href="/products.html?category=graphic" class="hover:text-[#6B6B6B] transition-colors">Graphic Tees</a>
+          <a href="/about.html" class="hover:text-[#6B6B6B] transition-colors">Philosophy</a>
+          <a href="/track-order.html" class="hover:text-[#6B6B6B] transition-colors">Track Order</a>
+        </nav>
+
+        <!-- Right Action Icons -->
+        <div class="flex items-center gap-4 sm:gap-6 text-[#0B0B0B]">
+          <button class="search-trigger-btn p-1.5 hover:text-[#6B6B6B] transition-colors" title="Search catalog">
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+          </button>
+          
+          <a href="/wishlist.html" class="relative p-1.5 hover:text-[#6B6B6B] transition-colors" title="Wishlist">
+            <i class="fa-regular fa-heart text-sm"></i>
+            <span class="wishlist-count-badge absolute -top-1 -right-1 bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+
+          <a href="/login.html" class="auth-account-link p-1.5 hover:text-[#6B6B6B] transition-colors hidden sm:block" title="My Account">
+            <i class="fa-regular fa-user text-sm"></i>
+          </a>
+
+          <button class="cart-drawer-trigger relative p-1.5 hover:text-[#6B6B6B] transition-colors flex items-center gap-1.5 bg-[#0B0B0B] text-[#F7F5F0] px-3 py-1.5" title="Bag">
+            <i class="fa-solid fa-bag-shopping text-xs text-[#C7FF2E]"></i>
+            <span class="text-xs font-bold hidden sm:inline">BAG</span>
+            <span class="cart-count-badge bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold px-1.5 py-0.2 rounded-full min-w-[18px] text-center">0</span>
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button id="mobile-menu-toggle" class="md:hidden p-1.5 text-base" title="Menu">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Mobile Slide Menu -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-[#0B0B0B] text-[#F7F5F0] p-6 shadow-2xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center pb-6 border-b border-[#333]">
+          <div class="font-editorial text-xl font-bold tracking-tighter">YOUNG & STUPID <span class="text-[#C7FF2E]">.</span></div>
+          <button id="mobile-menu-close" class="text-lg p-2 text-[#6B6B6B] hover:text-[#F7F5F0]">✕</button>
+        </div>
+        <nav class="flex flex-col gap-5 mt-8 text-sm uppercase font-bold tracking-widest">
+          <a href="/products.html" class="hover:text-[#C7FF2E] transition-colors">Shop All Tees</a>
+          <a href="/products.html?category=oversized" class="hover:text-[#C7FF2E] transition-colors">Oversized Silhouette</a>
+          <a href="/products.html?category=graphic" class="hover:text-[#C7FF2E] transition-colors">Graphic Series</a>
+          <a href="/products.html?category=minimal" class="hover:text-[#C7FF2E] transition-colors">Minimal Basics</a>
+          <a href="/wishlist.html" class="hover:text-[#C7FF2E] transition-colors flex items-center justify-between">
+            <span>Wishlist</span>
+            <span class="wishlist-count-badge bg-[#C7FF2E] text-[#0B0B0B] text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
+          </a>
+          <a href="/track-order.html" class="hover:text-[#C7FF2E] transition-colors">Track Order</a>
+          <a href="/about.html" class="hover:text-[#C7FF2E] transition-colors">Our Philosophy</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-[#333] space-y-3">
+        <a href="/login.html" class="w-full bg-[#C7FF2E] text-[#0B0B0B] py-3 text-center block text-xs font-bold uppercase tracking-widest">Account Login</a>
+        <p class="text-[10px] text-[#6B6B6B] text-center tracking-widest uppercase">YOUNG & STUPID / Official Store</p>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[85vh] flex items-center overflow-hidden border-b border-[#0B0B0B]/10">
+      <div class="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Content -->
+        <div class="lg:col-span-6 z-10 space-y-6">
+          <div class="inline-flex items-center gap-2 border border-[#0B0B0B] bg-white px-3 py-1 text-[11px] font-bold tracking-widest uppercase">
+            <span class="w-2 h-2 rounded-full bg-[#C7FF2E]"></span>
+            <span>NEW COLLECTION / 2026</span>
+          </div>
+
+          <h1 class="font-editorial text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tighter uppercase leading-[0.88] text-[#0B0B0B]">
+            WEAR<br>
+            YOUR<br>
+            <span class="inline-block relative">
+              MOOD.
+              <span class="absolute bottom-2 left-0 w-full h-3 bg-[#C7FF2E]/60 -z-10"></span>
+            </span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-[#6B6B6B] max-w-md font-medium leading-relaxed">
+            Premium everyday T-shirts designed for people who don't follow the crowd.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="/products.html" class="btn-hover-lift bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-8 py-4 font-editorial font-bold text-xs uppercase tracking-widest flex items-center gap-3">
+              <span>SHOP COLLECTION</span>
+              <span class="text-[#C7FF2E] text-sm">→</span>
+            </a>
+            <a href="/products.html?badge=new" class="btn-hover-lift border border-[#0B0B0B] bg-transparent text-[#0B0B0B] hover:bg-[#0B0B0B] hover:text-[#F7F5F0] px-8 py-4 font-editorial font-bold text-xs uppercase tracking-widest transition-colors">
+              EXPLORE NEW DROPS
+            </a>
+          </div>
+
+          <div class="pt-6 flex items-center gap-8 text-[11px] font-bold tracking-wider uppercase text-[#6B6B6B]">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-feather text-[#0B0B0B]"></i>
+              <span>280-320 GSM</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-[#0B0B0B]"></i>
+              <span>ZERO COLLAR SAG</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-truck-fast text-[#0B0B0B]"></i>
+              <span>FAST DISPATCH</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual -->
+        <div class="lg:col-span-6 relative flex justify-center">
+          <div class="relative w-full max-w-md lg:max-w-none">
+            <div class="absolute -top-4 -right-4 w-full h-full border-2 border-[#0B0B0B] -z-10 bg-transparent"></div>
+            
+            <div class="relative overflow-hidden bg-[#E8E6E1] shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1200&auto=format&fit=crop" 
+                alt="YOUNG & STUPID Streetwear" 
+                class="w-full h-[480px] sm:h-[580px] object-cover object-top hover:scale-105 transition-transform duration-700"
+              />
+              
+              <div class="absolute bottom-6 left-6 bg-[#0B0B0B] text-[#F7F5F0] p-4 border border-[#C7FF2E]/40 backdrop-blur-md">
+                <div class="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest text-[#C7FF2E]">
+                  <span class="w-2 h-2 rounded-full bg-[#C7FF2E] animate-ping"></span>
+                  DROP 01 / LIVE
+                </div>
+                <div class="font-editorial text-sm font-bold uppercase mt-1">YOUNG & STUPID ARCHIVE</div>
+                <div class="text-[11px] text-[#6B6B6B] mt-0.5">Heavyweight boxy drape • Limited run</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 opacity-60">
+        <span class="text-[9px] uppercase font-bold tracking-widest">SCROLL</span>
+        <div class="w-0.5 h-6 bg-[#0B0B0B] animate-pulse"></div>
+      </div>
+    </section>
+
+    <!-- Trust / USP Section -->
+    <section class="border-b border-[#0B0B0B]/10 bg-white py-8 px-4 md:px-8">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-[#F7F5F0] border border-[#0B0B0B]/20 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-shirt text-sm text-[#0B0B0B]"></i>
+          </div>
+          <div>
+            <h4 class="font-editorial text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">Premium Fabric</h4>
+            <p class="text-xs text-[#6B6B6B] mt-0.5">Soft, heavyweight cotton</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-[#F7F5F0] border border-[#0B0B0B]/20 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-bolt text-sm text-[#0B0B0B]"></i>
+          </div>
+          <div>
+            <h4 class="font-editorial text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">Fast Delivery</h4>
+            <p class="text-xs text-[#6B6B6B] mt-0.5">Reliable express delivery</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-[#F7F5F0] border border-[#0B0B0B]/20 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-rotate-left text-sm text-[#0B0B0B]"></i>
+          </div>
+          <div>
+            <h4 class="font-editorial text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">Easy Returns</h4>
+            <p class="text-xs text-[#6B6B6B] mt-0.5">Simple return process</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-[#F7F5F0] border border-[#0B0B0B]/20 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-lock text-sm text-[#0B0B0B]"></i>
+          </div>
+          <div>
+            <h4 class="font-editorial text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">Secure Payments</h4>
+            <p class="text-xs text-[#6B6B6B] mt-0.5">100% secure checkout in USD</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Featured Products: THE CURRENT DROP (Real Firebase Source of Truth) -->
+    <section class="py-16 md:py-24 px-4 md:px-8 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest text-[#6B6B6B] uppercase mb-2">
+            <span class="w-2 h-0.5 bg-[#0B0B0B]"></span>
+            <span>CURRENT DROP</span>
+          </div>
+          <h2 class="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter uppercase text-[#0B0B0B]">
+            THE CURRENT DROP
+          </h2>
+          <p class="text-sm text-[#6B6B6B] mt-1">Pieces worth wearing on repeat.</p>
+        </div>
+        
+        <a href="/products.html" class="font-editorial text-xs font-bold uppercase tracking-widest flex items-center gap-2 text-[#0B0B0B] hover:text-[#6B6B6B] group transition-colors">
+          <span>VIEW ALL DROPS</span>
+          <span class="text-[#0B0B0B] group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+
+      <!-- Toolbar: Category Filter Bar & Price Sort Dropdown -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-[#0B0B0B]/10 pb-4">
+        <!-- Category Filter Bar above featured-products-grid -->
+        <div id="featured-category-filter-bar" class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar scroll-smooth flex-1 min-w-0">
+          <!-- Dynamically injected category filter tabs -->
+        </div>
+
+        <!-- Price Sort Dropdown -->
+        <div class="flex items-center gap-2.5 shrink-0 self-start md:self-auto">
+          <label for="featured-sort-select" class="text-[11px] font-bold uppercase tracking-wider text-[#6B6B6B] whitespace-nowrap flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-down-wide-short text-[10px] text-[#0B0B0B]"></i>
+            <span>Sort:</span>
+          </label>
+          <div class="relative">
+            <select 
+              id="featured-sort-select" 
+              class="appearance-none bg-white border border-[#0B0B0B] text-[#0B0B0B] text-xs font-editorial font-bold uppercase tracking-wider pl-3.5 pr-8 py-2 focus:outline-none focus:ring-1 focus:ring-[#0B0B0B] transition-all cursor-pointer shadow-sm hover:bg-[#F7F5F0]"
+            >
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-[#0B0B0B]">
+              <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Products Grid connected to Firestore -->
+      <div id="featured-products-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 min-h-[300px]">
+        <!-- Injected dynamically from Cloud Firestore `products` collection -->
+      </div>
+
+      <!-- Empty State if Firestore has 0 products -->
+      <div id="featured-empty-state" class="hidden p-16 text-center bg-white border border-[#0B0B0B]/10 my-4">
+        <div class="w-16 h-16 border border-[#0B0B0B]/20 bg-[#F7F5F0] flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-shirt text-2xl text-[#6B6B6B]"></i>
+        </div>
+        <h3 class="font-editorial text-xl font-bold uppercase text-[#0B0B0B]">No products available yet.</h3>
+        <p class="text-xs text-[#6B6B6B] mt-1">Products added to your Cloud Firestore 'products' collection will appear here automatically.</p>
+      </div>
+    </section>
+
+    <!-- Editorial Brand Philosophy Section -->
+    <section class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-6 space-y-6">
+          <div class="inline-block text-[11px] font-bold tracking-widest uppercase text-[#6B6B6B] border-b border-[#0B0B0B] pb-1">
+            THE YOUNG & STUPID MANIFESTO
+          </div>
+          
+          <h2 class="font-editorial text-4xl sm:text-5xl md:text-6xl font-bold uppercase tracking-tight leading-[0.92] text-[#0B0B0B]">
+            NOT JUST A TEE.<br>
+            IT'S YOUR<br>
+            <span class="text-[#0B0B0B] bg-[#C7FF2E] px-2">ATTITUDE.</span>
+          </h2>
+
+          <div class="space-y-4 text-sm sm:text-base text-[#6B6B6B] leading-relaxed pt-2">
+            <p>
+              Simple clothes. Strong personality. No unnecessary noise.
+            </p>
+            <p>
+              YOUNG & STUPID is built around heavyweight cotton, architectural drop-shoulder silhouettes, and minimal uncompromised quality.
+            </p>
+          </div>
+
+          <div class="pt-4">
+            <a href="/about.html" class="inline-flex items-center gap-2 font-editorial text-xs font-bold uppercase tracking-widest text-[#0B0B0B] hover:text-[#6B6B6B] transition-colors underline">
+              READ OUR STORY & PHILOSOPHY →
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 relative flex justify-center">
+          <div class="relative w-full max-w-lg">
+            <div class="w-4/5 ml-auto border border-[#0B0B0B] overflow-hidden bg-[#E8E6E1] shadow-xl">
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=1000&auto=format&fit=crop" class="w-full h-96 sm:h-[480px] object-cover" alt="YOUNG & STUPID Fashion" />
+            </div>
+            <div class="absolute -bottom-8 -left-4 w-3/5 border-2 border-[#0B0B0B] overflow-hidden bg-white shadow-2xl">
+              <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=800&auto=format&fit=crop" class="w-full h-56 sm:h-72 object-cover" alt="Heavyweight Cotton Detail" />
+              <div class="p-3 bg-[#0B0B0B] text-[#F7F5F0] text-[10px] font-bold uppercase tracking-widest flex justify-between">
+                <span>YOUNG & STUPID</span>
+                <span class="text-[#C7FF2E]">DROP ARCHIVE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Lead Generation Section: GET FIRST ACCESS -->
+    <section class="bg-[#0B0B0B] text-[#F7F5F0] py-20 px-4 md:px-8 relative overflow-hidden">
+      <div class="max-w-3xl mx-auto text-center relative z-10 space-y-6">
+        <span class="inline-block bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold uppercase tracking-widest px-3 py-1">
+          LIMITED RUN DROPS
+        </span>
+
+        <h2 class="font-editorial text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter uppercase leading-[0.95]">
+          GET FIRST ACCESS.
+        </h2>
+
+        <p class="text-sm sm:text-base text-[#E8E6E1]/80 max-w-lg mx-auto font-medium">
+          Join our list for new drops, limited releases, exclusive offers and early access.
+        </p>
+
+        <!-- Newsletter Form storing to Firestore `leads` -->
+        <div class="pt-2 max-w-md mx-auto">
+          <form class="newsletter-form flex flex-col sm:flex-row gap-2">
+            <input 
+              type="email" 
+              required 
+              placeholder="Enter your email" 
+              class="flex-1 bg-white/10 border border-[#E8E6E1]/30 focus:border-[#C7FF2E] focus:outline-none px-4 py-3.5 text-xs text-[#F7F5F0] placeholder:text-[#E8E6E1]/50 tracking-wider font-medium"
+            />
+            <button 
+              type="submit" 
+              class="bg-[#C7FF2E] hover:bg-[#b5ee20] text-[#0B0B0B] px-6 py-3.5 font-editorial font-bold text-xs uppercase tracking-widest transition-colors shrink-0 btn-hover-lift"
+            >
+              JOIN THE DROP
+            </button>
+          </form>
+
+          <div class="newsletter-success-msg hidden p-4 bg-[#C7FF2E] text-[#0B0B0B] border border-[#C7FF2E] text-center mt-3 animate-fade-up">
+            <div class="font-editorial text-sm font-bold uppercase">You're on the list.</div>
+            <div class="text-xs font-semibold mt-0.5">Welcome to the drop.</div>
+          </div>
+
+          <p class="text-[11px] text-[#6B6B6B] mt-3 tracking-wider uppercase">
+            No spam. Just good T-shirts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Proof: PEOPLE ARE WEARING IT (Real Firestore Reviews) -->
+    <section class="py-16 md:py-24 px-4 md:px-8 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-[11px] font-bold tracking-widest uppercase text-[#6B6B6B]">CUSTOMER REVIEWS</span>
+          <h2 class="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter uppercase text-[#0B0B0B] mt-1">
+            PEOPLE ARE WEARING IT.
+          </h2>
+        </div>
+      </div>
+
+      <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Injected via real Firestore reviews query -->
+      </div>
+
+      <div id="no-reviews-msg" class="hidden p-12 text-center bg-white border border-[#0B0B0B]/10">
+        <p class="text-xs uppercase font-bold text-[#6B6B6B]">No reviews yet.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] pt-16 pb-12 px-4 md:px-8 border-t border-[#333]">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="font-editorial text-2xl font-bold tracking-tighter text-white">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          </div>
+          <p class="text-xs text-[#E8E6E1]/70 max-w-sm leading-relaxed">
+            Independent contemporary streetwear identity. Heavyweight T-shirts designed for individuals who forge their own lane.
+          </p>
+          <div class="flex gap-4 pt-2 text-[#E8E6E1]/80">
+            <a href="#" class="hover:text-[#C7FF2E] transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="hover:text-[#C7FF2E] transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="hover:text-[#C7FF2E] transition-colors"><i class="fa-brands fa-pinterest"></i></a>
+            <a href="#" class="hover:text-[#C7FF2E] transition-colors"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Shop</h4>
+          <ul class="space-y-2.5 text-xs text-[#E8E6E1]/70 uppercase font-semibold">
+            <li><a href="/products.html" class="hover:text-white transition-colors">All T-Shirts</a></li>
+            <li><a href="/products.html?category=oversized" class="hover:text-white transition-colors">Oversized</a></li>
+            <li><a href="/products.html?category=graphic" class="hover:text-white transition-colors">Graphic Tees</a></li>
+            <li><a href="/products.html?category=minimal" class="hover:text-white transition-colors">Minimal</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Help</h4>
+          <ul class="space-y-2.5 text-xs text-[#E8E6E1]/70 uppercase font-semibold">
+            <li><a href="/contact.html" class="hover:text-white transition-colors">Contact Support</a></li>
+            <li><a href="/faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="/track-order.html" class="hover:text-white transition-colors">Track Order</a></li>
+            <li><a href="/return-policy.html" class="hover:text-white transition-colors">Return & Refund Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Newsletter</h4>
+          <p class="text-xs text-[#E8E6E1]/70 mb-3">Get updates on new drops.</p>
+          <form class="newsletter-form space-y-2">
+            <input type="email" required placeholder="Enter your email" class="w-full bg-[#171717] border border-[#333] px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#C7FF2E]" />
+            <button type="submit" class="w-full bg-[#C7FF2E] text-[#0B0B0B] py-2 text-xs font-editorial font-bold uppercase tracking-widest hover:bg-[#b5ee20] transition-colors">
+              SUBSCRIBE
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-[#222] flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-[#6B6B6B]">
+        <div>© 2026 YOUNG & STUPID. ALL RIGHTS RESERVED.</div>
+        <div class="flex gap-6 uppercase">
+          <a href="/about.html" class="hover:text-white">Privacy Policy</a>
+          <a href="/about.html" class="hover:text-white">Terms</a>
+          <span class="text-white">USD ($)</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SLIDING CART DRAWER -->
+    <div id="cart-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 max-w-md w-full bg-[#F7F5F0] z-50 shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 border-l border-[#0B0B0B]">
+      <div class="p-6 border-b border-[#E8E6E1] bg-white">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <span class="font-editorial text-lg font-bold uppercase tracking-tight text-[#0B0B0B]">YOUR SHOPPING BAG</span>
+            <span class="cart-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <button id="cart-drawer-close" class="text-lg p-2 text-[#6B6B6B] hover:text-[#0B0B0B]" title="Close bag">✕</button>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-[#E8E6E1]/60">
+          <div id="free-shipping-msg" class="text-[11px] text-[#6B6B6B] mb-2 uppercase tracking-wide">
+            Add items worth <strong>$75.00</strong> to claim Free Express Delivery
+          </div>
+          <div class="w-full h-1.5 bg-[#E8E6E1] overflow-hidden">
+            <div id="free-shipping-progress" class="h-full bg-[#0B0B0B] transition-all duration-500 w-0"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+      <div id="cart-drawer-empty" class="hidden p-8 text-center my-auto">
+        <div class="w-16 h-16 border border-[#0B0B0B]/20 bg-white flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-bag-shopping text-2xl text-[#6B6B6B]"></i>
+        </div>
+        <h4 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">YOUR BAG IS CURRENTLY EMPTY</h4>
+        <p class="text-xs text-[#6B6B6B] mt-1 mb-6">Discover new drop pieces.</p>
+        <a href="/products.html" class="inline-block bg-[#0B0B0B] text-[#F7F5F0] px-6 py-3 text-xs font-editorial font-bold uppercase tracking-widest hover:bg-black">
+          EXPLORE CATALOG →
+        </a>
+      </div>
+
+      <div class="p-6 border-t border-[#E8E6E1] bg-white space-y-4">
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-[#6B6B6B] uppercase font-bold text-xs tracking-wider">Subtotal</span>
+          <span id="cart-drawer-subtotal" class="font-editorial font-bold text-lg text-[#0B0B0B]">$0.00</span>
+        </div>
+        <div class="space-y-2">
+          <a id="cart-drawer-checkout-btn" href="/checkout.html" class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 text-center font-editorial font-bold text-xs uppercase tracking-widest block transition-colors flex items-center justify-center gap-2 btn-press">
+            <span>CHECKOUT</span>
+            <span class="text-[#C7FF2E]">→</span>
+          </a>
+          <a href="/cart.html" class="w-full border border-[#0B0B0B] text-[#0B0B0B] hover:bg-[#F7F5F0] py-3 text-center font-editorial font-bold text-xs uppercase tracking-widest block transition-colors">
+            VIEW FULL BAG
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE SEARCH OVERLAY -->
+    <div id="search-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex flex-col items-center justify-start pt-16 p-4">
+      <div class="w-full max-w-2xl bg-[#F7F5F0] border border-[#0B0B0B] shadow-2xl overflow-hidden animate-fade-up">
+        <div class="flex items-center border-b border-[#0B0B0B] px-6 py-4 bg-white">
+          <i class="fa-solid fa-magnifying-glass text-[#0B0B0B] mr-4 text-base"></i>
+          <input 
+            id="search-input-field" 
+            type="text" 
+            placeholder="WHAT ARE YOU LOOKING FOR?" 
+            class="w-full bg-transparent text-sm font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] focus:outline-none placeholder:text-[#6B6B6B]/60" 
+          />
+          <button id="search-overlay-close" class="text-sm font-bold text-[#6B6B6B] hover:text-[#0B0B0B] ml-4">✕</button>
+        </div>
+        <div id="search-results-container" class="min-h-[220px]">
+          <div class="p-8 text-center text-[#6B6B6B] text-xs uppercase tracking-wider">
+            Start typing to search real Firebase products...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { getAllProducts, subscribeToProducts } from '/js/products.js';
+      import { formatPrice } from '/js/cart.js';
+      import { isInWishlist } from '/js/wishlist.js';
+      import { getReviewsFromFirestore, extractProductImageUrl } from '/js/firebase-init.js';
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        const grid = document.getElementById('featured-products-grid');
+        const emptyState = document.getElementById('featured-empty-state');
+        const filterBar = document.getElementById('featured-category-filter-bar');
+        if (!grid) return;
+
+        let products = [];
+        let activeCategory = 'ALL';
+        let activeSort = 'featured';
+
+        const sortSelect = document.getElementById('featured-sort-select');
+        if (sortSelect) {
+          sortSelect.addEventListener('change', (e) => {
+            activeSort = e.target.value;
+            renderProductsList();
+          });
+        }
+
+        function matchesCategory(product, cat) {
+          if (!cat || cat === 'ALL') return true;
+          const target = cat.toLowerCase();
+          const pCat = (product.category || '').toLowerCase();
+          const pSub = (product.subcategory || '').toLowerCase();
+          const pName = (product.name || '').toLowerCase();
+          const pTags = Array.isArray(product.tags) ? product.tags.map(t => String(t).toLowerCase()) : [];
+          return pCat.includes(target) || 
+                 pSub.includes(target) || 
+                 pTags.some(t => t.includes(target)) || 
+                 pName.includes(target);
+        }
+
+        function renderCategoryButtons() {
+          if (!filterBar) return;
+
+          const categoryList = ['ALL', 'OVERSIZED', 'GRAPHIC', 'MINIMAL'];
+          products.forEach(p => {
+            if (p.category && typeof p.category === 'string') {
+              const catUpper = p.category.trim().toUpperCase();
+              if (catUpper && !categoryList.includes(catUpper)) {
+                categoryList.push(catUpper);
+              }
+            }
+          });
+
+          filterBar.innerHTML = categoryList.map(cat => {
+            const isActive = cat === activeCategory;
+            const count = cat === 'ALL' 
+              ? products.length 
+              : products.filter(p => matchesCategory(p, cat)).length;
+
+            return `
+              <button 
+                type="button" 
+                data-category="${cat}" 
+                class="category-filter-btn flex items-center gap-2 px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
+                  isActive 
+                    ? 'bg-[#0B0B0B] text-[#F7F5F0] border border-[#0B0B0B] shadow-sm' 
+                    : 'bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] hover:bg-[#0B0B0B] hover:text-[#F7F5F0]'
+                }"
+              >
+                ${isActive ? '<span class="w-1.5 h-1.5 rounded-full bg-[#C7FF2E]"></span>' : ''}
+                <span>${cat === 'ALL' ? 'ALL DROPS' : cat}</span>
+                <span class="text-[10px] ${isActive ? 'text-[#C7FF2E]' : 'text-[#6B6B6B]'} font-semibold">(${count})</span>
+              </button>
+            `;
+          }).join('');
+
+          filterBar.querySelectorAll('.category-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const selected = btn.getAttribute('data-category');
+              if (selected === activeCategory) return;
+              activeCategory = selected;
+              renderCategoryButtons();
+              renderProductsList();
+            });
+          });
+        }
+
+        function renderProductsList() {
+          let filtered = products.filter(p => matchesCategory(p, activeCategory));
+
+          if (activeSort === 'price-asc') {
+            filtered.sort((a, b) => (Number(a.price) || 0) - (Number(b.price) || 0));
+          } else if (activeSort === 'price-desc') {
+            filtered.sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0));
+          }
+
+          if (filtered.length === 0) {
+            grid.innerHTML = `
+              <div class="col-span-full p-12 text-center bg-white border border-[#0B0B0B]/10">
+                <div class="w-12 h-12 border border-[#0B0B0B]/20 bg-[#F7F5F0] flex items-center justify-center mx-auto mb-3">
+                  <i class="fa-solid fa-filter text-base text-[#6B6B6B]"></i>
+                </div>
+                <h3 class="font-editorial text-sm font-bold uppercase text-[#0B0B0B]">NO PIECES IN "${activeCategory}"</h3>
+                <p class="text-xs text-[#6B6B6B] mt-1 mb-4">No drops currently matched this category filter.</p>
+                <button id="reset-filter-to-all" class="bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-4 py-2 font-editorial text-[11px] font-bold uppercase tracking-widest transition-colors cursor-pointer">
+                  VIEW ALL DROPS
+                </button>
+              </div>
+            `;
+            document.getElementById('reset-filter-to-all')?.addEventListener('click', () => {
+              activeCategory = 'ALL';
+              renderCategoryButtons();
+              renderProductsList();
+            });
+            return;
+          }
+
+          grid.innerHTML = filtered.map(p => {
+            const isSaved = isInWishlist(p.id);
+            const discountPct = p.compareAtPrice && p.compareAtPrice > p.price ? Math.round(((p.compareAtPrice - p.price) / p.compareAtPrice) * 100) : 0;
+            const primaryImg = extractProductImageUrl(Array.isArray(p.images) && p.images.length > 0 ? p.images[0] : (p.thumbnail || ''));
+            const secondaryImg = extractProductImageUrl(Array.isArray(p.images) && p.images.length > 1 ? p.images[1] : primaryImg);
+
+            return `
+              <div class="product-card group relative bg-white border border-[#E8E6E1] hover:border-[#0B0B0B] transition-all flex flex-col justify-between">
+                
+                <div class="product-img-box relative overflow-hidden bg-[#E8E6E1] aspect-[3/4]">
+                  ${p.badge ? `
+                    <span class="absolute top-3 left-3 z-10 text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 bg-[#0B0B0B] text-white">
+                      ${p.badge}
+                    </span>
+                  ` : ''}
+
+                  <button 
+                    data-wishlist-id="${p.id}" 
+                    class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full ${isSaved ? 'bg-[#C7FF2E] text-[#0B0B0B]' : 'bg-white/90 text-[#6B6B6B]'} hover:text-[#0B0B0B] flex items-center justify-center transition-all shadow-sm"
+                    title="Save to Wishlist"
+                  >
+                    <i class="${isSaved ? 'fa-solid' : 'fa-regular'} fa-heart text-xs"></i>
+                  </button>
+
+                  <a href="/product-details.html?id=${p.id}" class="block w-full h-full relative">
+                    ${primaryImg ? `
+                      <img 
+                        src="${primaryImg}" 
+                        alt="${p.name}" 
+                        class="product-primary-img w-full h-full object-cover transition-opacity duration-300" 
+                        loading="lazy" 
+                        onerror="this.style.display='none'; const sec = this.parentElement.querySelector('.product-secondary-img'); if (sec) sec.style.display='none'; const fb = this.parentElement.querySelector('.img-fallback'); if (fb) fb.classList.remove('hidden');" 
+                      />
+                      ${secondaryImg && secondaryImg !== primaryImg ? `
+                        <img 
+                          src="${secondaryImg}" 
+                          alt="${p.name} Alt" 
+                          class="product-secondary-img absolute inset-0 w-full h-full object-cover" 
+                          loading="lazy" 
+                          onerror="this.style.display='none';" 
+                        />
+                      ` : ''}
+                      <div class="img-fallback hidden w-full h-full flex items-center justify-center bg-[#E8E6E1] text-[#6B6B6B]">
+                        <i class="fa-solid fa-shirt text-3xl"></i>
+                      </div>
+                    ` : `
+                      <div class="w-full h-full flex items-center justify-center bg-[#E8E6E1] text-[#6B6B6B]">
+                        <i class="fa-solid fa-shirt text-3xl"></i>
+                      </div>
+                    `}
+                  </a>
+
+                  <button 
+                    data-quick-add-id="${p.id}" 
+                    class="quick-add-btn absolute inset-x-0 bottom-0 bg-[#0B0B0B] text-[#F7F5F0] hover:bg-[#C7FF2E] hover:text-[#0B0B0B] py-3 text-xs font-editorial font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 z-10"
+                  >
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                    <span>QUICK ADD</span>
+                  </button>
+                </div>
+
+                <div class="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between text-[10px] text-[#6B6B6B] uppercase font-bold tracking-wider mb-1">
+                      <span>${p.category || 'T-Shirt'}</span>
+                      <span class="flex items-center gap-1 text-[#0B0B0B]">
+                        <i class="fa-solid fa-star text-[9px]"></i>
+                        <span>${p.rating || '5.0'}</span>
+                      </span>
+                    </div>
+                    <h3 class="font-editorial text-xs sm:text-sm font-bold uppercase tracking-tight text-[#0B0B0B] line-clamp-1 group-hover:underline">
+                      <a href="/product-details.html?id=${p.id}">${p.name}</a>
+                    </h3>
+                  </div>
+
+                  <div class="mt-3 pt-2 border-t border-[#E8E6E1] flex items-center justify-between">
+                    <div class="flex items-baseline gap-2">
+                      <span class="font-editorial text-sm sm:text-base font-bold text-[#0B0B0B]">${formatPrice(p.price)}</span>
+                      ${p.compareAtPrice ? `<span class="text-xs text-[#6B6B6B] line-through font-normal">${formatPrice(p.compareAtPrice)}</span>` : ''}
+                    </div>
+                    ${discountPct > 0 ? `
+                      <span class="text-[10px] font-extrabold text-[#0B0B0B] bg-[#C7FF2E] px-1.5 py-0.5">
+                        ${discountPct}% OFF
+                      </span>
+                    ` : ''}
+                  </div>
+                </div>
+
+              </div>
+            `;
+          }).join('');
+
+          initProductCardTilt();
+        }
+
+        function handleProductsUpdate(updatedList) {
+          products = updatedList || [];
+          if (products.length === 0) {
+            grid.classList.add('hidden');
+            filterBar?.classList.add('hidden');
+            emptyState?.classList.remove('hidden');
+          } else {
+            emptyState?.classList.add('hidden');
+            grid.classList.remove('hidden');
+            filterBar?.classList.remove('hidden');
+            renderCategoryButtons();
+            renderProductsList();
+          }
+        }
+
+        // Initial fetch
+        const initialProducts = await getAllProducts();
+        handleProductsUpdate(initialProducts);
+
+        // Subscribe to real-time updates from Firestore
+        subscribeToProducts((liveProducts) => {
+          handleProductsUpdate(liveProducts);
+        });
+
+          function initProductCardTilt() {
+            const boxes = document.querySelectorAll('#featured-products-grid .product-img-box');
+            boxes.forEach(box => {
+              let raf = null;
+              let rect = null;
+
+              box.addEventListener('mouseenter', () => {
+                rect = box.getBoundingClientRect();
+              });
+
+              box.addEventListener('mousemove', (e) => {
+                if (!rect) rect = box.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+                const tiltX = (-y * 8).toFixed(2);
+                const tiltY = (x * 8).toFixed(2);
+
+                if (raf) cancelAnimationFrame(raf);
+                raf = requestAnimationFrame(() => {
+                  box.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-3px) scale3d(1.02, 1.02, 1.02)`;
+                });
+              });
+
+              box.addEventListener('mouseleave', () => {
+                if (raf) cancelAnimationFrame(raf);
+                box.style.transform = '';
+                rect = null;
+              });
+            });
+          }
+
+        // Fetch real reviews from Firestore
+        const reviewsBox = document.getElementById('reviews-container');
+        const noReviewsMsg = document.getElementById('no-reviews-msg');
+        const reviews = await getReviewsFromFirestore();
+
+        if (!reviews || reviews.length === 0) {
+          reviewsBox?.classList.add('hidden');
+          noReviewsMsg?.classList.remove('hidden');
+        } else {
+          noReviewsMsg?.classList.add('hidden');
+          reviewsBox?.classList.remove('hidden');
+          reviewsBox.innerHTML = reviews.slice(0, 3).map(r => `
+            <div class="p-6 bg-white border border-[#0B0B0B]/10 hover:border-[#0B0B0B] transition-colors flex flex-col justify-between space-y-4">
+              <div>
+                <div class="text-[#0B0B0B] text-xs mb-3">
+                  ${'★'.repeat(r.rating || 5)}
+                </div>
+                <p class="text-sm text-[#171717] font-medium leading-relaxed">
+                  "${r.comment || ''}"
+                </p>
+              </div>
+              <div class="pt-4 border-t border-[#E8E6E1] flex justify-between items-center text-xs">
+                <div>
+                  <div class="font-bold uppercase text-[#0B0B0B]">${r.customerName || 'Verified Buyer'}</div>
+                  <div class="text-[10px] text-[#6B6B6B]">${r.verified ? 'Verified Purchase' : 'Customer'}</div>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+      });
+    </script>
+  </body>
+</html>

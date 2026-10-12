@@ -1,0 +1,229 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Real store products stored in Cloud Firestore",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "compareAtPrice": { "type": "number" },
+        "category": { "type": "string" },
+        "sizes": { "type": "array" },
+        "colors": { "type": "array" },
+        "images": { "type": "array" },
+        "thumbnail": { "type": "string" },
+        "primaryImage": { "type": "string" },
+        "stock": { "type": "number" },
+        "sku": { "type": "string" },
+        "badge": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "price", "category"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "WishlistItem": {
+      "title": "WishlistItem",
+      "description": "User saved wishlist items",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "image": { "type": "string" },
+        "category": { "type": "string" },
+        "addedAt": { "type": "string" }
+      },
+      "required": ["productId", "name", "price"]
+    },
+    "CartItem": {
+      "title": "CartItem",
+      "description": "User cart line items",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "size": { "type": "string" },
+        "color": { "type": "string" },
+        "quantity": { "type": "number" },
+        "image": { "type": "string" }
+      },
+      "required": ["productId", "name", "price", "size", "quantity"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase order",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string" },
+        "userId": { "type": "string" },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "shipping": { "type": "number" },
+        "discount": { "type": "number" },
+        "tax": { "type": "number" },
+        "total": { "type": "number" },
+        "paymentStatus": { "type": "string" },
+        "orderStatus": { "type": "string" },
+        "shippingAddress": { "type": "object" },
+        "trackingNumber": { "type": "string" },
+        "courier": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["orderId", "total", "orderStatus"]
+    },
+    "Lead": {
+      "title": "Lead",
+      "description": "Lead generation subscriber",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "source": { "type": "string" },
+        "page": { "type": "string" },
+        "marketingConsent": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Product review",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "rating": { "type": "number" },
+        "title": { "type": "string" },
+        "comment": { "type": "string" },
+        "status": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["rating", "comment"]
+    },
+    "ReturnRequest": {
+      "title": "ReturnRequest",
+      "description": "Customer return and exchange request",
+      "type": "object",
+      "properties": {
+        "returnRequestId": { "type": "string" },
+        "orderId": { "type": "string" },
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "reason": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrls": { "type": "array" },
+        "status": { "type": "string" },
+        "adminNote": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["returnRequestId", "orderId", "reason", "status"]
+    },
+    "SupportTicket": {
+      "title": "SupportTicket",
+      "description": "Customer support inquiry ticket",
+      "type": "object",
+      "properties": {
+        "ticketId": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "orderId": { "type": "string" },
+        "category": { "type": "string" },
+        "subject": { "type": "string" },
+        "message": { "type": "string" },
+        "attachmentUrls": { "type": "array" },
+        "status": { "type": "string" },
+        "adminReply": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["ticketId", "name", "email", "category", "subject", "message", "status"]
+    },
+    "FAQ": {
+      "title": "FAQ",
+      "description": "Frequently asked question entry",
+      "type": "object",
+      "properties": {
+        "faqId": { "type": "string" },
+        "category": { "type": "string" },
+        "question": { "type": "string" },
+        "answer": { "type": "string" },
+        "order": { "type": "number" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["faqId", "category", "question", "answer"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Store products catalogue"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles"
+    },
+    "/users/{userId}/cart/{itemId}": {
+      "schema": "CartItem",
+      "description": "User cart items"
+    },
+    "/users/{userId}/wishlist/{productId}": {
+      "schema": "WishlistItem",
+      "description": "User wishlist items"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders"
+    },
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Marketing leads"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Customer reviews"
+    },
+    "/returnRequests/{requestId}": {
+      "schema": "ReturnRequest",
+      "description": "Customer return and refund claims"
+    },
+    "/supportTickets/{ticketId}": {
+      "schema": "SupportTicket",
+      "description": "Customer support requests"
+    },
+    "/faqs/{faqId}": {
+      "schema": "FAQ",
+      "description": "Store FAQs"
+    }
+  }
+}

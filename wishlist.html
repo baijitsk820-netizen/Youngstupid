@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Pieces | YOUNG & STUPID</title>
+    <meta name="description" content="View your saved heavyweight drops from YOUNG & STUPID in USD ($) and move them directly to your shopping bag." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased">
+
+    <!-- Announcement Bar -->
+    <div class="bg-[#0B0B0B] text-[#F7F5F0] py-2 px-4 text-center text-[11px] font-bold tracking-widest uppercase transition-all duration-300 relative z-50">
+      <div id="announcement-text">FREE SHIPPING ON ORDERS OVER $75.00</div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header id="main-nav" class="sticky top-0 z-40 transition-all duration-300 bg-[#F7F5F0]/90 glass-nav border-b border-[#0B0B0B]/10 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <div class="flex items-center gap-6">
+          <a href="/index.html" class="flex items-center gap-2 group">
+            <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          </a>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">
+          <a href="/products.html" class="hover:text-[#6B6B6B] transition-colors">Shop All</a>
+          <a href="/products.html?category=oversized" class="hover:text-[#6B6B6B] transition-colors">Oversized</a>
+          <a href="/products.html?badge=new" class="hover:text-[#6B6B6B] transition-colors">New Drops</a>
+          <a href="/about.html" class="hover:text-[#6B6B6B] transition-colors">Philosophy</a>
+          <a href="/track-order.html" class="hover:text-[#6B6B6B] transition-colors">Track Order</a>
+        </nav>
+
+        <div class="flex items-center gap-4 sm:gap-6 text-[#0B0B0B]">
+          <button class="search-trigger-btn p-1.5 hover:text-[#6B6B6B]">
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+          </button>
+          
+          <a href="/wishlist.html" class="relative p-1.5 text-[#0B0B0B]" title="Wishlist">
+            <i class="fa-solid fa-heart text-sm"></i>
+            <span class="wishlist-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+
+          <a href="/login.html" class="auth-account-link p-1.5 hover:text-[#6B6B6B] hidden sm:block">
+            <i class="fa-regular fa-user text-sm"></i>
+          </a>
+
+          <button class="cart-drawer-trigger relative p-1.5 flex items-center gap-1.5 bg-[#0B0B0B] text-[#F7F5F0] px-3 py-1.5">
+            <i class="fa-solid fa-bag-shopping text-xs text-[#C7FF2E]"></i>
+            <span class="text-xs font-bold hidden sm:inline">BAG</span>
+            <span class="cart-count-badge bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold px-1.5 py-0.2 rounded-full min-w-[18px] text-center">0</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-12">
+      <div class="mb-10 pb-4 border-b border-[#0B0B0B]/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B]">SAVED SELECTION</span>
+          <h1 class="font-editorial text-3xl sm:text-4xl font-bold uppercase text-[#0B0B0B]">YOUR WISHLIST</h1>
+        </div>
+        <div class="text-xs font-bold text-[#6B6B6B] uppercase" id="wishlist-header-count">
+          0 SAVED PIECES
+        </div>
+      </div>
+
+      <div id="wishlist-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></div>
+
+      <!-- Empty State -->
+      <div id="wishlist-empty-state" class="hidden py-24 text-center bg-white border border-[#0B0B0B]/10 p-8 my-6">
+        <div class="w-16 h-16 border border-[#0B0B0B]/20 bg-[#F7F5F0] flex items-center justify-center mx-auto mb-4">
+          <i class="fa-regular fa-heart text-2xl text-[#6B6B6B]"></i>
+        </div>
+        <h2 class="font-editorial text-2xl sm:text-3xl font-bold uppercase text-[#0B0B0B]">
+          YOUR WISHLIST IS WAITING.
+        </h2>
+        <p class="text-xs sm:text-sm text-[#6B6B6B] mt-2 mb-8 max-w-sm mx-auto">
+          Save pieces you don't want to lose.
+        </p>
+        <a href="/products.html" class="inline-block bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] px-8 py-4 font-editorial font-bold text-xs uppercase tracking-widest transition-colors btn-hover-lift">
+          EXPLORE PRODUCTS →
+        </a>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] py-12 px-4 md:px-8 border-t border-[#333] mt-24">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#6B6B6B]">
+        <div class="flex items-center gap-2">
+          <span class="font-editorial text-lg font-bold text-white tracking-tighter">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span>HEAVYWEIGHT APPAREL / USD ($)</span>
+        </div>
+        <div>
+          <a href="/faq.html" class="hover:text-white mr-4">FAQ</a>
+          <a href="/contact.html" class="hover:text-white mr-4">Contact Support</a>
+          <a href="/track-order.html" class="hover:text-white mr-4">Track Order</a>
+          <a href="/return-policy.html" class="hover:text-white">Return & Refund Policy</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { getWishlist, toggleWishlist, loadWishlistFromFirestore } from '/js/wishlist.js';
+      import { addToCart, formatPrice } from '/js/cart.js';
+      import { getProductById } from '/js/products.js';
+      import { extractProductImageUrl } from '/js/firebase-init.js';
+
+      window.renderWishlistPage = function() {
+        const list = getWishlist();
+        const grid = document.getElementById('wishlist-grid');
+        const emptyState = document.getElementById('wishlist-empty-state');
+        const countHeader = document.getElementById('wishlist-header-count');
+
+        if (!grid) return;
+
+        if (countHeader) {
+          countHeader.textContent = `${list.length} SAVED ${list.length === 1 ? 'PIECE' : 'PIECES'}`;
+        }
+
+        if (list.length === 0) {
+          grid.innerHTML = '';
+          emptyState.classList.remove('hidden');
+          return;
+        }
+
+        emptyState.classList.add('hidden');
+
+        grid.innerHTML = list.map((item) => {
+          const img = extractProductImageUrl(item.thumbnail || (item.images && item.images.length > 0 ? item.images[0] : (item.image || '')));
+          return `
+            <div class="bg-white border border-[#E8E6E1] hover:border-[#0B0B0B] transition-colors p-4 flex flex-col justify-between">
+              <div class="relative aspect-[3/4] bg-[#E8E6E1] overflow-hidden mb-3 flex items-center justify-center">
+                ${img ? `
+                  <img src="${img}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full flex items-center justify-center bg-[#E8E6E1] text-[#6B6B6B]">
+                    <i class="fa-solid fa-shirt text-[#6B6B6B]"></i>
+                  </div>
+                ` : `<i class="fa-solid fa-shirt text-[#6B6B6B]"></i>`}
+                <button data-remove-wishlist-id="${item.id}" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white text-[#0B0B0B] hover:bg-[#0B0B0B] hover:text-white flex items-center justify-center text-xs shadow-md transition-colors" title="Remove from wishlist">
+                  ✕
+                </button>
+              </div>
+              
+              <div>
+                <div class="text-[10px] text-[#6B6B6B] uppercase font-bold tracking-wider">${item.category || 'T-Shirt'}</div>
+                <h3 class="font-editorial text-xs sm:text-sm font-bold uppercase truncate text-[#0B0B0B] mt-0.5">${item.name}</h3>
+                <div class="font-editorial text-sm font-bold text-[#0B0B0B] mt-1">${formatPrice(item.price)}</div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-[#E8E6E1] flex gap-2">
+                <button data-move-bag-id="${item.id}" class="flex-1 bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-2.5 text-[11px] font-editorial font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-bag-shopping text-[10px] text-[#C7FF2E]"></i>
+                  <span>MOVE TO BAG</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        grid.querySelectorAll('[data-move-bag-id]').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const id = btn.getAttribute('data-move-bag-id');
+            const product = await getProductById(id);
+            if (product) {
+              addToCart(product, 'L', Array.isArray(product.colors) ? product.colors[0] : 'Black', 1);
+              await toggleWishlist(product);
+              window.renderWishlistPage();
+            }
+          });
+        });
+
+        grid.querySelectorAll('[data-remove-wishlist-id]').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const id = btn.getAttribute('data-remove-wishlist-id');
+            const product = await getProductById(id);
+            if (product) {
+              await toggleWishlist(product);
+              window.renderWishlistPage();
+            }
+          });
+        });
+      };
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        window.renderWishlistPage();
+        await loadWishlistFromFirestore();
+      });
+    </script>
+  </body>
+</html>

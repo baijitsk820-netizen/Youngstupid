@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Dashboard & Cloud Profile | YOUNG & STUPID</title>
+    <meta name="description" content="Manage your Cloud Firestore profile, view live order history, and access saved wishlist pieces from YOUNG & STUPID." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-[#0B0B0B]/10 py-5 px-4 md:px-8">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <a href="/index.html" class="flex items-center gap-2">
+          <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span class="text-[9px] font-bold tracking-widest text-[#6B6B6B] uppercase">ACCOUNT DASHBOARD</span>
+        </a>
+
+        <div class="flex items-center gap-6">
+          <a href="/products.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] hover:text-[#6B6B6B]">
+            Shop Drops →
+          </a>
+          <a href="/wishlist.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Wishlist">
+            <i class="fa-regular fa-heart text-sm"></i>
+            <span class="wishlist-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 md:px-8 py-12">
+      
+      <!-- LOGGED-IN DASHBOARD VIEW (CLOUDFIRESTORE USER PROFILE & ORDERS) -->
+      <div id="logged-in-view" class="hidden space-y-10 animate-fade-up">
+        
+        <!-- Welcome Hero Banner -->
+        <div class="bg-white border border-[#0B0B0B]/10 p-6 sm:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-[#0B0B0B] text-[#C7FF2E] flex items-center justify-center font-editorial text-2xl font-bold border-2 border-[#C7FF2E]">
+              <i class="fa-solid fa-user-check text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="bg-[#C7FF2E] text-[#0B0B0B] text-[9px] font-extrabold uppercase px-2 py-0.5 tracking-widest">
+                  FIRESTORE PERSISTENT
+                </span>
+                <span class="text-[11px] text-[#6B6B6B]">Cloud Connected</span>
+              </div>
+              <h1 id="dash-user-name" class="font-editorial text-2xl sm:text-3xl font-bold uppercase text-[#0B0B0B] mt-0.5">
+                COLLECTOR
+              </h1>
+              <p id="dash-user-email" class="text-xs text-[#6B6B6B]">email@example.com</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 w-full sm:w-auto">
+            <a href="/wishlist.html" class="flex-1 sm:flex-none border border-[#0B0B0B] px-4 py-2.5 text-xs font-editorial font-bold uppercase text-center hover:bg-[#F7F5F0]">
+              <i class="fa-regular fa-heart mr-1.5"></i> Saved Pieces
+            </a>
+            <button class="logout-trigger-btn flex-1 sm:flex-none bg-[#0B0B0B] text-white hover:bg-black px-4 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider">
+              Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- 2-Column Section: Profile Editor & Order History -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Column 1: Cloud Firestore User Profile Settings -->
+          <div class="lg:col-span-5 bg-white border border-[#0B0B0B]/10 p-6 space-y-6">
+            <div class="pb-3 border-b border-[#E8E6E1] flex justify-between items-center">
+              <h2 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">
+                USER PROFILE (FIRESTORE)
+              </h2>
+              <i class="fa-solid fa-cloud text-xs text-[#6B6B6B]"></i>
+            </div>
+
+            <form id="profile-edit-form" class="space-y-4">
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Display Name</label>
+                <input type="text" id="prof-name" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Email Address</label>
+                <input type="email" id="prof-email" readonly class="w-full bg-[#E8E6E1]/50 border border-[#0B0B0B]/20 p-3 text-xs text-[#6B6B6B] cursor-not-allowed" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Phone Number</label>
+                <input type="tel" id="prof-phone" placeholder="+91 98765 00000" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Default Shipping Address</label>
+                <textarea id="prof-address" rows="3" placeholder="Apartment, Street, City, Pincode" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"></textarea>
+              </div>
+
+              <button type="submit" id="save-profile-btn" class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-3.5 font-editorial font-bold text-xs uppercase tracking-widest transition-colors btn-press">
+                SAVE PROFILE TO FIRESTORE
+              </button>
+            </form>
+          </div>
+
+          <!-- Column 2: Order History Stored in Cloud Firestore -->
+          <div class="lg:col-span-7 bg-white border border-[#0B0B0B]/10 p-6 space-y-6">
+            <div class="pb-3 border-b border-[#E8E6E1] flex justify-between items-center">
+              <h2 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">
+                ORDER HISTORY (FIRESTORE)
+              </h2>
+              <span id="orders-count-label" class="text-[11px] font-bold text-[#6B6B6B]">0 ORDERS</span>
+            </div>
+
+            <div id="orders-list-container" class="space-y-4">
+              <!-- Injected via Firestore query -->
+            </div>
+
+            <!-- Empty Orders State -->
+            <div id="no-orders-msg" class="hidden py-12 text-center">
+              <div class="w-12 h-12 bg-[#F7F5F0] border border-[#0B0B0B]/20 flex items-center justify-center mx-auto mb-3">
+                <i class="fa-solid fa-box-open text-lg text-[#6B6B6B]"></i>
+              </div>
+              <h4 class="font-editorial text-sm font-bold uppercase text-[#0B0B0B]">NO RECENT ORDERS IN FIRESTORE</h4>
+              <p class="text-xs text-[#6B6B6B] mt-1 mb-4">You haven't placed an order with this account yet.</p>
+              <a href="/products.html" class="inline-block bg-[#0B0B0B] text-white px-5 py-2.5 font-editorial font-bold text-xs uppercase tracking-wider">
+                EXPLORE CATALOG →
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- UNAUTHENTICATED FORM VIEW -->
+      <div id="auth-form-view" class="max-w-md mx-auto bg-white border border-[#0B0B0B]/10 p-8 shadow-sm">
+        
+        <div class="text-center mb-8">
+          <h1 class="font-editorial text-2xl sm:text-3xl font-bold uppercase tracking-tight text-[#0B0B0B]">
+            COLLECTOR ACCESS
+          </h1>
+          <p class="text-xs text-[#6B6B6B] mt-1">Sign in with Google to sync your profile & order history in Cloud Firestore.</p>
+        </div>
+
+        <!-- Google Sign-In with Firebase Auth -->
+        <div class="mb-6">
+          <button 
+            id="google-signin-btn" 
+            class="w-full border-2 border-[#0B0B0B] hover:bg-[#F7F5F0] text-[#0B0B0B] py-3.5 px-4 text-xs font-bold uppercase tracking-wider flex items-center justify-center transition-all shadow-sm btn-hover-lift"
+          >
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4 mr-3" alt="Google" />
+            <span>CONTINUE WITH GOOGLE</span>
+          </button>
+        </div>
+
+        <div class="relative flex items-center justify-center my-6">
+          <div class="border-t border-[#E8E6E1] w-full"></div>
+          <span class="bg-white px-3 text-[10px] uppercase font-bold text-[#6B6B6B] tracking-widest absolute">
+            OR WITH EMAIL
+          </span>
+        </div>
+
+        <!-- Tabs -->
+        <div id="auth-tabs" class="flex border-b border-[#0B0B0B] mb-6">
+          <button id="tab-login" class="flex-1 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] border-b-2 border-[#0B0B0B]">
+            SIGN IN
+          </button>
+          <button id="tab-register" class="flex-1 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B]">
+            REGISTER
+          </button>
+        </div>
+
+        <!-- Auth Status/Error Feedback Alert -->
+        <div id="auth-alert-box" class="hidden mb-4 p-3 text-xs border font-medium"></div>
+
+        <!-- Login Form -->
+        <form id="login-form-panel" class="space-y-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Email Address *</label>
+            <input type="email" id="login-email-input" required placeholder="name@domain.com" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-[11px] font-bold uppercase text-[#6B6B6B]">Password *</label>
+              <button type="button" id="forgot-password-link" class="text-[10px] text-[#6B6B6B] hover:text-[#0B0B0B] underline font-semibold cursor-pointer">Forgot Password?</button>
+            </div>
+            <input type="password" id="login-pass-input" required placeholder="••••••••" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+          </div>
+
+          <div class="flex items-center gap-2 text-xs">
+            <input type="checkbox" id="remember-me" checked class="accent-[#0B0B0B]" />
+            <label for="remember-me" class="text-[11px] text-[#6B6B6B] font-medium cursor-pointer">Remember me for 30 days</label>
+          </div>
+
+          <button type="submit" id="login-submit-btn" class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 font-editorial font-bold text-xs uppercase tracking-widest transition-colors btn-press">
+            SIGN IN TO ACCOUNT
+          </button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form-panel" class="hidden space-y-4">
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Full Name *</label>
+            <input type="text" id="signup-name-input" required placeholder="Aryan Sharma" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Email Address *</label>
+            <input type="email" id="signup-email-input" required placeholder="aryan@example.com" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Phone Number *</label>
+            <input type="tel" id="signup-phone-input" required placeholder="+91 98765 00000" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Password *</label>
+            <input type="password" id="signup-pass-input" required placeholder="Min. 8 characters" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+          </div>
+
+          <button type="submit" id="signup-submit-btn" class="w-full bg-[#C7FF2E] hover:bg-[#b5ee20] text-[#0B0B0B] py-4 font-editorial font-bold text-xs uppercase tracking-widest transition-colors btn-press">
+            CREATE COLLECTOR ACCOUNT
+          </button>
+        </form>
+
+        <!-- ================= FORGOT PASSWORD / RESET PASSWORD PANEL ================= -->
+        <div id="forgot-password-panel" class="hidden space-y-6">
+          <button type="button" id="back-to-signin-btn" class="inline-flex items-center gap-2 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] transition-colors cursor-pointer">
+            <i class="fa-solid fa-arrow-left text-[10px]"></i>
+            <span>Back to Sign In</span>
+          </button>
+
+          <!-- Form View -->
+          <div id="reset-request-view" class="space-y-4">
+            <div class="border-b border-[#E8E6E1] pb-3">
+              <h2 class="font-editorial text-2xl font-bold uppercase text-[#0B0B0B] tracking-tight">
+                Reset Password
+              </h2>
+              <p class="text-xs text-[#6B6B6B] mt-1 leading-relaxed">
+                Enter your email address and we'll send you a password reset link.
+              </p>
+            </div>
+
+            <!-- Error Feedback Box -->
+            <div id="reset-error-box" class="hidden p-3 bg-red-50 border border-red-300 text-red-800 text-xs font-medium rounded-none flex items-start gap-2">
+              <i class="fa-solid fa-triangle-exclamation text-red-600 mt-0.5 shrink-0"></i>
+              <span id="reset-error-text">Email not found</span>
+            </div>
+
+            <form id="reset-password-form" class="space-y-4">
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Email Address *</label>
+                <input 
+                  type="email" 
+                  id="reset-email-input" 
+                  required 
+                  placeholder="name@domain.com" 
+                  class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" 
+                />
+              </div>
+
+              <button 
+                type="submit" 
+                id="send-reset-btn" 
+                class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 font-editorial font-bold text-xs uppercase tracking-widest transition-colors btn-press flex items-center justify-center gap-2"
+              >
+                <span>Send Reset Link</span>
+                <span class="text-[#C7FF2E] text-sm">→</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Success View -->
+          <div id="reset-success-view" class="hidden text-center py-4 space-y-4 bg-[#F7F5F0] border border-[#0B0B0B]/10 p-6 animate-fade-up">
+            <div class="w-12 h-12 bg-[#0B0B0B] text-[#C7FF2E] rounded-full flex items-center justify-center mx-auto text-lg">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            
+            <div>
+              <h3 class="font-editorial text-xl font-bold uppercase text-[#0B0B0B]">
+                Check your email
+              </h3>
+              <p class="text-xs text-[#6B6B6B] mt-1.5 leading-relaxed">
+                We've sent you a password reset link. Please check your inbox and follow the instructions to reset your password.
+              </p>
+              <div id="reset-target-email-display" class="mt-2 text-xs font-bold text-[#0B0B0B]"></div>
+            </div>
+
+            <button 
+              type="button" 
+              id="reset-done-login-btn" 
+              class="w-full bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black py-3.5 text-xs font-editorial font-bold uppercase tracking-widest transition-colors"
+            >
+              Return to Sign In
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] py-12 px-4 md:px-8 border-t border-[#333] mt-24">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#6B6B6B]">
+        <div class="flex items-center gap-2">
+          <span class="font-editorial text-lg font-bold text-white tracking-tighter">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span>HEAVYWEIGHT APPAREL LAB</span>
+        </div>
+        <div>
+          <a href="/products.html" class="hover:text-white mr-4">Catalog</a>
+          <a href="/faq.html" class="hover:text-white mr-4">FAQ</a>
+          <a href="/contact.html" class="hover:text-white mr-4">Contact Support</a>
+          <a href="/track-order.html" class="hover:text-white mr-4">Track Order</a>
+          <a href="/return-policy.html" class="hover:text-white">Returns</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { auth, updateUserProfile, loginWithEmail, registerWithEmail, resetPassword } from '/js/firebase-init.js';
+      import { formatPrice } from '/js/cart.js';
+
+      window.renderAccountDashboard = function(user, profile, orders) {
+        const loggedInView = document.getElementById('logged-in-view');
+        const formView = document.getElementById('auth-form-view');
+
+        if (!user) {
+          loggedInView.classList.add('hidden');
+          formView.classList.remove('hidden');
+          return;
+        }
+
+        formView.classList.add('hidden');
+        loggedInView.classList.remove('hidden');
+
+        document.getElementById('dash-user-name').textContent = profile?.displayName || user.displayName || 'COLLECTOR';
+        document.getElementById('dash-user-email').textContent = user.email;
+
+        // Populate Profile inputs
+        document.getElementById('prof-name').value = profile?.displayName || user.displayName || '';
+        document.getElementById('prof-email').value = user.email;
+        document.getElementById('prof-phone').value = profile?.phone || user.phoneNumber || '';
+        document.getElementById('prof-address').value = profile?.shippingAddress || '';
+
+        // Populate Order History
+        const ordersList = document.getElementById('orders-list-container');
+        const noOrdersMsg = document.getElementById('no-orders-msg');
+        const countLabel = document.getElementById('orders-count-label');
+
+        countLabel.textContent = `${orders.length} ${orders.length === 1 ? 'ORDER' : 'ORDERS'}`;
+
+        if (orders.length === 0) {
+          ordersList.innerHTML = '';
+          noOrdersMsg.classList.remove('hidden');
+        } else {
+          noOrdersMsg.classList.add('hidden');
+          ordersList.innerHTML = orders.map(ord => `
+            <div class="p-4 border border-[#0B0B0B]/10 hover:border-[#0B0B0B] transition-colors space-y-3">
+              <div class="flex justify-between items-start">
+                <div>
+                  <span class="font-editorial text-xs font-bold uppercase text-[#0B0B0B]">${ord.orderId}</span>
+                  <div class="text-[10px] text-[#6B6B6B]">${new Date(ord.createdAt || ord.placedAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                </div>
+                <span class="bg-[#C7FF2E] text-[#0B0B0B] text-[9px] font-extrabold px-2 py-0.5 uppercase tracking-widest">
+                  ${ord.status || 'ORDER PLACED'}
+                </span>
+              </div>
+
+              <div class="text-xs text-[#6B6B6B] space-y-1">
+                ${ord.items ? ord.items.map(it => `
+                  <div class="flex justify-between">
+                    <span>${it.name} (${it.size}) × ${it.quantity}</span>
+                    <strong class="text-[#0B0B0B]">${formatPrice(Number(it.price) * it.quantity)}</strong>
+                  </div>
+                `).join('') : ''}
+              </div>
+
+              <div class="pt-2 border-t border-[#E8E6E1] flex justify-between items-center text-xs">
+                <div>
+                  <span class="text-[#6B6B6B]">Total: </span>
+                  <strong class="font-editorial font-bold text-[#0B0B0B]">${formatPrice(ord.total)}</strong>
+                </div>
+                <a href="/track-order.html?orderId=${ord.orderId}" class="inline-flex items-center gap-1 font-editorial font-bold text-[11px] uppercase tracking-wider text-[#0B0B0B] underline hover:text-[#6B6B6B]">
+                  TRACK SHIPMENT →
+                </a>
+              </div>
+            </div>
+          `).join('');
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Tab switcher
+        const tabLogin = document.getElementById('tab-login');
+        const tabRegister = document.getElementById('tab-register');
+        const loginPanel = document.getElementById('login-form-panel');
+        const signupPanel = document.getElementById('signup-form-panel');
+        const authTabs = document.getElementById('auth-tabs');
+        const forgotPanel = document.getElementById('forgot-password-panel');
+        const resetRequestView = document.getElementById('reset-request-view');
+        const resetSuccessView = document.getElementById('reset-success-view');
+        const resetErrorBox = document.getElementById('reset-error-box');
+        const resetErrorText = document.getElementById('reset-error-text');
+        const authAlertBox = document.getElementById('auth-alert-box');
+
+        function showAuthAlert(msg, isError = true) {
+          if (!authAlertBox) return;
+          authAlertBox.className = `mb-4 p-3 text-xs border font-medium ${isError ? 'bg-red-50 border-red-300 text-red-800' : 'bg-[#C7FF2E]/20 border-[#0B0B0B] text-[#0B0B0B]'}`;
+          authAlertBox.innerHTML = msg;
+          authAlertBox.classList.remove('hidden');
+        }
+
+        function hideAuthAlert() {
+          if (!authAlertBox) return;
+          authAlertBox.classList.add('hidden');
+          authAlertBox.innerHTML = '';
+        }
+
+        function switchToSignIn() {
+          hideAuthAlert();
+          tabLogin.className = 'flex-1 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] border-b-2 border-[#0B0B0B]';
+          tabRegister.className = 'flex-1 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B]';
+          authTabs?.classList.remove('hidden');
+          loginPanel?.classList.remove('hidden');
+          signupPanel?.classList.add('hidden');
+          forgotPanel?.classList.add('hidden');
+        }
+
+        function switchToRegister() {
+          hideAuthAlert();
+          tabRegister.className = 'flex-1 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] border-b-2 border-[#0B0B0B]';
+          tabLogin.className = 'flex-1 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B]';
+          authTabs?.classList.remove('hidden');
+          signupPanel?.classList.remove('hidden');
+          loginPanel?.classList.add('hidden');
+          forgotPanel?.classList.add('hidden');
+        }
+
+        function switchToForgotPassword() {
+          hideAuthAlert();
+          authTabs?.classList.add('hidden');
+          loginPanel?.classList.add('hidden');
+          signupPanel?.classList.add('hidden');
+          forgotPanel?.classList.remove('hidden');
+
+          // Reset views
+          resetRequestView?.classList.remove('hidden');
+          resetSuccessView?.classList.add('hidden');
+          resetErrorBox?.classList.add('hidden');
+
+          // Prepopulate email if typed in login
+          const typedEmail = document.getElementById('login-email-input')?.value;
+          const resetEmailInput = document.getElementById('reset-email-input');
+          if (typedEmail && resetEmailInput) {
+            resetEmailInput.value = typedEmail.trim();
+          }
+        }
+
+        tabLogin?.addEventListener('click', switchToSignIn);
+        tabRegister?.addEventListener('click', switchToRegister);
+
+        // Forgot Password trigger
+        document.getElementById('forgot-password-link')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchToForgotPassword();
+        });
+
+        // Back to Sign In triggers
+        document.getElementById('back-to-signin-btn')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchToSignIn();
+        });
+
+        document.getElementById('reset-done-login-btn')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          switchToSignIn();
+        });
+
+        // Forgot Password Form Submit
+        const resetForm = document.getElementById('reset-password-form');
+        resetForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const emailInput = document.getElementById('reset-email-input');
+          const email = emailInput?.value?.trim();
+          const sendBtn = document.getElementById('send-reset-btn');
+
+          if (!email) return;
+
+          resetErrorBox?.classList.add('hidden');
+          sendBtn.disabled = true;
+          sendBtn.innerHTML = '<span class="inline-block animate-spin mr-2">◌</span> Sending Reset Link...';
+
+          try {
+            await resetPassword(email);
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<span>Send Reset Link</span><span class="text-[#C7FF2E] text-sm">→</span>';
+
+            resetRequestView?.classList.add('hidden');
+            resetSuccessView?.classList.remove('hidden');
+            const targetDisplay = document.getElementById('reset-target-email-display');
+            if (targetDisplay) {
+              targetDisplay.textContent = `Sent to ${email}`;
+            }
+
+            if (window.showToast) {
+              window.showToast('Password reset link sent to your email.');
+            }
+          } catch (err) {
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<span>Send Reset Link</span><span class="text-[#C7FF2E] text-sm">→</span>';
+
+            let friendlyMessage = 'Unable to send password reset email. Please try again.';
+            const code = err?.code || '';
+
+            if (code === 'auth/user-not-found') {
+              friendlyMessage = 'Email not found. Please check your email or register for a new account.';
+            } else if (code === 'auth/invalid-email') {
+              friendlyMessage = 'Invalid email address. Please check formatting.';
+            } else if (code === 'auth/too-many-requests') {
+              friendlyMessage = 'Too many attempts. Please wait a few moments before trying again.';
+            } else if (code === 'auth/network-request-failed') {
+              friendlyMessage = 'Network error. Please check your internet connection.';
+            }
+
+            if (resetErrorText) resetErrorText.textContent = friendlyMessage;
+            resetErrorBox?.classList.remove('hidden');
+          }
+        });
+
+        // Email/Password Login Form Submit
+        loginPanel?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          hideAuthAlert();
+          const email = document.getElementById('login-email-input')?.value?.trim();
+          const pass = document.getElementById('login-pass-input')?.value;
+          const submitBtn = document.getElementById('login-submit-btn');
+
+          if (!email || !pass) return;
+
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="inline-block animate-spin mr-2">◌</span> Signing In...';
+
+          try {
+            await loginWithEmail(email, pass);
+            if (window.showToast) window.showToast('Welcome back, Collector');
+          } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'SIGN IN TO ACCOUNT';
+            const code = err?.code || '';
+            let msg = 'Could not sign in with provided credentials.';
+            if (code === 'auth/wrong-password' || code === 'auth/invalid-credential') {
+              msg = 'Incorrect password or email. Click <strong>Forgot Password?</strong> to reset.';
+            } else if (code === 'auth/user-not-found') {
+              msg = 'No collector account found with this email. Switch to Register to sign up.';
+            } else if (code === 'auth/too-many-requests') {
+              msg = 'Too many failed login attempts. Please reset your password or try later.';
+            }
+            showAuthAlert(msg, true);
+          }
+        });
+
+        // Email/Password Signup Form Submit
+        signupPanel?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          hideAuthAlert();
+          const name = document.getElementById('signup-name-input')?.value?.trim();
+          const email = document.getElementById('signup-email-input')?.value?.trim();
+          const phone = document.getElementById('signup-phone-input')?.value?.trim();
+          const pass = document.getElementById('signup-pass-input')?.value;
+          const submitBtn = document.getElementById('signup-submit-btn');
+
+          if (!email || !pass || pass.length < 6) {
+            showAuthAlert('Password must be at least 6 characters long.', true);
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="inline-block animate-spin mr-2">◌</span> Creating Account...';
+
+          try {
+            await registerWithEmail(name, email, pass, phone);
+            if (window.showToast) window.showToast('Account created successfully');
+          } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'CREATE COLLECTOR ACCOUNT';
+            const code = err?.code || '';
+            let msg = 'Could not create account. Please try again.';
+            if (code === 'auth/email-already-in-use') {
+              msg = 'An account with this email already exists. Please sign in or reset your password.';
+            } else if (code === 'auth/weak-password') {
+              msg = 'Password is too weak. Please choose a stronger password.';
+            }
+            showAuthAlert(msg, true);
+          }
+        });
+
+        // Profile Form Submit to Firestore
+        const profileForm = document.getElementById('profile-edit-form');
+        profileForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          if (!auth.currentUser) return;
+
+          const saveBtn = document.getElementById('save-profile-btn');
+          saveBtn.disabled = true;
+          saveBtn.textContent = 'SAVING TO FIRESTORE...';
+
+          const newProfile = {
+            displayName: document.getElementById('prof-name').value.trim(),
+            phone: document.getElementById('prof-phone').value.trim(),
+            shippingAddress: document.getElementById('prof-address').value.trim(),
+          };
+
+          const ok = await updateUserProfile(auth.currentUser.uid, newProfile);
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'SAVE PROFILE TO FIRESTORE';
+
+          if (ok) {
+            document.getElementById('dash-user-name').textContent = newProfile.displayName || 'COLLECTOR';
+            if (window.showToast) window.showToast('Profile updated in Cloud Firestore');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop All Heavyweight T-Shirts | YOUNG & STUPID</title>
+    <meta name="description" content="Explore real drop collections from YOUNG & STUPID. 280-320 GSM heavyweight combed cotton." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased">
+
+    <!-- Announcement Bar -->
+    <div class="bg-[#0B0B0B] text-[#F7F5F0] py-2 px-4 text-center text-[11px] font-bold tracking-widest uppercase transition-all duration-300 relative z-50">
+      <div id="announcement-text">FREE SHIPPING ON ORDERS OVER $75.00</div>
+    </div>
+
+    <!-- Sticky Navigation Bar -->
+    <header id="main-nav" class="sticky top-0 z-40 transition-all duration-300 bg-[#F7F5F0]/90 glass-nav border-b border-[#0B0B0B]/10 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <div class="flex items-center gap-6">
+          <a href="/index.html" class="flex items-center gap-2 group">
+            <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          </a>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">
+          <a href="/products.html" class="text-[#0B0B0B] border-b-2 border-[#0B0B0B] pb-0.5">Shop All</a>
+          <a href="/products.html?category=oversized" class="hover:text-[#6B6B6B] transition-colors">Oversized</a>
+          <a href="/products.html?badge=new" class="hover:text-[#6B6B6B] transition-colors flex items-center gap-1.5">
+            New Drops
+            <span class="w-1.5 h-1.5 rounded-full bg-[#C7FF2E]"></span>
+          </a>
+          <a href="/products.html?category=graphic" class="hover:text-[#6B6B6B] transition-colors">Graphic Tees</a>
+          <a href="/about.html" class="hover:text-[#6B6B6B] transition-colors">Philosophy</a>
+          <a href="/track-order.html" class="hover:text-[#6B6B6B] transition-colors">Track Order</a>
+        </nav>
+
+        <div class="flex items-center gap-4 sm:gap-6 text-[#0B0B0B]">
+          <button class="search-trigger-btn p-1.5 hover:text-[#6B6B6B]" title="Search">
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+          </button>
+          
+          <a href="/wishlist.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Wishlist">
+            <i class="fa-regular fa-heart text-sm"></i>
+            <span class="wishlist-count-badge absolute -top-1 -right-1 bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+
+          <a href="/login.html" class="auth-account-link p-1.5 hover:text-[#6B6B6B] hidden sm:block" title="My Account">
+            <i class="fa-regular fa-user text-sm"></i>
+          </a>
+
+          <button class="cart-drawer-trigger relative p-1.5 flex items-center gap-1.5 bg-[#0B0B0B] text-[#F7F5F0] px-3 py-1.5" title="Bag">
+            <i class="fa-solid fa-bag-shopping text-xs text-[#C7FF2E]"></i>
+            <span class="text-xs font-bold hidden sm:inline">BAG</span>
+            <span class="cart-count-badge bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold px-1.5 py-0.2 rounded-full min-w-[18px] text-center">0</span>
+          </button>
+
+          <button id="mobile-menu-toggle" class="md:hidden p-1.5 text-base" title="Menu">
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Mobile Slide Menu -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-[#0B0B0B] text-[#F7F5F0] p-6 shadow-2xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center pb-6 border-b border-[#333]">
+          <div class="font-editorial text-xl font-bold tracking-tighter">YOUNG & STUPID <span class="text-[#C7FF2E]">.</span></div>
+          <button id="mobile-menu-close" class="text-lg p-2 text-[#6B6B6B]">✕</button>
+        </div>
+        <nav class="flex flex-col gap-5 mt-8 text-sm uppercase font-bold tracking-widest">
+          <a href="/products.html" class="text-[#C7FF2E]">Shop All Tees</a>
+          <a href="/products.html?category=oversized" class="hover:text-[#C7FF2E]">Oversized</a>
+          <a href="/products.html?category=graphic" class="hover:text-[#C7FF2E]">Graphic Series</a>
+          <a href="/products.html?category=minimal" class="hover:text-[#C7FF2E]">Minimal Basics</a>
+          <a href="/wishlist.html" class="hover:text-[#C7FF2E]">Wishlist</a>
+          <a href="/track-order.html" class="hover:text-[#C7FF2E]">Track Order</a>
+          <a href="/about.html" class="hover:text-[#C7FF2E]">Philosophy</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-[#333]">
+        <a href="/login.html" class="w-full bg-[#C7FF2E] text-[#0B0B0B] py-3 text-center block text-xs font-bold uppercase tracking-widest">Account Login</a>
+      </div>
+    </div>
+
+    <!-- Products Page Banner -->
+    <div class="border-b border-[#0B0B0B]/10 bg-white py-10 px-4 md:px-8">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest text-[#6B6B6B] uppercase mb-1">
+            <a href="/index.html" class="hover:underline">HOME</a> / <span>COLLECTION ARCHIVE</span>
+          </div>
+          <h1 class="font-editorial text-4xl sm:text-5xl font-bold uppercase tracking-tighter text-[#0B0B0B]">
+            SHOP ALL TEES
+          </h1>
+          <p class="text-xs sm:text-sm text-[#6B6B6B] mt-1">Real collection items retrieved live from Cloud Firestore.</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- Mobile Filter Drawer Button -->
+          <button id="mobile-filter-open-btn" class="lg:hidden flex items-center gap-2 border border-[#0B0B0B] px-4 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider bg-white hover:bg-[#0B0B0B] hover:text-[#F7F5F0] transition-colors">
+            <i class="fa-solid fa-sliders text-xs"></i>
+            <span>FILTERS</span>
+          </button>
+
+          <!-- Sort Select Dropdown -->
+          <div class="flex items-center gap-2 border border-[#0B0B0B] px-3 py-2 bg-white">
+            <span class="text-[10px] font-bold uppercase text-[#6B6B6B]">SORT:</span>
+            <select id="sort-select" class="bg-transparent text-xs font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] focus:outline-none cursor-pointer">
+              <option value="bestselling">Best Selling</option>
+              <option value="newest">Newest Drops</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Filters Bar -->
+    <div id="active-filters-bar" class="bg-[#F7F5F0] border-b border-[#0B0B0B]/10 py-3 px-4 md:px-8">
+      <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2 text-xs">
+        <div class="flex items-center gap-2 flex-wrap" id="active-chips-container">
+          <span class="text-[11px] font-bold uppercase text-[#6B6B6B]">ACTIVE:</span>
+        </div>
+        <div class="text-[11px] font-bold uppercase text-[#6B6B6B]" id="products-count-badge">
+          LOADING PRODUCTS...
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Products Listing Layout -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Desktop Left Sidebar Filter Panel -->
+        <aside id="filter-sidebar" class="hidden lg:block lg:col-span-3 space-y-8 bg-white p-6 border border-[#0B0B0B]/10 sticky top-24">
+          <div class="flex justify-between items-center pb-4 border-b border-[#E8E6E1]">
+            <h3 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">FILTERS</h3>
+            <button id="reset-filters-btn" class="text-[11px] text-[#6B6B6B] hover:text-[#0B0B0B] underline font-semibold uppercase">RESET ALL</button>
+          </div>
+
+          <!-- Search Filter -->
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Search Catalog</label>
+            <div class="relative">
+              <input 
+                type="text" 
+                id="catalog-search-input" 
+                placeholder="Search real products..." 
+                class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs text-[#0B0B0B] placeholder:text-[#6B6B6B] focus:outline-none focus:border-[#0B0B0B]"
+              />
+              <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-xs text-[#6B6B6B]"></i>
+            </div>
+          </div>
+
+          <!-- Dynamic Category Filter -->
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-3">Categories</label>
+            <div class="space-y-2 text-xs" id="category-radio-group">
+              <label class="flex items-center justify-between cursor-pointer group">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="category" value="all" checked class="accent-[#0B0B0B]" />
+                  <span class="group-hover:text-[#0B0B0B] font-medium">All Drops</span>
+                </span>
+              </label>
+              <!-- Dynamically populated from actual Firestore categories -->
+            </div>
+          </div>
+
+          <!-- Size Filter -->
+          <div class="pt-4 border-t border-[#E8E6E1]">
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-3">Sizes</label>
+            <div class="grid grid-cols-3 gap-2" id="size-filter-group">
+              <button data-filter-size="all" class="size-pill-btn border border-[#0B0B0B] py-2 text-xs font-bold bg-[#0B0B0B] text-[#F7F5F0]">ALL</button>
+              <button data-filter-size="S" class="size-pill-btn border border-[#0B0B0B]/30 hover:border-[#0B0B0B] py-2 text-xs font-bold bg-white text-[#0B0B0B]">S</button>
+              <button data-filter-size="M" class="size-pill-btn border border-[#0B0B0B]/30 hover:border-[#0B0B0B] py-2 text-xs font-bold bg-white text-[#0B0B0B]">M</button>
+              <button data-filter-size="L" class="size-pill-btn border border-[#0B0B0B]/30 hover:border-[#0B0B0B] py-2 text-xs font-bold bg-white text-[#0B0B0B]">L</button>
+              <button data-filter-size="XL" class="size-pill-btn border border-[#0B0B0B]/30 hover:border-[#0B0B0B] py-2 text-xs font-bold bg-white text-[#0B0B0B]">XL</button>
+              <button data-filter-size="XXL" class="size-pill-btn border border-[#0B0B0B]/30 hover:border-[#0B0B0B] py-2 text-xs font-bold bg-white text-[#0B0B0B]">XXL</button>
+            </div>
+          </div>
+
+          <!-- Color Filter -->
+          <div class="pt-4 border-t border-[#E8E6E1]">
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-3">Color</label>
+            <div class="flex flex-wrap gap-2" id="color-filter-group">
+              <button data-filter-color="all" class="color-pill-btn text-xs font-bold px-3 py-1.5 border border-[#0B0B0B] bg-[#0B0B0B] text-[#F7F5F0]">All</button>
+              <button data-filter-color="Black" class="color-pill-btn text-xs font-semibold px-3 py-1.5 border border-[#0B0B0B]/30 bg-white text-[#0B0B0B]">Black</button>
+              <button data-filter-color="White" class="color-pill-btn text-xs font-semibold px-3 py-1.5 border border-[#0B0B0B]/30 bg-white text-[#0B0B0B]">White</button>
+              <button data-filter-color="Grey" class="color-pill-btn text-xs font-semibold px-3 py-1.5 border border-[#0B0B0B]/30 bg-white text-[#0B0B0B]">Grey</button>
+              <button data-filter-color="Sage" class="color-pill-btn text-xs font-semibold px-3 py-1.5 border border-[#0B0B0B]/30 bg-white text-[#0B0B0B]">Sage</button>
+            </div>
+          </div>
+
+          <!-- Availability Filter -->
+          <div class="pt-4 border-t border-[#E8E6E1]">
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Availability</label>
+            <label class="flex items-center gap-2 text-xs cursor-pointer">
+              <input type="checkbox" id="in-stock-only" class="accent-[#0B0B0B]" />
+              <span class="font-medium text-[#0B0B0B]">In Stock Only</span>
+            </label>
+          </div>
+
+          <!-- Max Price Range Filter (USD) -->
+          <div class="pt-4 border-t border-[#E8E6E1]">
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B]">Max Price</label>
+              <span id="price-slider-value" class="font-editorial text-xs font-bold text-[#0B0B0B]">$150.00</span>
+            </div>
+            <input 
+              type="range" 
+              id="price-range-slider" 
+              min="10" 
+              max="200" 
+              step="5" 
+              value="200" 
+              class="w-full accent-[#0B0B0B] cursor-pointer"
+            />
+            <div class="flex justify-between text-[10px] text-[#6B6B6B] mt-1">
+              <span>$10.00</span>
+              <span>$200.00</span>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- Right Products Grid Container -->
+        <main class="lg:col-span-9">
+          <div id="catalog-products-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 min-h-[500px]">
+            <!-- Injected by JavaScript from Firestore -->
+          </div>
+
+          <!-- Empty State (Mandatory when database has 0 products) -->
+          <div id="no-products-msg" class="hidden p-16 text-center bg-white border border-[#0B0B0B]/10 my-8">
+            <div class="w-16 h-16 border border-[#0B0B0B]/20 bg-[#F7F5F0] flex items-center justify-center mx-auto mb-4">
+              <i class="fa-solid fa-shirt text-2xl text-[#6B6B6B]"></i>
+            </div>
+            <h3 class="font-editorial text-xl font-bold uppercase text-[#0B0B0B]">No products available yet.</h3>
+            <p class="text-xs text-[#6B6B6B] mt-1 mb-6 max-w-sm mx-auto">Products stored in Cloud Firestore will appear here automatically.</p>
+            <button id="empty-reset-btn" class="bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-6 py-3 font-editorial font-bold text-xs uppercase tracking-widest">
+              RESET FILTERS
+            </button>
+          </div>
+        </main>
+
+      </div>
+    </div>
+
+    <!-- Mobile Filter Drawer Modal -->
+    <div id="mobile-filter-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
+      <div class="bg-white w-full max-w-sm h-full p-6 overflow-y-auto flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center pb-4 border-b border-[#0B0B0B]">
+            <h3 class="font-editorial text-base font-bold uppercase">FILTER PRODUCTS</h3>
+            <button id="mobile-filter-close-btn" class="text-lg p-2 text-[#6B6B6B]">✕</button>
+          </div>
+          
+          <div class="py-6 space-y-6">
+            <div>
+              <label class="block text-xs font-bold uppercase mb-2">Category</label>
+              <div class="space-y-2 text-xs" id="mobile-category-options">
+                <!-- Syncs with desktop -->
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase mb-2">Size</label>
+              <div class="grid grid-cols-3 gap-2" id="mobile-size-options">
+                <button data-filter-size="all" class="size-pill-btn border border-[#0B0B0B] py-2 text-xs font-bold bg-[#0B0B0B] text-[#F7F5F0]">ALL</button>
+                <button data-filter-size="S" class="size-pill-btn border border-[#0B0B0B]/30 py-2 text-xs font-bold bg-white text-[#0B0B0B]">S</button>
+                <button data-filter-size="M" class="size-pill-btn border border-[#0B0B0B]/30 py-2 text-xs font-bold bg-white text-[#0B0B0B]">M</button>
+                <button data-filter-size="L" class="size-pill-btn border border-[#0B0B0B]/30 py-2 text-xs font-bold bg-white text-[#0B0B0B]">L</button>
+                <button data-filter-size="XL" class="size-pill-btn border border-[#0B0B0B]/30 py-2 text-xs font-bold bg-white text-[#0B0B0B]">XL</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-[#E8E6E1] flex gap-3">
+          <button id="mobile-filter-apply" class="w-full bg-[#0B0B0B] text-[#F7F5F0] py-3 text-xs font-editorial font-bold uppercase">APPLY FILTERS</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sliding Cart Drawer & Search Overlays -->
+    <div id="cart-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 max-w-md w-full bg-[#F7F5F0] z-50 shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 border-l border-[#0B0B0B]">
+      <div class="p-6 border-b border-[#E8E6E1] bg-white">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <span class="font-editorial text-lg font-bold uppercase tracking-tight text-[#0B0B0B]">YOUR SHOPPING BAG</span>
+            <span class="cart-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+          </div>
+          <button id="cart-drawer-close" class="text-lg p-2 text-[#6B6B6B] hover:text-[#0B0B0B]">✕</button>
+        </div>
+        <div class="mt-4 pt-3 border-t border-[#E8E6E1]/60">
+          <div id="free-shipping-msg" class="text-[11px] text-[#6B6B6B] mb-2 uppercase tracking-wide">
+            Add items worth <strong>$75.00</strong> for Free Express Delivery
+          </div>
+          <div class="w-full h-1.5 bg-[#E8E6E1] overflow-hidden">
+            <div id="free-shipping-progress" class="h-full bg-[#0B0B0B] transition-all duration-500 w-0"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="cart-drawer-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+
+      <div id="cart-drawer-empty" class="hidden p-8 text-center my-auto">
+        <div class="w-16 h-16 border border-[#0B0B0B]/20 bg-white flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-bag-shopping text-2xl text-[#6B6B6B]"></i>
+        </div>
+        <h4 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">BAG IS EMPTY</h4>
+      </div>
+
+      <div class="p-6 border-t border-[#E8E6E1] bg-white space-y-4">
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-[#6B6B6B] uppercase font-bold text-xs tracking-wider">Subtotal</span>
+          <span id="cart-drawer-subtotal" class="font-editorial font-bold text-lg text-[#0B0B0B]">$0.00</span>
+        </div>
+        <div class="space-y-2">
+          <a id="cart-drawer-checkout-btn" href="/checkout.html" class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 text-center font-editorial font-bold text-xs uppercase tracking-widest block transition-colors flex items-center justify-center gap-2">
+            <span>PROCEED TO CHECKOUT</span>
+            <span class="text-[#C7FF2E]">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex flex-col items-center justify-start pt-16 p-4">
+      <div class="w-full max-w-2xl bg-[#F7F5F0] border border-[#0B0B0B] shadow-2xl overflow-hidden animate-fade-up">
+        <div class="flex items-center border-b border-[#0B0B0B] px-6 py-4 bg-white">
+          <i class="fa-solid fa-magnifying-glass text-[#0B0B0B] mr-4 text-base"></i>
+          <input id="search-input-field" type="text" placeholder="WHAT ARE YOU LOOKING FOR?" class="w-full bg-transparent text-sm font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] focus:outline-none" />
+          <button id="search-overlay-close" class="text-sm font-bold text-[#6B6B6B] ml-4">✕</button>
+        </div>
+        <div id="search-results-container" class="min-h-[220px]"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] py-12 px-4 md:px-8 border-t border-[#333] mt-20">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#6B6B6B]">
+        <div class="flex items-center gap-2">
+          <span class="font-editorial text-lg font-bold text-white tracking-tighter">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span>HEAVYWEIGHT APPAREL / USD ($)</span>
+        </div>
+        <div>
+          <a href="/faq.html" class="hover:text-white mr-4">FAQ</a>
+          <a href="/contact.html" class="hover:text-white mr-4">Contact Support</a>
+          <a href="/track-order.html" class="hover:text-white mr-4">Track Order</a>
+          <a href="/return-policy.html" class="hover:text-white mr-4">Return & Refund Policy</a>
+          <a href="/wishlist.html" class="hover:text-white">Wishlist</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { getAllProducts, subscribeToProducts, filterProducts, extractCategoriesFromProducts } from '/js/products.js';
+      import { formatPrice } from '/js/cart.js';
+      import { isInWishlist } from '/js/wishlist.js';
+      import { extractProductImageUrl } from '/js/firebase-init.js';
+
+      let allRealProducts = [];
+
+      const currentFilters = {
+        category: 'all',
+        size: 'all',
+        color: 'all',
+        maxPrice: 200,
+        searchQuery: '',
+        availability: 'all',
+        sortBy: 'bestselling'
+      };
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('category')) currentFilters.category = urlParams.get('category');
+      if (urlParams.has('sort')) currentFilters.sortBy = urlParams.get('sort');
+
+      function renderCategoriesUI() {
+        const dynamicCats = extractCategoriesFromProducts(allRealProducts);
+        const catGroup = document.getElementById('category-radio-group');
+        const mobileCatGroup = document.getElementById('mobile-category-options');
+
+        const allCount = allRealProducts.length;
+
+        const renderItems = (isMobile = false) => {
+          let html = `
+            <label class="flex items-center justify-between cursor-pointer group">
+              <span class="flex items-center gap-2">
+                <input type="radio" name="${isMobile ? 'mobile-category' : 'category'}" value="all" ${currentFilters.category === 'all' ? 'checked' : ''} class="accent-[#0B0B0B]" />
+                <span class="group-hover:text-[#0B0B0B] font-medium">All Drops</span>
+              </span>
+              <span class="text-[11px] text-[#6B6B6B] font-semibold">(${allCount})</span>
+            </label>
+          `;
+
+          dynamicCats.forEach(cat => {
+            const count = allRealProducts.filter(p => p.category && p.category.toLowerCase() === cat.toLowerCase()).length;
+            const isChecked = currentFilters.category.toLowerCase() === cat.toLowerCase();
+            html += `
+              <label class="flex items-center justify-between cursor-pointer group">
+                <span class="flex items-center gap-2">
+                  <input type="radio" name="${isMobile ? 'mobile-category' : 'category'}" value="${cat}" ${isChecked ? 'checked' : ''} class="accent-[#0B0B0B]" />
+                  <span class="group-hover:text-[#0B0B0B] font-medium">${cat}</span>
+                </span>
+                <span class="text-[11px] text-[#6B6B6B] font-semibold">(${count})</span>
+              </label>
+            `;
+          });
+          return html;
+        };
+
+        if (catGroup) {
+          catGroup.innerHTML = renderItems(false);
+          catGroup.querySelectorAll('input[name="category"]').forEach(r => {
+            r.addEventListener('change', (e) => {
+              currentFilters.category = e.target.value;
+              syncUI();
+            });
+          });
+        }
+
+        if (mobileCatGroup) {
+          mobileCatGroup.innerHTML = renderItems(true);
+          mobileCatGroup.querySelectorAll('input[name="mobile-category"]').forEach(r => {
+            r.addEventListener('change', (e) => {
+              currentFilters.category = e.target.value;
+              syncUI();
+            });
+          });
+        }
+      }
+
+      function renderProducts() {
+        const grid = document.getElementById('catalog-products-grid');
+        const emptyMsg = document.getElementById('no-products-msg');
+        const countBadge = document.getElementById('products-count-badge');
+        if (!grid) return;
+
+        const filtered = filterProducts(allRealProducts, currentFilters);
+
+        if (countBadge) {
+          countBadge.textContent = `${filtered.length} ${filtered.length === 1 ? 'PIECE AVAILABLE' : 'PIECES AVAILABLE'}`;
+        }
+
+        if (!allRealProducts || allRealProducts.length === 0 || filtered.length === 0) {
+          grid.innerHTML = '';
+          emptyMsg.classList.remove('hidden');
+          return;
+        }
+
+        emptyMsg.classList.add('hidden');
+
+        grid.innerHTML = filtered.map(p => {
+          const discountPct = p.compareAtPrice && p.compareAtPrice > p.price ? Math.round(((p.compareAtPrice - p.price) / p.compareAtPrice) * 100) : 0;
+          const isSaved = isInWishlist(p.id);
+          const primaryImg = extractProductImageUrl(Array.isArray(p.images) && p.images.length > 0 ? p.images[0] : (p.thumbnail || ''));
+          const secondaryImg = extractProductImageUrl(Array.isArray(p.images) && p.images.length > 1 ? p.images[1] : primaryImg);
+
+          return `
+            <div class="product-card group relative bg-white border border-[#E8E6E1] hover:border-[#0B0B0B] transition-all flex flex-col justify-between animate-fade-up">
+              
+              <div class="relative overflow-hidden bg-[#E8E6E1] aspect-[3/4]">
+                ${p.badge ? `
+                  <span class="absolute top-3 left-3 z-10 text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 bg-[#0B0B0B] text-white">
+                    ${p.badge}
+                  </span>
+                ` : ''}
+
+                <button 
+                  data-wishlist-id="${p.id}" 
+                  class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full ${isSaved ? 'bg-[#C7FF2E] text-[#0B0B0B]' : 'bg-white/90 text-[#6B6B6B]'} hover:text-[#0B0B0B] flex items-center justify-center transition-all shadow-sm"
+                  title="Save to Wishlist"
+                >
+                  <i class="${isSaved ? 'fa-solid' : 'fa-regular'} fa-heart text-xs"></i>
+                </button>
+
+                <a href="/product-details.html?id=${p.id}" class="block w-full h-full relative">
+                  ${primaryImg ? `
+                    <img 
+                      src="${primaryImg}" 
+                      alt="${p.name}" 
+                      class="product-primary-img w-full h-full object-cover transition-opacity duration-300" 
+                      loading="lazy" 
+                      onerror="this.style.display='none'; const sec = this.parentElement.querySelector('.product-secondary-img'); if (sec) sec.style.display='none'; const fb = this.parentElement.querySelector('.img-fallback'); if (fb) fb.classList.remove('hidden');" 
+                    />
+                    ${secondaryImg && secondaryImg !== primaryImg ? `
+                      <img 
+                        src="${secondaryImg}" 
+                        alt="${p.name} Alt" 
+                        class="product-secondary-img absolute inset-0 w-full h-full object-cover" 
+                        loading="lazy" 
+                        onerror="this.style.display='none';" 
+                      />
+                    ` : ''}
+                    <div class="img-fallback hidden w-full h-full flex items-center justify-center bg-[#E8E6E1] text-[#6B6B6B]">
+                      <i class="fa-solid fa-shirt text-3xl"></i>
+                    </div>
+                  ` : `
+                    <div class="w-full h-full flex items-center justify-center bg-[#E8E6E1] text-[#6B6B6B]">
+                      <i class="fa-solid fa-shirt text-3xl"></i>
+                    </div>
+                  `}
+                </a>
+
+                <button 
+                  data-quick-add-id="${p.id}" 
+                  class="quick-add-btn absolute inset-x-0 bottom-0 bg-[#0B0B0B] text-[#F7F5F0] hover:bg-[#C7FF2E] hover:text-[#0B0B0B] py-3 text-xs font-editorial font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 z-10"
+                >
+                  <i class="fa-solid fa-plus text-[10px]"></i>
+                  <span>QUICK ADD</span>
+                </button>
+              </div>
+
+              <div class="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between text-[10px] text-[#6B6B6B] uppercase font-bold tracking-wider mb-1">
+                    <span>${p.category || 'T-Shirt'}</span>
+                    <span class="flex items-center gap-1 text-[#0B0B0B]">
+                      <i class="fa-solid fa-star text-[9px]"></i>
+                      <span>${p.rating || '5.0'}</span>
+                    </span>
+                  </div>
+                  <h3 class="font-editorial text-xs sm:text-sm font-bold uppercase tracking-tight text-[#0B0B0B] line-clamp-1 group-hover:underline">
+                    <a href="/product-details.html?id=${p.id}">${p.name}</a>
+                  </h3>
+                </div>
+
+                <div class="mt-3 pt-2 border-t border-[#E8E6E1] flex items-center justify-between">
+                  <div class="flex items-baseline gap-2">
+                    <span class="font-editorial text-sm sm:text-base font-bold text-[#0B0B0B]">${formatPrice(p.price)}</span>
+                    ${p.compareAtPrice ? `<span class="text-xs text-[#6B6B6B] line-through font-normal">${formatPrice(p.compareAtPrice)}</span>` : ''}
+                  </div>
+                  ${discountPct > 0 ? `
+                    <span class="text-[10px] font-extrabold text-[#0B0B0B] bg-[#C7FF2E] px-1.5 py-0.5">
+                      ${discountPct}% OFF
+                    </span>
+                  ` : ''}
+                </div>
+              </div>
+
+            </div>
+          `;
+        }).join('');
+
+        renderActiveChips();
+      }
+
+      function renderActiveChips() {
+        const container = document.getElementById('active-chips-container');
+        if (!container) return;
+
+        let chips = [];
+        if (currentFilters.category !== 'all') {
+          chips.push({ label: `Category: ${currentFilters.category}`, clear: () => { currentFilters.category = 'all'; syncUI(); } });
+        }
+        if (currentFilters.size !== 'all') {
+          chips.push({ label: `Size: ${currentFilters.size}`, clear: () => { currentFilters.size = 'all'; syncUI(); } });
+        }
+        if (currentFilters.color !== 'all') {
+          chips.push({ label: `Color: ${currentFilters.color}`, clear: () => { currentFilters.color = 'all'; syncUI(); } });
+        }
+        if (currentFilters.maxPrice < 200) {
+          chips.push({ label: `Max: ${formatPrice(currentFilters.maxPrice)}`, clear: () => { currentFilters.maxPrice = 200; syncUI(); } });
+        }
+        if (currentFilters.searchQuery) {
+          chips.push({ label: `Search: "${currentFilters.searchQuery}"`, clear: () => { currentFilters.searchQuery = ''; syncUI(); } });
+        }
+
+        if (chips.length === 0) {
+          container.innerHTML = `<span class="text-[11px] font-bold uppercase text-[#6B6B6B]">ALL PIECES (NO ACTIVE FILTERS)</span>`;
+          return;
+        }
+
+        container.innerHTML = `
+          <span class="text-[11px] font-bold uppercase text-[#0B0B0B]">ACTIVE:</span>
+          ${chips.map((c, i) => `
+            <span class="inline-flex items-center gap-1.5 bg-[#0B0B0B] text-[#F7F5F0] text-[10px] font-bold uppercase px-2.5 py-1">
+              <span>${c.label}</span>
+              <button data-chip-idx="${i}" class="text-[#C7FF2E] hover:text-white">✕</button>
+            </span>
+          `).join('')}
+        `;
+
+        container.querySelectorAll('[data-chip-idx]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-chip-idx'));
+            chips[idx].clear();
+          });
+        });
+      }
+
+      function syncUI() {
+        document.querySelectorAll('input[name="category"]').forEach(r => {
+          r.checked = r.value.toLowerCase() === currentFilters.category.toLowerCase();
+        });
+
+        document.querySelectorAll('.size-pill-btn').forEach(btn => {
+          const s = btn.getAttribute('data-filter-size');
+          if (s === currentFilters.size) {
+            btn.classList.add('bg-[#0B0B0B]', 'text-[#F7F5F0]');
+            btn.classList.remove('bg-white', 'text-[#0B0B0B]');
+          } else {
+            btn.classList.remove('bg-[#0B0B0B]', 'text-[#F7F5F0]');
+            btn.classList.add('bg-white', 'text-[#0B0B0B]');
+          }
+        });
+
+        const slider = document.getElementById('price-range-slider');
+        const sliderVal = document.getElementById('price-slider-value');
+        if (slider) slider.value = currentFilters.maxPrice;
+        if (sliderVal) sliderVal.textContent = formatPrice(currentFilters.maxPrice);
+
+        renderProducts();
+      }
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        // Fetch real Firestore products
+        allRealProducts = await getAllProducts();
+        renderCategoriesUI();
+        syncUI();
+
+        // Subscribe to real-time updates from Firestore
+        subscribeToProducts((liveProducts) => {
+          allRealProducts = liveProducts || [];
+          renderCategoriesUI();
+          syncUI();
+        });
+
+        // Size buttons
+        document.querySelectorAll('.size-pill-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            currentFilters.size = btn.getAttribute('data-filter-size');
+            syncUI();
+          });
+        });
+
+        // Color buttons
+        document.querySelectorAll('.color-pill-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            currentFilters.color = btn.getAttribute('data-filter-color');
+            syncUI();
+          });
+        });
+
+        // Price slider
+        const slider = document.getElementById('price-range-slider');
+        const sliderVal = document.getElementById('price-slider-value');
+        if (slider) {
+          slider.addEventListener('input', (e) => {
+            currentFilters.maxPrice = Number(e.target.value);
+            if (sliderVal) sliderVal.textContent = formatPrice(currentFilters.maxPrice);
+            renderProducts();
+          });
+        }
+
+        // Availability checkbox
+        const inStockBox = document.getElementById('in-stock-only');
+        inStockBox?.addEventListener('change', (e) => {
+          currentFilters.availability = e.target.checked ? 'in-stock' : 'all';
+          renderProducts();
+        });
+
+        // Search input
+        const searchInput = document.getElementById('catalog-search-input');
+        if (searchInput) {
+          searchInput.addEventListener('input', (e) => {
+            currentFilters.searchQuery = e.target.value;
+            renderProducts();
+          });
+        }
+
+        // Sort select
+        const sortSelect = document.getElementById('sort-select');
+        if (sortSelect) {
+          sortSelect.addEventListener('change', (e) => {
+            currentFilters.sortBy = e.target.value;
+            renderProducts();
+          });
+        }
+
+        const resetBtn = document.getElementById('reset-filters-btn');
+        const emptyResetBtn = document.getElementById('empty-reset-btn');
+        const doReset = () => {
+          currentFilters.category = 'all';
+          currentFilters.size = 'all';
+          currentFilters.color = 'all';
+          currentFilters.maxPrice = 200;
+          currentFilters.searchQuery = '';
+          currentFilters.availability = 'all';
+          currentFilters.sortBy = 'bestselling';
+          syncUI();
+        };
+        if (resetBtn) resetBtn.addEventListener('click', doReset);
+        if (emptyResetBtn) emptyResetBtn.addEventListener('click', doReset);
+
+        syncUI();
+      });
+    </script>
+  </body>
+</html>

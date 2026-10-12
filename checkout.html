@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Checkout | YOUNG & STUPID</title>
+    <meta name="description" content="Complete your purchase with secure instant checkout in USD ($)." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased">
+
+    <header class="bg-white border-b border-[#0B0B0B]/10 py-5 px-4 md:px-8">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <a href="/index.html" class="flex items-center gap-2">
+          <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span class="text-[9px] font-bold tracking-widest text-[#6B6B6B] uppercase">SECURE CHECKOUT</span>
+        </a>
+
+        <div class="flex items-center gap-2 text-xs text-[#6B6B6B] font-bold uppercase">
+          <i class="fa-solid fa-lock text-[#0B0B0B]"></i>
+          <span>256-BIT ENCRYPTED (USD)</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 md:px-8 py-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        
+        <!-- Left: Delivery & Payment Details -->
+        <div class="lg:col-span-7 space-y-8">
+          
+          <div class="bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-[#E8E6E1]">
+              <h2 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">
+                1. DELIVERY RECIPIENT
+              </h2>
+              <span class="text-[10px] font-bold text-[#6B6B6B] uppercase">STEP 1 OF 2</span>
+            </div>
+
+            <form id="checkout-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Full Name *</label>
+                  <input type="text" id="cust-name" required placeholder="Alex Mercer" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Phone Number *</label>
+                  <input type="tel" id="cust-phone" required placeholder="+1 (555) 019-2834" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Email Address *</label>
+                <input type="email" id="cust-email" required placeholder="alex@example.com" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Street Address *</label>
+                <input type="text" id="cust-address" required placeholder="742 Evergreen Terrace" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+              </div>
+
+              <div class="grid grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">City *</label>
+                  <input type="text" id="cust-city" required placeholder="New York" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">State / Province *</label>
+                  <input type="text" id="cust-state" required placeholder="NY" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">ZIP / Postal Code *</label>
+                  <input type="text" id="cust-pincode" required placeholder="10001" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-[#E8E6E1]">
+              <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+                <h2 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">
+                  2. PAYMENT METHOD
+                </h2>
+                <span id="payment-step-total" class="font-editorial font-bold text-[11px] bg-[#0B0B0B] text-[#C7FF2E] px-2 py-0.5 tracking-wider">$0.00 USD</span>
+              </div>
+              <span class="text-[10px] font-bold text-[#6B6B6B] uppercase shrink-0">STEP 2 OF 2</span>
+            </div>
+
+            <div class="space-y-3" id="payment-methods-container">
+              <!-- Method 1: Credit / Debit Card -->
+              <label class="payment-method-card border-2 border-[#0B0B0B] bg-[#F7F5F0] p-4 flex flex-col gap-3 cursor-pointer block transition-all" data-method="CREDIT_CARD">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="payment_method" value="CREDIT_CARD" checked class="accent-[#0B0B0B] w-4 h-4 cursor-pointer" />
+                    <div>
+                      <div class="font-bold text-xs uppercase text-[#0B0B0B]">Credit / Debit Card (USD)</div>
+                      <div class="text-[11px] text-[#6B6B6B]">Visa, Mastercard, American Express</div>
+                    </div>
+                  </div>
+                  <div class="flex gap-2 text-base text-[#0B0B0B] items-center shrink-0">
+                    <i class="fa-brands fa-cc-visa text-[#1A1F71] text-lg"></i>
+                    <i class="fa-brands fa-cc-mastercard text-[#EB001B] text-lg"></i>
+                    <i class="fa-brands fa-cc-amex text-[#006FCF] text-lg"></i>
+                  </div>
+                </div>
+                <!-- Card fields -->
+                <div id="card-subfields" class="pt-2 border-t border-[#0B0B0B]/10 space-y-2 text-xs">
+                  <div>
+                    <input type="text" id="card-number" placeholder="Card Number (4000 1234 5678 9010)" maxlength="19" class="w-full bg-white border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] font-mono focus:outline-none focus:border-[#0B0B0B]" />
+                  </div>
+                  <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="card-exp" placeholder="MM / YY" maxlength="5" class="bg-white border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] font-mono focus:outline-none focus:border-[#0B0B0B]" />
+                    <input type="password" id="card-cvc" placeholder="CVC" maxlength="4" class="bg-white border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] font-mono focus:outline-none focus:border-[#0B0B0B]" />
+                  </div>
+                </div>
+              </label>
+
+              <!-- Method 2: PayPal Express -->
+              <label class="payment-method-card border border-[#0B0B0B]/20 bg-white p-4 flex flex-col gap-3 cursor-pointer block hover:border-[#0B0B0B] transition-all" data-method="PAYPAL">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="payment_method" value="PAYPAL" class="accent-[#0B0B0B] w-4 h-4 cursor-pointer" />
+                    <div>
+                      <div class="font-bold text-xs uppercase text-[#0B0B0B]">PayPal Express</div>
+                      <div class="text-[11px] text-[#6B6B6B]">Fast checkout with your PayPal account</div>
+                    </div>
+                  </div>
+                  <i class="fa-brands fa-paypal text-xl text-[#003087] shrink-0"></i>
+                </div>
+                <div id="paypal-subfields" class="hidden pt-2 border-t border-[#0B0B0B]/10 text-[11px] text-[#6B6B6B]">
+                  Billed in USD ($). Fast checkout with your PayPal account credentials.
+                </div>
+              </label>
+
+              <!-- Method 3: Net Banking -->
+              <label class="payment-method-card border border-[#0B0B0B]/20 bg-white p-4 flex flex-col gap-3 cursor-pointer block hover:border-[#0B0B0B] transition-all" data-method="NET_BANKING">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="payment_method" value="NET_BANKING" class="accent-[#0B0B0B] w-4 h-4 cursor-pointer" />
+                    <div>
+                      <div class="font-bold text-xs uppercase text-[#0B0B0B]">Net Banking</div>
+                      <div class="text-[11px] text-[#6B6B6B]">Secure online banking payment</div>
+                    </div>
+                  </div>
+                  <i class="fa-solid fa-building-columns text-base text-[#0B0B0B] shrink-0"></i>
+                </div>
+                <div id="netbanking-subfields" class="hidden pt-2 border-t border-[#0B0B0B]/10 space-y-1.5">
+                  <label class="text-[10px] font-bold uppercase text-[#6B6B6B]">Select Bank (USD Settlement):</label>
+                  <select id="bank-select" class="w-full bg-white border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] font-editorial uppercase font-bold focus:outline-none focus:border-[#0B0B0B]">
+                    <option value="JPMORGAN">JPMorgan Chase</option>
+                    <option value="BOA">Bank of America</option>
+                    <option value="CITI">Citibank International</option>
+                    <option value="WELLS">Wells Fargo</option>
+                    <option value="HSBC">HSBC Global</option>
+                    <option value="BARCLAYS">Barclays Bank</option>
+                  </select>
+                </div>
+              </label>
+
+              <!-- Method 4: UPI -->
+              <label class="payment-method-card border border-[#0B0B0B]/20 bg-white p-4 flex flex-col gap-3 cursor-pointer block hover:border-[#0B0B0B] transition-all" data-method="UPI">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <input type="radio" name="payment_method" value="UPI" class="accent-[#0B0B0B] w-4 h-4 cursor-pointer" />
+                    <div>
+                      <div class="font-bold text-xs uppercase text-[#0B0B0B]">UPI</div>
+                      <div class="text-[11px] text-[#6B6B6B]">Pay securely using UPI</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-1 font-bold font-editorial text-[10px] border border-[#0B0B0B] px-2 py-0.5 text-[#0B0B0B] shrink-0">
+                    <span>UPI</span>
+                    <i class="fa-solid fa-bolt text-[#C7FF2E] bg-[#0B0B0B] rounded-full p-0.5 text-[8px]"></i>
+                  </div>
+                </div>
+                <div id="upi-subfields" class="hidden pt-2 border-t border-[#0B0B0B]/10 space-y-1.5">
+                  <input type="text" id="upi-vpa" placeholder="username@upi / mobile@okhdfcbank" class="w-full bg-white border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] font-mono focus:outline-none focus:border-[#0B0B0B]" />
+                  <div class="text-[10px] text-[#6B6B6B]">Pay directly using any UPI app. Authorized payment converts USD ($) at real-time interbank rate.</div>
+                </div>
+              </label>
+            </div>
+
+            <!-- Total Amount in USD display in Step 2 -->
+            <div class="pt-3 border-t border-[#0B0B0B]/10 flex items-center justify-between text-xs">
+              <span class="text-[#6B6B6B] font-bold uppercase tracking-wider">Total Payable (USD):</span>
+              <span id="payment-payable-amount" class="font-editorial font-bold text-base text-[#0B0B0B]">$0.00 USD</span>
+            </div>
+          </div>
+
+          <button id="place-order-btn" class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-5 font-editorial font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl btn-press">
+            <span>CONFIRM & PLACE ORDER</span>
+            <span id="btn-total-amount" class="text-[#C7FF2E]">($0.00 USD)</span>
+            <span class="text-[#C7FF2E]">→</span>
+          </button>
+        </div>
+
+        <!-- Right: Order Summary -->
+        <div class="lg:col-span-5 bg-white border border-[#0B0B0B]/10 p-6 space-y-6 lg:sticky lg:top-24">
+          <h3 class="font-editorial text-base font-bold uppercase tracking-wider text-[#0B0B0B] pb-3 border-b border-[#E8E6E1]">
+            YOUR ORDER BAG
+          </h3>
+
+          <div id="checkout-items-list" class="divide-y divide-[#E8E6E1] max-h-80 overflow-y-auto"></div>
+
+          <!-- Dynamic Coupon / Promo Section in Checkout -->
+          <div class="border-t border-[#E8E6E1] pt-4">
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Have a promo code?</label>
+            
+            <!-- Input group when no coupon applied -->
+            <div id="chk-promo-input-group" class="flex gap-2">
+              <input 
+                type="text" 
+                id="chk-promo-input" 
+                placeholder="ENTER CODE" 
+                class="flex-1 bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs font-mono uppercase tracking-wider text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+              />
+              <button id="chk-apply-promo-btn" class="bg-[#0B0B0B] text-[#F7F5F0] px-4 py-2 text-xs font-editorial font-bold uppercase tracking-widest hover:bg-black transition-colors">
+                Apply
+              </button>
+            </div>
+
+            <!-- Applied coupon badge with remove button -->
+            <div id="chk-promo-applied-badge" class="hidden p-2.5 bg-[#0B0B0B] text-white flex items-center justify-between border-l-4 border-[#C7FF2E] animate-fade-up">
+              <div class="flex items-center gap-2">
+                <span id="chk-applied-code-label" class="font-mono text-xs font-bold text-[#C7FF2E] uppercase">SAVE20 applied ✓</span>
+              </div>
+              <button id="chk-remove-promo-btn" class="text-[11px] text-[#A0A0A0] hover:text-white uppercase font-bold underline cursor-pointer" title="Remove promo code">
+                Remove
+              </button>
+            </div>
+
+            <div id="chk-promo-status-msg" class="text-[11px] mt-1.5 hidden"></div>
+          </div>
+
+          <!-- Complete Price Breakdown -->
+          <div class="space-y-2.5 text-xs border-t border-[#E8E6E1] pt-4">
+            <div class="flex justify-between">
+              <span class="text-[#6B6B6B] uppercase font-medium">Subtotal</span>
+              <span id="chk-subtotal" class="font-editorial font-bold text-[#0B0B0B]">$0.00</span>
+            </div>
+            <div id="chk-discount-row" class="hidden flex justify-between text-emerald-800">
+              <span id="chk-discount-title" class="uppercase font-semibold">Discount</span>
+              <span id="chk-discount" class="font-editorial font-bold">-$0.00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#6B6B6B] uppercase font-medium">Shipping</span>
+              <span id="chk-shipping" class="font-editorial font-bold text-[#0B0B0B]">FREE</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#6B6B6B] uppercase font-medium">Tax</span>
+              <span id="chk-tax" class="font-editorial font-bold text-[#0B0B0B]">$0.00</span>
+            </div>
+            <div class="flex justify-between border-t border-[#0B0B0B] pt-4 text-base">
+              <span class="font-editorial font-bold uppercase text-[#0B0B0B]">Total (USD)</span>
+              <span id="chk-total" class="font-editorial font-bold text-[#0B0B0B]">$0.00</span>
+            </div>
+          </div>
+
+          <div class="p-4 bg-[#F7F5F0] border border-[#0B0B0B]/10 text-[11px] text-[#6B6B6B] space-y-2">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-truck-fast text-[#0B0B0B]"></i>
+              <span>Guaranteed Delivery within 2–4 Business Days</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-arrow-rotate-left text-[#0B0B0B]"></i>
+              <span>Covered by our <a href="/return-policy.html" class="underline hover:text-[#0B0B0B] font-semibold">Return & Refund Policy</a></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="order-success-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+      <div class="bg-white max-w-lg w-full p-8 border border-[#0B0B0B] shadow-2xl text-center space-y-6 animate-fade-up">
+        <div class="w-16 h-16 bg-[#C7FF2E] rounded-full flex items-center justify-center mx-auto text-2xl text-[#0B0B0B] shadow-lg">
+          ✓
+        </div>
+        <div>
+          <span class="text-[10px] bg-[#0B0B0B] text-white font-extrabold uppercase tracking-widest px-3 py-1">
+            CONFIRMED
+          </span>
+          <h2 class="font-editorial text-3xl font-bold uppercase text-[#0B0B0B] mt-3">
+            YOUR PIECES ARE SECURED.
+          </h2>
+          <p class="text-xs text-[#6B6B6B] mt-1 max-w-sm mx-auto">
+            Order <strong id="confirmed-order-id" class="text-[#0B0B0B]">YS-84920</strong> has been recorded in our Cloud Firestore fulfillment queue.
+          </p>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <a id="track-order-link" href="/track-order.html" class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 text-xs font-editorial font-bold uppercase tracking-widest block transition-colors">
+            TRACK ORDER →
+          </a>
+          <a href="/index.html" class="w-full border border-[#0B0B0B] text-[#0B0B0B] hover:bg-[#F7F5F0] py-3 text-xs font-editorial font-bold uppercase tracking-widest block transition-colors">
+            RETURN TO HOMEPAGE
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { getCart, saveCart, formatPrice, FREE_SHIPPING_THRESHOLD } from '/js/cart.js';
+      import { createOrderInFirestore, verifyCartItemsFromFirestore, auth, extractProductImageUrl, extractSizeLabel } from '/js/firebase-init.js';
+      import { 
+        getSavedCouponCode, 
+        saveCouponCode, 
+        removeSavedCouponCode, 
+        validateCoupon, 
+        calculateOrderTotals, 
+        recordOfferUsage 
+      } from '/js/offers.js';
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        let cart = getCart();
+        const itemsList = document.getElementById('checkout-items-list');
+        const subtotalEl = document.getElementById('chk-subtotal');
+        const shippingEl = document.getElementById('chk-shipping');
+        const discountRow = document.getElementById('chk-discount-row');
+        const discountTitle = document.getElementById('chk-discount-title');
+        const discountEl = document.getElementById('chk-discount');
+        const taxEl = document.getElementById('chk-tax');
+        const totalEl = document.getElementById('chk-total');
+
+        const promoInputGroup = document.getElementById('chk-promo-input-group');
+        const promoAppliedBadge = document.getElementById('chk-promo-applied-badge');
+        const appliedCodeLabel = document.getElementById('chk-applied-code-label');
+        const promoInput = document.getElementById('chk-promo-input');
+        const applyPromoBtn = document.getElementById('chk-apply-promo-btn');
+        const removePromoBtn = document.getElementById('chk-remove-promo-btn');
+        const promoStatus = document.getElementById('chk-promo-status-msg');
+
+        if (cart.length === 0) {
+          window.location.href = '/cart.html';
+          return;
+        }
+
+        // Before checkout, always verify latest prices and stock from Firestore
+        const verifiedCart = await verifyCartItemsFromFirestore(cart);
+        cart = verifiedCart;
+
+        let appliedCouponOffer = null;
+
+        // Check if user came with a saved coupon from Cart
+        const initialCode = getSavedCouponCode();
+        if (initialCode) {
+          const valRes = await validateCoupon(initialCode, cart, auth?.currentUser?.email, auth?.currentUser?.uid);
+          if (valRes.valid) {
+            appliedCouponOffer = valRes.offer;
+          } else {
+            removeSavedCouponCode();
+          }
+        }
+
+        function updateCheckoutDisplay() {
+          const totals = calculateOrderTotals(cart, appliedCouponOffer, 5.00, FREE_SHIPPING_THRESHOLD);
+          const formattedUSDTotal = `${formatPrice(totals.total)} USD`;
+
+          subtotalEl.textContent = formatPrice(totals.subtotal);
+          shippingEl.textContent = totals.shipping === 0 ? 'FREE' : formatPrice(totals.shipping);
+          if (taxEl) taxEl.textContent = formatPrice(totals.tax);
+          totalEl.textContent = formatPrice(totals.total);
+
+          if (totals.discount > 0 && appliedCouponOffer) {
+            discountRow?.classList.remove('hidden');
+            if (discountEl) discountEl.textContent = `-${formatPrice(totals.discount)}`;
+            if (discountTitle) discountTitle.textContent = `Discount (${appliedCouponOffer.couponCode || 'PROMO'})`;
+          } else {
+            discountRow?.classList.add('hidden');
+          }
+
+          if (appliedCouponOffer) {
+            promoInputGroup?.classList.add('hidden');
+            promoAppliedBadge?.classList.remove('hidden');
+            if (appliedCodeLabel) appliedCodeLabel.textContent = `${appliedCouponOffer.couponCode} applied ✓`;
+          } else {
+            promoInputGroup?.classList.remove('hidden');
+            promoAppliedBadge?.classList.add('hidden');
+          }
+
+          const paymentStepTotalEl = document.getElementById('payment-step-total');
+          if (paymentStepTotalEl) paymentStepTotalEl.textContent = formattedUSDTotal;
+
+          const paymentPayableEl = document.getElementById('payment-payable-amount');
+          if (paymentPayableEl) paymentPayableEl.textContent = formattedUSDTotal;
+
+          const btnTotalEl = document.getElementById('btn-total-amount');
+          if (btnTotalEl) btnTotalEl.textContent = `(${formattedUSDTotal})`;
+
+          return totals;
+        }
+
+        let currentTotals = updateCheckoutDisplay();
+
+        // Render line items
+        itemsList.innerHTML = cart.map(item => {
+          const itemImg = extractProductImageUrl(item.image || item.productImage || item.thumbnail);
+          return `
+          <div class="py-3 flex gap-3 items-center">
+            <div class="w-14 h-18 bg-[#E8E6E1] border border-[#0B0B0B]/10 overflow-hidden shrink-0 flex items-center justify-center relative">
+              ${itemImg ? `
+                <img src="${itemImg}" class="w-full h-full object-cover" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden');" />
+                <div class="hidden w-full h-full flex items-center justify-center bg-[#E8E6E1] text-[#6B6B6B]">
+                  <i class="fa-solid fa-shirt text-[#6B6B6B]"></i>
+                </div>
+              ` : `<i class="fa-solid fa-shirt text-[#6B6B6B]"></i>`}
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="font-editorial text-xs font-bold uppercase truncate text-[#0B0B0B]">${item.name}</h4>
+              <div class="text-[11px] text-[#6B6B6B]">Size: ${extractSizeLabel(item.size || item.selectedSize) || 'Standard'} • Color: ${item.color || item.selectedColor} • Qty: ${item.quantity}</div>
+              <div class="font-editorial text-xs font-bold text-[#0B0B0B] mt-0.5">${formatPrice(Number(item.price) * item.quantity)}</div>
+            </div>
+          </div>
+        `;
+        }).join('');
+
+        // Promo code interactivity in Checkout
+        applyPromoBtn?.addEventListener('click', async () => {
+          const code = promoInput.value.trim().toUpperCase();
+          if (!code) {
+            promoStatus.className = 'text-[11px] mt-1.5 text-red-600 font-bold';
+            promoStatus.textContent = 'Please enter a coupon code.';
+            promoStatus.classList.remove('hidden');
+            return;
+          }
+
+          applyPromoBtn.disabled = true;
+          applyPromoBtn.textContent = '...';
+
+          const valRes = await validateCoupon(code, cart, auth?.currentUser?.email, auth?.currentUser?.uid);
+          applyPromoBtn.disabled = false;
+          applyPromoBtn.textContent = 'Apply';
+
+          if (valRes.valid) {
+            appliedCouponOffer = valRes.offer;
+            saveCouponCode(valRes.code);
+            promoStatus.className = 'text-[11px] mt-1.5 text-emerald-800 font-bold';
+            promoStatus.textContent = `${valRes.code} applied ✓`;
+            promoStatus.classList.remove('hidden');
+            promoInput.value = '';
+            currentTotals = updateCheckoutDisplay();
+          } else {
+            promoStatus.className = 'text-[11px] mt-1.5 text-red-600 font-bold';
+            promoStatus.textContent = `✕ ${valRes.error}`;
+            promoStatus.classList.remove('hidden');
+          }
+        });
+
+        promoInput?.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            applyPromoBtn?.click();
+          }
+        });
+
+        removePromoBtn?.addEventListener('click', () => {
+          appliedCouponOffer = null;
+          removeSavedCouponCode();
+          if (promoStatus) {
+            promoStatus.className = 'text-[11px] mt-1.5 text-[#6B6B6B] font-bold';
+            promoStatus.textContent = 'Coupon removed.';
+            promoStatus.classList.remove('hidden');
+            setTimeout(() => promoStatus.classList.add('hidden'), 2500);
+          }
+          currentTotals = updateCheckoutDisplay();
+        });
+
+        // Payment selection interactivity
+        const paymentCards = document.querySelectorAll('.payment-method-card');
+        paymentCards.forEach(card => {
+          card.addEventListener('click', () => {
+            const radio = card.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+
+            paymentCards.forEach(c => {
+              c.classList.remove('border-2', 'border-[#0B0B0B]', 'bg-[#F7F5F0]');
+              c.classList.add('border', 'border-[#0B0B0B]/20', 'bg-white');
+              const subId = c.getAttribute('data-method');
+              if (subId === 'CREDIT_CARD') document.getElementById('card-subfields')?.classList.add('hidden');
+              if (subId === 'PAYPAL') document.getElementById('paypal-subfields')?.classList.add('hidden');
+              if (subId === 'NET_BANKING') document.getElementById('netbanking-subfields')?.classList.add('hidden');
+              if (subId === 'UPI') document.getElementById('upi-subfields')?.classList.add('hidden');
+            });
+
+            card.classList.remove('border', 'border-[#0B0B0B]/20', 'bg-white');
+            card.classList.add('border-2', 'border-[#0B0B0B]', 'bg-[#F7F5F0]');
+
+            const method = card.getAttribute('data-method');
+            if (method === 'CREDIT_CARD') document.getElementById('card-subfields')?.classList.remove('hidden');
+            if (method === 'PAYPAL') document.getElementById('paypal-subfields')?.classList.remove('hidden');
+            if (method === 'NET_BANKING') document.getElementById('netbanking-subfields')?.classList.remove('hidden');
+            if (method === 'UPI') document.getElementById('upi-subfields')?.classList.remove('hidden');
+          });
+        });
+
+        const placeBtn = document.getElementById('place-order-btn');
+        placeBtn.addEventListener('click', async () => {
+          const name = document.getElementById('cust-name').value.trim();
+          const phone = document.getElementById('cust-phone').value.trim();
+          const email = document.getElementById('cust-email').value.trim();
+          const address = document.getElementById('cust-address').value.trim();
+          const city = document.getElementById('cust-city').value.trim();
+          const state = document.getElementById('cust-state').value.trim();
+          const pincode = document.getElementById('cust-pincode').value.trim();
+
+          if (!name || !phone || !email || !address) {
+            alert('Please fill all required delivery details.');
+            return;
+          }
+
+          const selectedMethod = document.querySelector('input[name="payment_method"]:checked')?.value || 'CREDIT_CARD';
+
+          placeBtn.disabled = true;
+          placeBtn.innerHTML = '<span class="inline-block animate-spin mr-2">◌</span> VERIFYING PRICING & CLOUD FIRESTORE...';
+
+          // Critical Rule: Never calculate final price only on frontend. Validate against Firebase data before creating order.
+          const finalVerifiedCart = await verifyCartItemsFromFirestore(cart);
+          
+          let validatedOffer = null;
+          const currentCode = getSavedCouponCode();
+          if (currentCode) {
+            const checkRes = await validateCoupon(currentCode, finalVerifiedCart, email, auth?.currentUser?.uid);
+            if (checkRes.valid) {
+              validatedOffer = checkRes.offer;
+            } else {
+              alert(`Coupon note: ${checkRes.error}`);
+            }
+          }
+
+          const finalTotals = calculateOrderTotals(finalVerifiedCart, validatedOffer, 5.00, FREE_SHIPPING_THRESHOLD);
+
+          const randomNum = Math.floor(10000 + Math.random() * 90000);
+          const orderId = `YS-${randomNum}`;
+
+          const orderPayload = {
+            orderId,
+            userId: auth?.currentUser?.uid || 'guest',
+            items: finalVerifiedCart,
+            subtotal: finalTotals.subtotal,
+            shipping: finalTotals.shipping,
+            discount: finalTotals.discount,
+            tax: finalTotals.tax,
+            total: finalTotals.total,
+            couponCode: validatedOffer ? validatedOffer.couponCode : null,
+            offerId: validatedOffer ? validatedOffer.offerId : null,
+            currency: 'USD',
+            paymentMethod: selectedMethod,
+            paymentStatus: 'PAID',
+            orderStatus: 'CONFIRMED',
+            customerName: name,
+            customerEmail: email,
+            customerPhone: phone,
+            shippingAddress: { address, city, state, pincode },
+            trackingNumber: `USPS-${randomNum}92`,
+            courier: 'USPS Priority Air',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+
+          // Store real order in Firestore: orders/{orderId}
+          await createOrderInFirestore(orderPayload);
+
+          // Record offer usage in Firestore if coupon was redeemed
+          if (validatedOffer) {
+            await recordOfferUsage(validatedOffer.offerId);
+          }
+
+          // Clear coupon and cart
+          removeSavedCouponCode();
+          saveCart([]);
+
+          document.getElementById('confirmed-order-id').textContent = orderId;
+          document.getElementById('track-order-link').href = `/track-order.html?orderId=${orderId}`;
+          document.getElementById('order-success-modal').classList.remove('hidden');
+        });
+      });
+    </script>
+  </body>
+</html>

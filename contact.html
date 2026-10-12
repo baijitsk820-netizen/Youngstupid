@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Support | YOUNG & STUPID</title>
+    <meta name="description" content="Get help with your Young & Stupid orders, shipments, returns, and product questions. Dedicated 24/7 streetwear concierge." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-[#0B0B0B] text-[#F7F5F0] py-2 px-4 text-center text-[10px] uppercase font-bold tracking-widest border-b border-[#222]">
+      <span>GLOBAL STREETWEAR LAB • PRIORITY SUPPORT CONCIERGE</span>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-[#0B0B0B]/10 py-5 px-4 md:px-8 sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="/index.html" class="flex items-center gap-2">
+          <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span class="text-[9px] font-bold tracking-widest text-[#6B6B6B] uppercase">SUPPORT</span>
+        </a>
+
+        <div class="flex items-center gap-6">
+          <a href="/products.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] hover:text-[#6B6B6B] hidden sm:block">
+            Shop Drops
+          </a>
+          <a href="/faq.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] hover:text-[#6B6B6B]">
+            FAQ
+          </a>
+          <a href="/track-order.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] hover:text-[#6B6B6B] hidden md:block">
+            Track Order
+          </a>
+          <a href="/wishlist.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Wishlist">
+            <i class="fa-regular fa-heart text-sm"></i>
+            <span class="wishlist-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+          <a href="/cart.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Shopping Bag">
+            <i class="fa-solid fa-bag-shopping text-sm"></i>
+            <span class="cart-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+          </a>
+          <a href="/login.html" class="auth-account-link hover:text-[#6B6B6B] p-1.5" title="Account">
+            <i class="fa-regular fa-user text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 md:px-8 py-10 flex-1 w-full space-y-10">
+
+      <!-- Breadcrumbs & Header -->
+      <div class="border-b border-[#0B0B0B]/10 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 border border-[#0B0B0B] bg-white px-3 py-1 text-[10px] font-bold tracking-widest uppercase mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#C7FF2E]"></span>
+            <span>CUSTOMER SUPPORT & ASSISTANCE</span>
+          </div>
+          <h1 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#0B0B0B]">
+            CONTACT SUPPORT
+          </h1>
+          <p class="text-xs sm:text-sm text-[#6B6B6B] mt-1 max-w-xl">
+            Our team is here to assist with orders, sizing guidance, exchanges, and shipment tracking.
+          </p>
+        </div>
+
+        <!-- Quick Help Links -->
+        <div class="flex items-center gap-3">
+          <a href="/faq.html" class="border border-[#0B0B0B] bg-white px-4 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] hover:bg-[#0B0B0B] hover:text-[#F7F5F0] transition-colors">
+            Browse FAQ →
+          </a>
+          <a href="/return-policy.html" class="border border-[#0B0B0B]/30 bg-white px-4 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:border-[#0B0B0B] transition-colors">
+            Returns Info
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Layout: Form & Help Channels -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Form Column (8 cols) -->
+        <div class="lg:col-span-8 bg-white border border-[#0B0B0B]/10 p-6 sm:p-8">
+          
+          <!-- SUBMISSION VIEW -->
+          <div id="ticket-form-container">
+            <h2 class="font-editorial text-lg font-bold uppercase tracking-wider text-[#0B0B0B] mb-1">
+              Submit a Request
+            </h2>
+            <p class="text-xs text-[#6B6B6B] mb-6">
+              Fill in the details below. We typically respond within 24 business hours.
+            </p>
+
+            <form id="support-ticket-form" class="space-y-5 text-xs">
+              
+              <!-- Row: Name & Email -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-bold uppercase text-[#6B6B6B] mb-1">Your Name *</label>
+                  <input 
+                    type="text" 
+                    id="ticket-name" 
+                    required 
+                    placeholder="Aryan Sharma" 
+                    class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+                  />
+                </div>
+                <div>
+                  <label class="block font-bold uppercase text-[#6B6B6B] mb-1">Email Address *</label>
+                  <input 
+                    type="email" 
+                    id="ticket-email" 
+                    required 
+                    placeholder="aryan@domain.com" 
+                    class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+                  />
+                </div>
+              </div>
+
+              <!-- Row: Order ID & Category -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-bold uppercase text-[#6B6B6B] mb-1">
+                    Order ID <span class="text-[#6B6B6B]/60 font-normal">(Optional)</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="ticket-order-id" 
+                    placeholder="e.g. YS-82914" 
+                    class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+                  />
+                </div>
+
+                <div>
+                  <label class="block font-bold uppercase text-[#6B6B6B] mb-1">Support Category *</label>
+                  <select 
+                    id="ticket-category" 
+                    required 
+                    class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] font-semibold focus:outline-none focus:border-[#0B0B0B]"
+                  >
+                    <option value="Order Issue">Order Issue</option>
+                    <option value="Damaged Product">Damaged Product</option>
+                    <option value="Return / Refund">Return / Refund</option>
+                    <option value="Payment Issue">Payment Issue</option>
+                    <option value="Shipping">Shipping</option>
+                    <option value="Product Question">Product Question</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Subject -->
+              <div>
+                <label class="block font-bold uppercase text-[#6B6B6B] mb-1">Subject *</label>
+                <input 
+                  type="text" 
+                  id="ticket-subject" 
+                  required 
+                  placeholder="Brief summary of your inquiry..." 
+                  class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+                />
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label class="block font-bold uppercase text-[#6B6B6B] mb-1">Message *</label>
+                <textarea 
+                  id="ticket-message" 
+                  required 
+                  rows="5" 
+                  placeholder="Describe your issue or question in detail..." 
+                  class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+                ></textarea>
+              </div>
+
+              <!-- Attachment (Optional) -->
+              <div>
+                <label class="block font-bold uppercase text-[#6B6B6B] mb-1">
+                  Attachment <span class="text-[#6B6B6B]/60 font-normal">(Optional — Image or Photo URL)</span>
+                </label>
+                <div class="flex gap-2">
+                  <input 
+                    type="url" 
+                    id="ticket-attachment-url" 
+                    placeholder="https://example.com/photo.jpg" 
+                    class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+                  />
+                </div>
+                <p class="text-[10px] text-[#6B6B6B] mt-1">Useful if reporting damaged merchandise or delivery packaging.</p>
+              </div>
+
+              <!-- Submit Button -->
+              <button 
+                type="submit" 
+                id="submit-ticket-btn" 
+                class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 font-editorial font-bold text-xs uppercase tracking-widest transition-colors btn-press flex items-center justify-center gap-2"
+              >
+                <span>Submit Request</span>
+                <span class="text-[#C7FF2E] text-sm">→</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- SUCCESS STATE VIEW -->
+          <div id="ticket-success-container" class="hidden text-center py-8 space-y-6 animate-fade-up">
+            <div class="w-16 h-16 bg-[#0B0B0B] text-[#C7FF2E] rounded-full flex items-center justify-center mx-auto text-2xl border-2 border-[#C7FF2E]">
+              <i class="fa-solid fa-check"></i>
+            </div>
+
+            <div>
+              <span class="bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold uppercase px-3 py-1 tracking-widest">
+                CLAIM RECORDED
+              </span>
+              <h2 class="font-editorial text-2xl sm:text-3xl font-bold uppercase text-[#0B0B0B] mt-3">
+                Support Request Submitted
+              </h2>
+              <p class="text-xs sm:text-sm text-[#6B6B6B] mt-2 max-w-md mx-auto leading-relaxed">
+                “Our support team will review your request and get back to you.”
+              </p>
+            </div>
+
+            <div class="bg-[#F7F5F0] border border-[#0B0B0B]/10 p-5 max-w-md mx-auto text-left space-y-2 text-xs">
+              <div class="flex justify-between items-center pb-2 border-b border-[#E8E6E1]">
+                <span class="text-[#6B6B6B] uppercase font-bold text-[10px]">Your Ticket ID:</span>
+                <span id="success-ticket-id" class="font-editorial font-bold text-sm text-[#0B0B0B]">TKT-000000</span>
+              </div>
+              <div class="flex justify-between items-center text-[11px]">
+                <span class="text-[#6B6B6B]">Category:</span>
+                <span id="success-ticket-category" class="font-bold text-[#0B0B0B]">Order Issue</span>
+              </div>
+              <div class="flex justify-between items-center text-[11px]">
+                <span class="text-[#6B6B6B]">Subject:</span>
+                <span id="success-ticket-subject" class="font-bold text-[#0B0B0B] truncate max-w-[200px]">-</span>
+              </div>
+              <div class="flex justify-between items-center text-[11px]">
+                <span class="text-[#6B6B6B]">Status:</span>
+                <span class="bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold px-2 py-0.5 uppercase">OPEN</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-3 pt-2">
+              <button 
+                type="button" 
+                id="submit-another-btn" 
+                class="border border-[#0B0B0B] bg-white text-[#0B0B0B] hover:bg-[#F7F5F0] px-6 py-3 font-editorial font-bold text-xs uppercase tracking-wider transition-colors"
+              >
+                Submit Another Request
+              </button>
+              <a 
+                href="/products.html" 
+                class="bg-[#0B0B0B] text-white hover:bg-black px-6 py-3 font-editorial font-bold text-xs uppercase tracking-wider transition-colors"
+              >
+                Continue Shopping →
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar / Direct Channels (4 cols) -->
+        <div class="lg:col-span-4 space-y-6">
+
+          <!-- Check Ticket Status Card -->
+          <div class="bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass text-sm text-[#0B0B0B]"></i>
+              <h3 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">
+                Check Ticket Status
+              </h3>
+            </div>
+            <p class="text-xs text-[#6B6B6B]">
+              Already submitted a ticket? Enter your Ticket ID to check replies.
+            </p>
+
+            <form id="lookup-ticket-form" class="space-y-2">
+              <input 
+                type="text" 
+                id="lookup-ticket-id" 
+                required 
+                placeholder="e.g. TKT-123456" 
+                class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] uppercase font-bold focus:outline-none focus:border-[#0B0B0B]"
+              />
+              <button 
+                type="submit" 
+                id="lookup-btn"
+                class="w-full bg-[#0B0B0B] text-white hover:bg-black py-2.5 text-xs font-editorial font-bold uppercase tracking-wider transition-colors"
+              >
+                Look Up Status
+              </button>
+            </form>
+
+            <!-- Lookup Result Box -->
+            <div id="lookup-result-box" class="hidden p-4 bg-[#F7F5F0] border border-[#0B0B0B]/20 text-xs space-y-2">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- Direct Contacts -->
+          <div class="bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+            <h3 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B] pb-2 border-b border-[#E8E6E1]">
+              Direct Channels
+            </h3>
+
+            <div class="space-y-3 text-xs">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#F7F5F0] flex items-center justify-center shrink-0 text-[#0B0B0B]">
+                  <i class="fa-regular fa-envelope text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-bold uppercase text-[10px] text-[#6B6B6B]">Email Concierge</div>
+                  <a href="mailto:support@youngstupid.com" class="font-semibold text-[#0B0B0B] hover:underline">
+                    support@youngstupid.com
+                  </a>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#F7F5F0] flex items-center justify-center shrink-0 text-[#0B0B0B]">
+                  <i class="fa-regular fa-clock text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-bold uppercase text-[10px] text-[#6B6B6B]">Operating Hours</div>
+                  <div class="text-[#0B0B0B]">Mon – Sat: 10:00 AM – 7:00 PM IST</div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#F7F5F0] flex items-center justify-center shrink-0 text-[#0B0B0B]">
+                  <i class="fa-solid fa-truck-fast text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-bold uppercase text-[10px] text-[#6B6B6B]">Order Tracking</div>
+                  <a href="/track-order.html" class="font-semibold text-[#0B0B0B] hover:underline">
+                    Instant AWB Tracking Portal →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Callout -->
+          <div class="bg-[#0B0B0B] text-[#F7F5F0] p-6 space-y-3">
+            <span class="bg-[#C7FF2E] text-[#0B0B0B] text-[9px] font-extrabold uppercase px-2 py-0.5 tracking-wider">
+              QUICK ANSWERS
+            </span>
+            <h4 class="font-editorial text-base font-bold uppercase text-white">
+              Need Faster Help?
+            </h4>
+            <p class="text-xs text-[#8E8E93] leading-relaxed">
+              Common questions regarding sizing, fabric GSM, wash care, return pickups, and promo codes are answered in our FAQ library.
+            </p>
+            <a href="/faq.html" class="inline-block bg-[#C7FF2E] text-[#0B0B0B] hover:bg-[#b5ee20] px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider">
+              Open Knowledge Base →
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] py-12 px-4 md:px-8 border-t border-[#333] mt-24">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 text-xs">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="font-editorial text-xl font-bold tracking-tighter text-white">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          </div>
+          <p class="text-[#8E8E93] leading-relaxed">
+            Contemporary heavyweight streetwear apparel. Engineered for those who forge their own lane.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Shop</h4>
+          <ul class="space-y-2 text-[#8E8E93] uppercase font-semibold">
+            <li><a href="/products.html" class="hover:text-white">All T-Shirts</a></li>
+            <li><a href="/products.html?category=oversized" class="hover:text-white">Oversized</a></li>
+            <li><a href="/products.html?category=graphic" class="hover:text-white">Graphic Tees</a></li>
+            <li><a href="/products.html?category=minimal" class="hover:text-white">Minimal</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Help & Info</h4>
+          <ul class="space-y-2 text-[#8E8E93] uppercase font-semibold">
+            <li><a href="/contact.html" class="hover:text-white text-white">Contact Support</a></li>
+            <li><a href="/faq.html" class="hover:text-white">Frequently Asked Questions</a></li>
+            <li><a href="/track-order.html" class="hover:text-white">Track Order</a></li>
+            <li><a href="/return-policy.html" class="hover:text-white">Return & Refund Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Account</h4>
+          <ul class="space-y-2 text-[#8E8E93] uppercase font-semibold">
+            <li><a href="/login.html" class="hover:text-white">My Account</a></li>
+            <li><a href="/wishlist.html" class="hover:text-white">Wishlist</a></li>
+            <li><a href="/cart.html" class="hover:text-white">Shopping Bag</a></li>
+            <li><a href="/about.html" class="hover:text-white">Philosophy & Story</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto pt-8 border-t border-[#222] flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-[#6B6B6B]">
+        <div>© 2026 YOUNG & STUPID. ALL RIGHTS RESERVED.</div>
+        <div class="flex gap-6 uppercase">
+          <a href="/about.html" class="hover:text-white">Privacy Policy</a>
+          <a href="/about.html" class="hover:text-white">Terms</a>
+          <span class="text-white">USD ($)</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { auth, createSupportTicket, getSupportTicketById } from '/js/firebase-init.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const formContainer = document.getElementById('ticket-form-container');
+        const successContainer = document.getElementById('ticket-success-container');
+        const ticketForm = document.getElementById('support-ticket-form');
+        const submitBtn = document.getElementById('submit-ticket-btn');
+        const submitAnotherBtn = document.getElementById('submit-another-btn');
+
+        // Prepopulate if authenticated
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            const nameInput = document.getElementById('ticket-name');
+            const emailInput = document.getElementById('ticket-email');
+            if (nameInput && !nameInput.value) {
+              nameInput.value = user.displayName || '';
+            }
+            if (emailInput && !emailInput.value) {
+              emailInput.value = user.email || '';
+            }
+          }
+        });
+
+        // Form Submit
+        ticketForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById('ticket-name').value.trim();
+          const email = document.getElementById('ticket-email').value.trim();
+          const orderId = document.getElementById('ticket-order-id').value.trim();
+          const category = document.getElementById('ticket-category').value;
+          const subject = document.getElementById('ticket-subject').value.trim();
+          const message = document.getElementById('ticket-message').value.trim();
+          const attachmentUrl = document.getElementById('ticket-attachment-url').value.trim();
+
+          if (!name || !email || !subject || !message) {
+            alert('Please fill out all required fields.');
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="inline-block animate-spin mr-2">◌</span> Submitting Request...';
+
+          try {
+            const ticket = await createSupportTicket({
+              name,
+              email,
+              orderId,
+              category,
+              subject,
+              message,
+              attachmentUrls: attachmentUrl ? [attachmentUrl] : []
+            });
+
+            // Populate Success View
+            document.getElementById('success-ticket-id').textContent = ticket.ticketId;
+            document.getElementById('success-ticket-category').textContent = ticket.category;
+            document.getElementById('success-ticket-subject').textContent = ticket.subject;
+
+            formContainer.classList.add('hidden');
+            successContainer.classList.remove('hidden');
+
+            if (window.showToast) {
+              window.showToast(`Support Ticket ${ticket.ticketId} created!`);
+            }
+          } catch (err) {
+            console.error('Error submitting ticket:', err);
+            alert('Could not submit request. Please try again.');
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Submit Request</span><span class="text-[#C7FF2E] text-sm">→</span>';
+          }
+        });
+
+        // Submit Another Request
+        submitAnotherBtn?.addEventListener('click', () => {
+          ticketForm.reset();
+          successContainer.classList.add('hidden');
+          formContainer.classList.remove('hidden');
+        });
+
+        // Look Up Ticket Status
+        const lookupForm = document.getElementById('lookup-ticket-form');
+        const lookupInput = document.getElementById('lookup-ticket-id');
+        const lookupBtn = document.getElementById('lookup-btn');
+        const lookupResultBox = document.getElementById('lookup-result-box');
+
+        lookupForm?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const ticketId = lookupInput.value.trim().toUpperCase();
+          if (!ticketId) return;
+
+          lookupBtn.disabled = true;
+          lookupBtn.textContent = 'Searching...';
+
+          try {
+            const ticket = await getSupportTicketById(ticketId);
+            lookupResultBox.classList.remove('hidden');
+
+            if (!ticket) {
+              lookupResultBox.innerHTML = `
+                <div class="text-red-700 font-bold">Ticket not found</div>
+                <div class="text-[#6B6B6B]">No support claim matching "${ticketId}" was located. Please check the ID.</div>
+              `;
+            } else {
+              const statusColors = {
+                'Open': 'bg-[#0B0B0B] text-[#C7FF2E]',
+                'In Progress': 'bg-blue-600 text-white',
+                'Waiting for Customer': 'bg-amber-500 text-black',
+                'Resolved': 'bg-green-600 text-white',
+                'Closed': 'bg-gray-600 text-white'
+              };
+              const colorClass = statusColors[ticket.status] || 'bg-[#0B0B0B] text-white';
+
+              lookupResultBox.innerHTML = `
+                <div class="flex justify-between items-start">
+                  <span class="font-editorial font-bold text-sm text-[#0B0B0B]">${ticket.ticketId}</span>
+                  <span class="px-2 py-0.5 text-[9px] font-bold uppercase ${colorClass}">${ticket.status || 'Open'}</span>
+                </div>
+                <div class="font-bold text-[#0B0B0B] mt-1">${ticket.subject || ''}</div>
+                <div class="text-[#6B6B6B] text-[11px]">Category: ${ticket.category} • Submitted: ${new Date(ticket.createdAt).toLocaleDateString()}</div>
+                
+                ${ticket.adminReply ? `
+                  <div class="mt-2 pt-2 border-t border-[#E8E6E1] bg-white p-2.5 border">
+                    <div class="text-[10px] font-bold text-[#0B0B0B] uppercase flex items-center gap-1.5 mb-1">
+                      <i class="fa-solid fa-headset text-[#C7FF2E] bg-black p-0.5"></i>
+                      <span>Staff Response:</span>
+                    </div>
+                    <div class="text-[#171717] leading-relaxed">${ticket.adminReply}</div>
+                  </div>
+                ` : `
+                  <div class="text-[10px] text-[#6B6B6B] italic mt-2 pt-2 border-t border-[#E8E6E1]">
+                    Status: Under review by our support team.
+                  </div>
+                `}
+              `;
+            }
+          } catch (err) {
+            console.error('Lookup error:', err);
+            lookupResultBox.classList.remove('hidden');
+            lookupResultBox.innerHTML = '<div class="text-red-700">Error retrieving ticket details.</div>';
+          } finally {
+            lookupBtn.disabled = false;
+            lookupBtn.textContent = 'Look Up Status';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

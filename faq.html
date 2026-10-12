@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frequently Asked Questions | YOUNG & STUPID</title>
+    <meta name="description" content="Answers to common questions about Young & Stupid heavyweight T-shirt sizing, orders, express shipping, returns, refunds, payment security, and coupon codes." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-[#0B0B0B] text-[#F7F5F0] py-2 px-4 text-center text-[10px] uppercase font-bold tracking-widest border-b border-[#222]">
+      <span>KNOWLEDGE BASE • HEAVYWEIGHT APPAREL CARE & LOGISTICS</span>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-[#0B0B0B]/10 py-5 px-4 md:px-8 sticky top-0 z-30">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="/index.html" class="flex items-center gap-2">
+          <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span class="text-[9px] font-bold tracking-widest text-[#6B6B6B] uppercase">FAQ</span>
+        </a>
+
+        <div class="flex items-center gap-6">
+          <a href="/products.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] hover:text-[#6B6B6B] hidden sm:block">
+            Shop Drops
+          </a>
+          <a href="/contact.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] hover:text-[#6B6B6B]">
+            Contact Support
+          </a>
+          <a href="/track-order.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] hover:text-[#6B6B6B] hidden md:block">
+            Track Order
+          </a>
+          <a href="/wishlist.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Wishlist">
+            <i class="fa-regular fa-heart text-sm"></i>
+            <span class="wishlist-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+          <a href="/cart.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Shopping Bag">
+            <i class="fa-solid fa-bag-shopping text-sm"></i>
+            <span class="cart-count-badge bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+          </a>
+          <a href="/login.html" class="auth-account-link hover:text-[#6B6B6B] p-1.5" title="Account">
+            <i class="fa-regular fa-user text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 md:px-8 py-10 flex-1 w-full space-y-10">
+
+      <!-- Breadcrumbs & Hero -->
+      <div class="text-center max-w-2xl mx-auto space-y-4">
+        <div class="inline-flex items-center gap-2 border border-[#0B0B0B] bg-white px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#C7FF2E]"></span>
+          <span>HELP & KNOWLEDGE BASE</span>
+        </div>
+        <h1 class="font-editorial text-3xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-[#0B0B0B]">
+          FREQUENTLY ASKED QUESTIONS
+        </h1>
+        <p class="text-xs sm:text-sm text-[#6B6B6B] leading-relaxed">
+          Everything you need to know about our heavyweight silhouettes, sizing choices, logistics, payment security, and coupons.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="pt-2">
+          <div class="relative max-w-lg mx-auto">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-xs text-[#6B6B6B]"></i>
+            <input 
+              type="text" 
+              id="faq-search-input" 
+              placeholder="Search questions (e.g. sizing, returns, coupons)..." 
+              class="w-full bg-white border border-[#0B0B0B]/20 pl-10 pr-4 py-3.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B] shadow-sm font-medium"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex items-center justify-center gap-2 flex-wrap pb-2" id="faq-category-pills">
+        <button data-cat="all" class="faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-[#0B0B0B] text-[#F7F5F0] border border-[#0B0B0B] transition-colors shadow-sm">
+          All Questions
+        </button>
+        <button data-cat="Orders" class="faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] transition-colors">
+          Orders
+        </button>
+        <button data-cat="Products" class="faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] transition-colors">
+          Products & Sizing
+        </button>
+        <button data-cat="Shipping" class="faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] transition-colors">
+          Shipping
+        </button>
+        <button data-cat="Returns" class="faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] transition-colors">
+          Returns & Refunds
+        </button>
+        <button data-cat="Payment" class="faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] transition-colors">
+          Payment
+        </button>
+        <button data-cat="Coupons" class="faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] transition-colors">
+          Coupons & Offers
+        </button>
+      </div>
+
+      <!-- FAQ Accordions Container -->
+      <div id="faq-sections-wrapper" class="space-y-8">
+        <!-- Rendered dynamically from Firestore / defaults -->
+      </div>
+
+      <!-- No Results State -->
+      <div id="faq-no-results" class="hidden text-center py-12 bg-white border border-[#0B0B0B]/10 p-8">
+        <i class="fa-solid fa-circle-question text-3xl text-[#6B6B6B] mb-3"></i>
+        <h3 class="font-editorial text-lg font-bold uppercase text-[#0B0B0B]">No Matching Questions</h3>
+        <p class="text-xs text-[#6B6B6B] mt-1 mb-4">We couldn't find an answer matching your query. Reach out directly to our concierge team.</p>
+        <a href="/contact.html" class="inline-block bg-[#0B0B0B] text-white px-6 py-3 font-editorial font-bold text-xs uppercase tracking-wider">
+          Contact Support →
+        </a>
+      </div>
+
+      <!-- Still Have Questions Banner -->
+      <div class="bg-white border border-[#0B0B0B]/10 p-8 sm:p-10 flex flex-col sm:flex-row justify-between items-center gap-6">
+        <div class="space-y-2 text-center sm:text-left">
+          <span class="bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold uppercase px-2 py-0.5 tracking-wider">
+            24/7 SUPPORT AVAILABLE
+          </span>
+          <h3 class="font-editorial text-2xl font-bold uppercase text-[#0B0B0B]">
+            Still have questions?
+          </h3>
+          <p class="text-xs text-[#6B6B6B] max-w-md">
+            Can’t find what you’re looking for? Reach out to our dedicated support team and we’ll get back to you promptly.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="/contact.html" class="bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-6 py-3.5 text-xs font-editorial font-bold uppercase tracking-widest transition-colors btn-press">
+            Contact Support →
+          </a>
+          <a href="/track-order.html" class="border border-[#0B0B0B] bg-transparent text-[#0B0B0B] hover:bg-[#F7F5F0] px-6 py-3.5 text-xs font-editorial font-bold uppercase tracking-widest transition-colors">
+            Track Order
+          </a>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] py-12 px-4 md:px-8 border-t border-[#333] mt-24">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 text-xs">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="font-editorial text-xl font-bold tracking-tighter text-white">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          </div>
+          <p class="text-[#8E8E93] leading-relaxed">
+            Contemporary heavyweight streetwear apparel. Engineered for those who forge their own lane.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Shop</h4>
+          <ul class="space-y-2 text-[#8E8E93] uppercase font-semibold">
+            <li><a href="/products.html" class="hover:text-white">All T-Shirts</a></li>
+            <li><a href="/products.html?category=oversized" class="hover:text-white">Oversized</a></li>
+            <li><a href="/products.html?category=graphic" class="hover:text-white">Graphic Tees</a></li>
+            <li><a href="/products.html?category=minimal" class="hover:text-white">Minimal</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Help & Info</h4>
+          <ul class="space-y-2 text-[#8E8E93] uppercase font-semibold">
+            <li><a href="/faq.html" class="hover:text-white text-white">Frequently Asked Questions</a></li>
+            <li><a href="/contact.html" class="hover:text-white">Contact Support</a></li>
+            <li><a href="/track-order.html" class="hover:text-white">Track Order</a></li>
+            <li><a href="/return-policy.html" class="hover:text-white">Return & Refund Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#C7FF2E] mb-4">Account</h4>
+          <ul class="space-y-2 text-[#8E8E93] uppercase font-semibold">
+            <li><a href="/login.html" class="hover:text-white">My Account</a></li>
+            <li><a href="/wishlist.html" class="hover:text-white">Wishlist</a></li>
+            <li><a href="/cart.html" class="hover:text-white">Shopping Bag</a></li>
+            <li><a href="/about.html" class="hover:text-white">Philosophy & Story</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto pt-8 border-t border-[#222] flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-[#6B6B6B]">
+        <div>© 2026 YOUNG & STUPID. ALL RIGHTS RESERVED.</div>
+        <div class="flex gap-6 uppercase">
+          <a href="/about.html" class="hover:text-white">Privacy Policy</a>
+          <a href="/about.html" class="hover:text-white">Terms</a>
+          <span class="text-white">USD ($)</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { getFaqsFromFirestore } from '/js/firebase-init.js';
+
+      let allFaqs = [];
+      let activeCategory = 'all';
+      let searchQuery = '';
+
+      const CATEGORY_ORDER = ['Orders', 'Products', 'Shipping', 'Returns', 'Payment', 'Coupons'];
+
+      const CATEGORY_TITLES = {
+        'Orders': 'Orders & Modifications',
+        'Products': 'Products, GSM & Sizing',
+        'Shipping': 'Shipping & Express Dispatch',
+        'Returns': 'Returns & Refund Claims',
+        'Payment': 'Payment Security & Methods',
+        'Coupons': 'Coupons, Promos & Discounts'
+      };
+
+      function renderFaqs() {
+        const wrapper = document.getElementById('faq-sections-wrapper');
+        const noResults = document.getElementById('faq-no-results');
+        if (!wrapper) return;
+
+        let filtered = allFaqs.filter(f => f.active !== false);
+
+        if (activeCategory !== 'all') {
+          filtered = filtered.filter(f => (f.category || '').toLowerCase() === activeCategory.toLowerCase());
+        }
+
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase().trim();
+          filtered = filtered.filter(f => 
+            (f.question || '').toLowerCase().includes(q) ||
+            (f.answer || '').toLowerCase().includes(q) ||
+            (f.category || '').toLowerCase().includes(q)
+          );
+        }
+
+        if (filtered.length === 0) {
+          wrapper.innerHTML = '';
+          noResults?.classList.remove('hidden');
+          return;
+        }
+
+        noResults?.classList.add('hidden');
+
+        // Group by category
+        const groups = {};
+        filtered.forEach(f => {
+          const cat = f.category || 'Other';
+          if (!groups[cat]) groups[cat] = [];
+          groups[cat].push(f);
+        });
+
+        // Sort categories according to canonical order
+        const categories = Object.keys(groups).sort((a, b) => {
+          const idxA = CATEGORY_ORDER.indexOf(a);
+          const idxB = CATEGORY_ORDER.indexOf(b);
+          if (idxA === -1 && idxB === -1) return a.localeCompare(b);
+          if (idxA === -1) return 1;
+          if (idxB === -1) return -1;
+          return idxA - idxB;
+        });
+
+        wrapper.innerHTML = categories.map(cat => {
+          const faqsInCat = groups[cat];
+          const catTitle = CATEGORY_TITLES[cat] || cat;
+
+          return `
+            <div class="bg-white border border-[#0B0B0B]/10 p-6 sm:p-8 space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-[#0B0B0B]/10">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 bg-[#C7FF2E]"></span>
+                  <h2 class="font-editorial text-lg sm:text-xl font-bold uppercase tracking-wider text-[#0B0B0B]">
+                    ${catTitle}
+                  </h2>
+                </div>
+                <span class="text-[11px] font-bold text-[#6B6B6B] uppercase">${faqsInCat.length} ${faqsInCat.length === 1 ? 'question' : 'questions'}</span>
+              </div>
+
+              <div class="divide-y divide-[#E8E6E1]">
+                ${faqsInCat.map(faq => `
+                  <div class="faq-item py-4">
+                    <button 
+                      type="button" 
+                      class="faq-question-btn w-full flex justify-between items-center gap-4 text-left font-editorial text-sm sm:text-base font-bold uppercase tracking-tight text-[#0B0B0B] hover:text-[#6B6B6B] transition-colors cursor-pointer group"
+                    >
+                      <span>${faq.question}</span>
+                      <span class="faq-icon-indicator w-6 h-6 border border-[#0B0B0B]/20 flex items-center justify-center shrink-0 text-xs font-bold group-hover:border-[#0B0B0B] transition-transform">
+                        <i class="fa-solid fa-plus transition-transform duration-200"></i>
+                      </span>
+                    </button>
+                    <div class="faq-answer-panel hidden mt-3 pr-8 text-xs sm:text-sm text-[#444] leading-relaxed">
+                      <p>${faq.answer}</p>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Attach accordion click events
+        wrapper.querySelectorAll('.faq-question-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const panel = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon-indicator i');
+            const isCurrentlyOpen = !panel.classList.contains('hidden');
+
+            if (isCurrentlyOpen) {
+              panel.classList.add('hidden');
+              if (icon) {
+                icon.className = 'fa-solid fa-plus transition-transform duration-200';
+              }
+            } else {
+              panel.classList.remove('hidden');
+              if (icon) {
+                icon.className = 'fa-solid fa-minus transition-transform duration-200';
+              }
+            }
+          });
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        allFaqs = await getFaqsFromFirestore();
+        renderFaqs();
+
+        // Search listener
+        const searchInput = document.getElementById('faq-search-input');
+        searchInput?.addEventListener('input', (e) => {
+          searchQuery = e.target.value;
+          renderFaqs();
+        });
+
+        // Pill buttons
+        document.querySelectorAll('.faq-pill-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const cat = btn.getAttribute('data-cat');
+            activeCategory = cat;
+
+            document.querySelectorAll('.faq-pill-btn').forEach(b => {
+              b.className = 'faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-white text-[#0B0B0B] border border-[#0B0B0B]/20 hover:border-[#0B0B0B] transition-colors';
+            });
+            btn.className = 'faq-pill-btn px-4 py-2 text-xs font-editorial font-bold uppercase tracking-wider bg-[#0B0B0B] text-[#F7F5F0] border border-[#0B0B0B] transition-colors shadow-sm';
+
+            renderFaqs();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

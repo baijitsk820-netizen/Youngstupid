@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --color-obsidian: #0B0B0B;
+  --color-ivory: #F7F5F0;
+  --color-lime: #C7FF2E;
+  --color-gray-soft: #E8E6E1;
+  --color-charcoal: #171717;
+  --color-secondary-text: #6B6B6B;
+}
+
+body {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #F7F5F0;
+  color: #171717;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-editorial {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.font-sans {
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F5F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #0B0B0B;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glass & Blur */
+.glass-nav {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Product Card Hover Transitions */
+.product-card {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.product-card:hover .product-primary-img {
+  opacity: 0;
+}
+.product-card:hover .product-secondary-img {
+  opacity: 1;
+  transform: scale(1.04);
+}
+.product-card .product-secondary-img {
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.product-card .quick-add-btn {
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.product-card:hover .quick-add-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Featured Products Grid Editorial Streetwear Hover Animation: Subtle Zoom & 3D Tilt */
+#featured-products-grid .product-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+#featured-products-grid .product-card:hover {
+  border-color: #0B0B0B;
+  box-shadow: 0 16px 36px -12px rgba(11, 11, 11, 0.12);
+}
+
+#featured-products-grid .product-img-box {
+  transform-style: preserve-3d;
+  will-change: transform;
+  cursor: pointer;
+  transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+
+#featured-products-grid .product-img-box:hover {
+  box-shadow: 0 12px 28px -6px rgba(11, 11, 11, 0.16);
+}
+
+/* Subtle image zoom when hovering over the image area */
+#featured-products-grid .product-img-box .product-primary-img,
+#featured-products-grid .product-img-box .product-secondary-img,
+#featured-products-grid .product-img-box img {
+  transform: scale(1);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  will-change: transform;
+}
+
+#featured-products-grid .product-img-box:hover .product-primary-img,
+#featured-products-grid .product-img-box:hover .product-secondary-img,
+#featured-products-grid .product-img-box:hover img {
+  transform: scale(1.07);
+}
+
+#featured-products-grid .product-img-box:hover .product-primary-img {
+  opacity: 0;
+}
+
+#featured-products-grid .product-img-box:hover .product-secondary-img {
+  opacity: 1;
+  transform: scale(1.07);
+}
+
+#featured-products-grid .product-img-box .product-secondary-img {
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#featured-products-grid .product-img-box:hover .product-primary-img:only-child,
+#featured-products-grid .product-img-box:hover a > .product-primary-img:only-child {
+  opacity: 1;
+}
+
+#featured-products-grid .product-card .quick-add-btn {
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+#featured-products-grid .product-card:hover .quick-add-btn,
+#featured-products-grid .product-img-box:hover .quick-add-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Cart Drawer Animation */
+#cart-drawer {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#cart-backdrop {
+  transition: opacity 0.3s ease;
+}
+
+/* Badge Electric Lime Highlight */
+.badge-lime {
+  background-color: #C7FF2E;
+  color: #0B0B0B;
+}
+
+/* Button hover micro-interactions */
+.btn-press {
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+.btn-press:active {
+  transform: scale(0.98);
+}
+.btn-hover-lift {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.btn-hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Category grid hover */
+.category-card img {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.category-card:hover img {
+  transform: scale(1.05);
+}
+.category-card .category-overlay {
+  transition: background-color 0.4s ease;
+}
+.category-card:hover .category-overlay {
+  background-color: rgba(11, 11, 11, 0.35);
+}
+
+/* Toast Notifications */
+#toast-container {
+  pointer-events: none;
+}
+.toast-msg {
+  pointer-events: auto;
+  animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Product details image zoom lens */
+.zoom-container {
+  overflow: hidden;
+  cursor: crosshair;
+}
+.zoom-container img {
+  transition: transform 0.3s ease-out;
+}

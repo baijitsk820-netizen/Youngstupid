@@ -1,0 +1,8 @@
+{
+  "name": "Remix YOUNG \u0026 STUPID | Heavyweight Streetwear \u0026 Premium T-Shirts",
+  "description": "High-conversion D2C streetwear e-commerce brand featuring 280-320 GSM heavyweight tees, editorial drop culture, and seamless ordering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

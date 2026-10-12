@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track Your Order | YOUNG & STUPID</title>
+    <meta name="description" content="Live shipment progress and real Cloud Firestore tracking for your YOUNG & STUPID order." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased">
+
+    <!-- Announcement Bar -->
+    <div class="bg-[#0B0B0B] text-[#F7F5F0] py-2 px-4 text-center text-[11px] font-bold tracking-widest uppercase transition-all duration-300 relative z-50">
+      <div id="announcement-text">FREE SHIPPING ON ORDERS OVER $75.00</div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header id="main-nav" class="sticky top-0 z-40 transition-all duration-300 bg-[#F7F5F0]/90 glass-nav border-b border-[#0B0B0B]/10 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <div class="flex items-center gap-6">
+          <a href="/index.html" class="flex items-center gap-2 group">
+            <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          </a>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">
+          <a href="/products.html" class="hover:text-[#6B6B6B] transition-colors">Shop All</a>
+          <a href="/products.html?category=oversized" class="hover:text-[#6B6B6B] transition-colors">Oversized</a>
+          <a href="/products.html?badge=new" class="hover:text-[#6B6B6B] transition-colors">New Drops</a>
+          <a href="/about.html" class="hover:text-[#6B6B6B] transition-colors">Philosophy</a>
+          <a href="/track-order.html" class="text-[#0B0B0B] border-b-2 border-[#0B0B0B] pb-0.5">Track Order</a>
+        </nav>
+
+        <div class="flex items-center gap-4 sm:gap-6 text-[#0B0B0B]">
+          <a href="/wishlist.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Wishlist">
+            <i class="fa-regular fa-heart text-sm"></i>
+            <span class="wishlist-count-badge absolute -top-1 -right-1 bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+
+          <a href="/login.html" class="auth-account-link p-1.5 hover:text-[#6B6B6B]" title="My Account">
+            <i class="fa-regular fa-user text-sm"></i>
+          </a>
+
+          <button class="cart-drawer-trigger relative p-1.5 flex items-center gap-1.5 bg-[#0B0B0B] text-[#F7F5F0] px-3 py-1.5">
+            <i class="fa-solid fa-bag-shopping text-xs text-[#C7FF2E]"></i>
+            <span class="text-xs font-bold hidden sm:inline">BAG</span>
+            <span class="cart-count-badge bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold px-1.5 py-0.2 rounded-full min-w-[18px] text-center">0</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 md:px-8 py-12">
+      
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B]">REAL-TIME FULFILLMENT</span>
+        <h1 class="font-editorial text-3xl sm:text-5xl font-bold uppercase tracking-tight text-[#0B0B0B] mt-1">
+          TRACK YOUR ORDER
+        </h1>
+        <p class="text-xs sm:text-sm text-[#6B6B6B] mt-2">
+          Enter your Order ID and the email or phone number used during checkout.
+        </p>
+      </div>
+
+      <!-- Tracking Search Card -->
+      <div class="bg-white border border-[#0B0B0B]/10 p-6 md:p-8 shadow-sm mb-10">
+        <form id="track-form" class="space-y-4">
+          <!-- Live User Orders from Cloud Firestore -->
+          <div id="user-firestore-orders-container" class="hidden pb-4 mb-4 border-b border-[#E8E6E1]">
+            <span class="text-[10px] bg-[#0B0B0B] text-[#C7FF2E] font-bold uppercase px-2 py-0.5 tracking-widest inline-block mb-2">
+              YOUR RECENT ORDERS (FIRESTORE)
+            </span>
+            <div id="user-orders-chips" class="flex flex-wrap gap-2 text-xs"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Order ID *</label>
+              <input 
+                type="text" 
+                id="search-order-id" 
+                placeholder="E.g. YS-84920" 
+                required 
+                class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs uppercase font-editorial tracking-wider text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+              />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Phone or Email *</label>
+              <input 
+                type="text" 
+                id="search-contact" 
+                placeholder="E.g. alex@example.com" 
+                required 
+                class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+              />
+            </div>
+          </div>
+
+          <button 
+            type="submit" 
+            class="w-full mt-4 bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 font-editorial font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 btn-press"
+          >
+            <i class="fa-solid fa-crosshairs text-xs text-[#C7FF2E]"></i>
+            <span>TRACK ORDER</span>
+          </button>
+        </form>
+
+        <div id="order-error-msg" class="hidden mt-4 p-4 bg-red-50 border border-red-200 text-red-700 text-xs text-center font-bold uppercase">
+          Order not found. Please verify your Order ID and contact details.
+        </div>
+      </div>
+
+      <!-- Real Order Tracking Result Card -->
+      <div id="tracking-result-box" class="hidden bg-white border border-[#0B0B0B]/10 p-6 md:p-8 shadow-sm space-y-8 animate-fade-up">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 border-b border-[#E8E6E1] gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-editorial text-xl font-bold uppercase text-[#0B0B0B]" id="display-order-id">YS-00000</span>
+              <span id="display-order-status-badge" class="bg-[#C7FF2E] text-[#0B0B0B] text-[10px] font-extrabold px-2.5 py-0.5 uppercase tracking-widest">
+                CONFIRMED
+              </span>
+            </div>
+            <div class="text-xs text-[#6B6B6B] mt-1">Recipient: <strong id="display-customer" class="text-[#0B0B0B]">Customer</strong></div>
+          </div>
+
+          <div class="sm:text-right">
+            <div class="text-[11px] text-[#6B6B6B] uppercase font-bold">Total Amount:</div>
+            <div class="font-editorial text-sm font-bold text-[#0B0B0B]" id="display-order-total">$0.00</div>
+            <div class="text-[10px] text-[#6B6B6B]">Tracking: <span id="display-tracking-no" class="font-mono text-[#0B0B0B]">Assigned</span></div>
+          </div>
+        </div>
+
+        <!-- Real Status Timeline (PENDING, CONFIRMED, PROCESSING, SHIPPED, OUT_FOR_DELIVERY, DELIVERED, CANCELLED) -->
+        <div>
+          <h3 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#6B6B6B] mb-6">REAL ORDER STATUS</h3>
+          
+          <div id="timeline-nodes-container" class="grid grid-cols-1 sm:grid-cols-5 gap-4">
+            <!-- Injected according to real Firestore orderStatus -->
+          </div>
+        </div>
+
+        <!-- Order Items Breakdown -->
+        <div class="pt-6 border-t border-[#E8E6E1]">
+          <h4 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#6B6B6B] mb-3">ITEMS IN THIS SHIPMENT</h4>
+          <div class="space-y-2 text-xs divide-y divide-[#E8E6E1]" id="order-items-breakdown"></div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] py-12 px-4 md:px-8 border-t border-[#333] mt-24">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#6B6B6B]">
+        <div class="flex items-center gap-2">
+          <span class="font-editorial text-lg font-bold text-white tracking-tighter">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span>HEAVYWEIGHT APPAREL / USD ($)</span>
+        </div>
+        <div>
+          <a href="/products.html" class="hover:text-white mr-4">All Drops</a>
+          <a href="/faq.html" class="hover:text-white mr-4">FAQ</a>
+          <a href="/contact.html" class="hover:text-white mr-4">Contact Support</a>
+          <a href="/return-policy.html" class="hover:text-white">Return & Refund Policy</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { auth, getOrderFromFirestore, getUserOrdersFromFirestore, extractSizeLabel } from '/js/firebase-init.js';
+      import { onAuthStateChanged } from 'firebase/auth';
+      import { formatPrice } from '/js/cart.js';
+
+      const STAGES = [
+        { code: 'PENDING', label: 'PENDING' },
+        { code: 'CONFIRMED', label: 'CONFIRMED' },
+        { code: 'PROCESSING', label: 'PROCESSING' },
+        { code: 'SHIPPED', label: 'SHIPPED' },
+        { code: 'OUT_FOR_DELIVERY', label: 'OUT FOR DELIVERY' },
+        { code: 'DELIVERED', label: 'DELIVERED' }
+      ];
+
+      function renderOrderTimeline(order) {
+        const resultBox = document.getElementById('tracking-result-box');
+        const errorBox = document.getElementById('order-error-msg');
+        errorBox.classList.add('hidden');
+        resultBox.classList.remove('hidden');
+
+        document.getElementById('display-order-id').textContent = order.orderId;
+        document.getElementById('display-customer').textContent = order.customerName || order.customerEmail || 'Customer';
+        document.getElementById('display-order-status-badge').textContent = order.orderStatus || 'CONFIRMED';
+        document.getElementById('display-order-total').textContent = formatPrice(order.total);
+        document.getElementById('display-tracking-no').textContent = order.trackingNumber || (order.courier ? `${order.courier} (Assigned)` : 'Pending Courier Assignment');
+
+        const currentStatus = (order.orderStatus || 'CONFIRMED').toUpperCase();
+        let stageIdx = STAGES.findIndex(s => s.code === currentStatus);
+        if (stageIdx === -1) stageIdx = 1;
+
+        const timelineContainer = document.getElementById('timeline-nodes-container');
+        timelineContainer.innerHTML = STAGES.slice(1).map((stage, idx) => {
+          const isPassed = idx + 1 < stageIdx;
+          const isCurrent = idx + 1 === stageIdx;
+
+          let circleClass = 'w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs border-2 ';
+          if (isPassed) {
+            circleClass += 'bg-[#0B0B0B] text-white border-[#0B0B0B]';
+          } else if (isCurrent) {
+            circleClass += 'bg-[#0B0B0B] text-[#C7FF2E] border-[#0B0B0B] shadow-md animate-pulse';
+          } else {
+            circleClass += 'bg-white text-[#6B6B6B] border-[#E8E6E1]';
+          }
+
+          return `
+            <div class="flex sm:flex-col items-center sm:text-center gap-3 sm:gap-2">
+              <div class="${circleClass}">
+                ${isPassed ? '✓' : (isCurrent ? '●' : (idx + 1))}
+              </div>
+              <div>
+                <div class="font-editorial text-xs font-bold uppercase ${isCurrent ? 'text-[#0B0B0B]' : 'text-[#6B6B6B]'}">${stage.label}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const itemsBox = document.getElementById('order-items-breakdown');
+        if (Array.isArray(order.items) && order.items.length > 0) {
+          itemsBox.innerHTML = order.items.map(it => `
+            <div class="py-2 flex justify-between items-center">
+              <div>
+                <strong class="font-editorial text-[#0B0B0B] uppercase">${it.name}</strong>
+                <span class="text-[11px] text-[#6B6B6B] ml-2">Size: ${extractSizeLabel(it.size || it.selectedSize) || 'Standard'} × ${it.quantity}</span>
+              </div>
+              <span class="font-editorial font-bold text-[#0B0B0B]">${formatPrice(Number(it.price) * it.quantity)}</span>
+            </div>
+          `).join('');
+        } else {
+          itemsBox.innerHTML = '<div class="text-[#6B6B6B]">Standard drop fulfillment items.</div>';
+        }
+
+        resultBox.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      async function executeTrack(orderId, contact) {
+        const cleanId = orderId.trim().toUpperCase();
+        const cleanContact = contact ? contact.trim().toLowerCase() : '';
+
+        // Query real Cloud Firestore document: orders/{orderId}
+        const order = await getOrderFromFirestore(cleanId);
+        const errorBox = document.getElementById('order-error-msg');
+        const resultBox = document.getElementById('tracking-result-box');
+
+        if (!order) {
+          resultBox.classList.add('hidden');
+          errorBox.classList.remove('hidden');
+          errorBox.textContent = 'Order not found.';
+          return;
+        }
+
+        // Verify contact matches email or phone if provided
+        if (cleanContact) {
+          const orderEmail = (order.customerEmail || '').toLowerCase();
+          const orderPhone = (order.customerPhone || '').toLowerCase();
+          if (cleanContact !== orderEmail && !orderPhone.includes(cleanContact)) {
+            resultBox.classList.add('hidden');
+            errorBox.classList.remove('hidden');
+            errorBox.textContent = 'Order contact verification failed. Please check the email or phone number.';
+            return;
+          }
+        }
+
+        renderOrderTimeline(order);
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('track-form');
+        const inputId = document.getElementById('search-order-id');
+        const inputContact = document.getElementById('search-contact');
+
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            const userOrders = await getUserOrdersFromFirestore(user.uid);
+            if (userOrders.length > 0) {
+              const container = document.getElementById('user-firestore-orders-container');
+              const chipsBox = document.getElementById('user-orders-chips');
+              container.classList.remove('hidden');
+              chipsBox.innerHTML = userOrders.map(ord => `
+                <button type="button" data-fs-order-id="${ord.orderId}" class="bg-[#0B0B0B] text-white hover:bg-black px-3 py-1 font-editorial font-bold text-xs uppercase flex items-center gap-1.5 transition-colors">
+                  <span>${ord.orderId}</span>
+                  <span class="text-[#C7FF2E] text-[10px]">(${ord.orderStatus || 'CONFIRMED'})</span>
+                </button>
+              `).join('');
+
+              chipsBox.querySelectorAll('[data-fs-order-id]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                  const oId = btn.getAttribute('data-fs-order-id');
+                  inputId.value = oId;
+                  inputContact.value = user.email;
+                  executeTrack(oId, user.email);
+                });
+              });
+            }
+          }
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('orderId')) {
+          const id = urlParams.get('orderId');
+          inputId.value = id;
+          executeTrack(id, '');
+        }
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (inputId.value) {
+            executeTrack(inputId.value, inputContact.value);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

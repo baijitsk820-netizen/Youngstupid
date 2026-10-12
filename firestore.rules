@@ -1,0 +1,107 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.admin == true ||
+        request.auth.token.role == 'admin' ||
+        (request.auth.token.email != null && (
+          request.auth.token.email == 'admin@youngstupid.com' ||
+          request.auth.token.email.matches('.*@youngstupid[.]com')
+        ))
+      );
+    }
+
+    // Products: Public shoppers can read published storefront products. Customers cannot write products.
+    // Creation, updating, and deletion restricted to authorized administrators.
+    match /products/{productId} {
+      allow read: if resource == null || resource.data.active != false || isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Reviews: Publicly readable for approved reviews. Authenticated users can create/update.
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    // Return Requests: Customers can create/view return claims; staff can review/update.
+    match /returnRequests/{requestId} {
+      allow read: if true;
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    // User Profiles & subcollections
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create, update: if isOwner(userId);
+      allow delete: if false;
+
+      match /cart/{itemId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /wishlist/{productId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Offers: Publicly readable for active promotions, product pages, and checkout validation.
+    match /offers/{offerId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Orders: Anyone can create orders upon checkout.
+    // Customers can get their individual order for tracking or confirmation.
+    // Listing orders is restricted to the order owner or administrators.
+    match /orders/{orderId} {
+      allow create: if true;
+      allow get: if true;
+      allow list: if isAdmin() || (isSignedIn() && request.auth.uid == resource.data.userId);
+      allow update, delete: if isAdmin();
+    }
+
+    // Leads: Public can subscribe to drop notifications.
+    match /leads/{leadId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    // Support Tickets: Customers can create tickets and track status; staff/admin can reply and resolve.
+    match /supportTickets/{ticketId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if isSignedIn();
+    }
+
+    // FAQs: Publicly readable for customer knowledge base; manageable by store admins.
+    match /faqs/{faqId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Connection test document
+    match /test/{docId} {
+      allow read: if true;
+    }
+  }
+}

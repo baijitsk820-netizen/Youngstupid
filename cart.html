@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Bag | YOUNG & STUPID</title>
+    <meta name="description" content="Review your selected heavyweight streetwear pieces in USD ($) and proceed to secure checkout." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased">
+
+    <!-- Announcement Bar -->
+    <div class="bg-[#0B0B0B] text-[#F7F5F0] py-2 px-4 text-center text-[11px] font-bold tracking-widest uppercase transition-all duration-300 relative z-50">
+      <div id="announcement-text">FREE SHIPPING ON ORDERS OVER $75.00</div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header id="main-nav" class="sticky top-0 z-40 transition-all duration-300 bg-[#F7F5F0]/90 glass-nav border-b border-[#0B0B0B]/10 px-4 md:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <div class="flex items-center gap-6">
+          <a href="/index.html" class="flex items-center gap-2 group">
+            <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+            <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          </a>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">
+          <a href="/products.html" class="hover:text-[#6B6B6B] transition-colors">Shop All</a>
+          <a href="/products.html?category=oversized" class="hover:text-[#6B6B6B] transition-colors">Oversized</a>
+          <a href="/products.html?badge=new" class="hover:text-[#6B6B6B] transition-colors">New Drops</a>
+          <a href="/about.html" class="hover:text-[#6B6B6B] transition-colors">Philosophy</a>
+          <a href="/track-order.html" class="hover:text-[#6B6B6B] transition-colors">Track Order</a>
+        </nav>
+
+        <div class="flex items-center gap-4 text-[#0B0B0B]">
+          <a href="/wishlist.html" class="relative p-1.5 hover:text-[#6B6B6B]" title="Wishlist">
+            <i class="fa-regular fa-heart text-sm"></i>
+            <span class="wishlist-count-badge absolute -top-1 -right-1 bg-[#0B0B0B] text-[#C7FF2E] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+          </a>
+          <a href="/login.html" class="auth-account-link p-1.5 hover:text-[#6B6B6B]" title="Account">
+            <i class="fa-regular fa-user text-sm"></i>
+          </a>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Cart Content -->
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-10">
+      
+      <div class="mb-8 pb-4 border-b border-[#0B0B0B]/10 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-[#6B6B6B]">CHECKOUT PREPARATION</span>
+          <h1 class="font-editorial text-3xl sm:text-4xl font-bold uppercase text-[#0B0B0B]">YOUR SHOPPING BAG</h1>
+        </div>
+        <a href="/products.html" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B] underline hover:text-[#6B6B6B]">
+          Continue Shopping →
+        </a>
+      </div>
+
+      <!-- Free Shipping Notification Progress Bar -->
+      <div class="bg-white border border-[#0B0B0B]/10 p-6 mb-8">
+        <div class="flex justify-between items-center mb-2">
+          <span id="page-shipping-msg" class="text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">
+            Add items worth $75.00 for FREE Express Delivery
+          </span>
+          <span id="page-shipping-pct" class="font-editorial text-xs font-bold text-[#0B0B0B]">0%</span>
+        </div>
+        <div class="w-full h-2 bg-[#E8E6E1] overflow-hidden">
+          <div id="page-shipping-bar" class="h-full bg-[#0B0B0B] transition-all duration-500 w-0"></div>
+        </div>
+      </div>
+
+      <!-- Two Column Layout: Cart Items + Order Summary -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Items Table -->
+        <div class="lg:col-span-8 bg-white border border-[#0B0B0B]/10 p-6">
+          <div id="cart-page-items-list" class="divide-y divide-[#E8E6E1]"></div>
+
+          <!-- Empty State -->
+          <div id="cart-page-empty" class="hidden py-16 text-center">
+            <div class="w-16 h-16 border border-[#0B0B0B]/20 bg-[#F7F5F0] flex items-center justify-center mx-auto mb-4">
+              <i class="fa-solid fa-bag-shopping text-2xl text-[#6B6B6B]"></i>
+            </div>
+            <h3 class="font-editorial text-xl font-bold uppercase text-[#0B0B0B]">YOUR BAG IS EMPTY</h3>
+            <p class="text-xs text-[#6B6B6B] mt-1 mb-6">Discover new drop pieces.</p>
+            <a href="/products.html" class="inline-block bg-[#0B0B0B] text-[#F7F5F0] px-8 py-3.5 font-editorial font-bold text-xs uppercase tracking-widest hover:bg-black">
+              EXPLORE DROPS →
+            </a>
+          </div>
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        <div class="lg:col-span-4 bg-white border border-[#0B0B0B]/10 p-6 space-y-6 lg:sticky lg:top-24">
+          <h3 class="font-editorial text-base font-bold uppercase tracking-wider text-[#0B0B0B] pb-3 border-b border-[#E8E6E1]">
+            ORDER SUMMARY
+          </h3>
+
+          <!-- Dynamic Coupon / Promo Section -->
+          <div>
+            <label class="block text-[11px] font-bold uppercase tracking-widest text-[#6B6B6B] mb-2">Have a promo code?</label>
+            
+            <!-- When no coupon applied -->
+            <div id="promo-input-group" class="flex gap-2">
+              <input 
+                type="text" 
+                id="promo-input" 
+                placeholder="ENTER CODE" 
+                class="flex-1 bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs font-mono uppercase tracking-wider text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"
+              />
+              <button id="apply-promo-btn" class="bg-[#0B0B0B] text-[#F7F5F0] px-4 py-2 text-xs font-editorial font-bold uppercase tracking-widest hover:bg-black transition-colors">
+                Apply
+              </button>
+            </div>
+
+            <!-- When coupon applied -->
+            <div id="promo-applied-badge" class="hidden p-2.5 bg-[#0B0B0B] text-white flex items-center justify-between border-l-4 border-[#C7FF2E] animate-fade-up">
+              <div class="flex items-center gap-2">
+                <span id="applied-code-label" class="font-mono text-xs font-bold text-[#C7FF2E] uppercase">SAVE20 applied ✓</span>
+              </div>
+              <button id="remove-promo-btn" class="text-[11px] text-[#A0A0A0] hover:text-white uppercase font-bold underline cursor-pointer" title="Remove coupon code">
+                Remove
+              </button>
+            </div>
+
+            <div id="promo-status-msg" class="text-[11px] mt-1.5 hidden"></div>
+          </div>
+
+          <!-- Complete Price Breakdown -->
+          <div class="space-y-3 text-xs border-t border-[#E8E6E1] pt-4">
+            <div class="flex justify-between">
+              <span class="text-[#6B6B6B] uppercase font-semibold">Subtotal</span>
+              <span id="page-subtotal" class="font-editorial font-bold text-[#0B0B0B]">$0.00</span>
+            </div>
+
+            <div id="promo-discount-row" class="hidden flex justify-between text-emerald-800">
+              <span id="page-discount-title" class="uppercase font-semibold">Discount</span>
+              <span id="page-discount" class="font-editorial font-bold">-$0.00</span>
+            </div>
+
+            <div class="flex justify-between">
+              <span class="text-[#6B6B6B] uppercase font-semibold">Shipping</span>
+              <span id="page-shipping-cost" class="font-editorial font-bold text-[#0B0B0B]">FREE</span>
+            </div>
+
+            <div class="flex justify-between">
+              <span class="text-[#6B6B6B] uppercase font-semibold">Tax</span>
+              <span id="page-tax-cost" class="font-editorial font-bold text-[#0B0B0B]">$0.00</span>
+            </div>
+
+            <div class="flex justify-between border-t border-[#0B0B0B] pt-4 text-sm">
+              <span class="font-editorial font-bold uppercase text-[#0B0B0B]">Total</span>
+              <span id="page-total" class="font-editorial font-bold text-lg text-[#0B0B0B]">$0.00</span>
+            </div>
+          </div>
+
+          <div class="space-y-3 pt-2">
+            <a id="page-checkout-btn" href="/checkout.html" class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-4 text-center font-editorial font-bold text-xs uppercase tracking-widest block transition-colors flex items-center justify-center gap-2 btn-press">
+              <span>PROCEED TO CHECKOUT</span>
+              <span class="text-[#C7FF2E]">→</span>
+            </a>
+            
+            <div class="p-3 bg-[#F7F5F0] text-[10px] text-[#6B6B6B] space-y-1">
+              <div class="flex items-center gap-2"><i class="fa-solid fa-lock text-[#0B0B0B]"></i> End-to-end encrypted 256-bit payment</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-rotate-left text-[#0B0B0B]"></i> 7-Day return guarantee</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] text-[#F7F5F0] py-12 px-4 md:px-8 border-t border-[#333] mt-24">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[#6B6B6B]">
+        <div class="flex items-center gap-2">
+          <span class="font-editorial text-lg font-bold text-white tracking-tighter">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span>HEAVYWEIGHT APPAREL / USD ($)</span>
+        </div>
+        <div>
+          <a href="/faq.html" class="hover:text-white mr-4">FAQ</a>
+          <a href="/contact.html" class="hover:text-white mr-4">Contact Support</a>
+          <a href="/track-order.html" class="hover:text-white mr-4">Track Order</a>
+          <a href="/return-policy.html" class="hover:text-white mr-4">Return & Refund Policy</a>
+          <a href="/wishlist.html" class="hover:text-white">Wishlist</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { getCart, getCartTotal, updateQuantity, removeFromCart, formatPrice, FREE_SHIPPING_THRESHOLD } from '/js/cart.js';
+      import { 
+        getSavedCouponCode, 
+        saveCouponCode, 
+        removeSavedCouponCode, 
+        validateCoupon, 
+        calculateOrderTotals 
+      } from '/js/offers.js';
+      import { auth, extractProductImageUrl, extractSizeLabel } from '/js/firebase-init.js';
+
+      let activeCouponOffer = null;
+
+      window.renderCartPage = async function() {
+        const cart = getCart();
+        const container = document.getElementById('cart-page-items-list');
+        const emptyState = document.getElementById('cart-page-empty');
+        const subtotalEl = document.getElementById('page-subtotal');
+        const shippingCostEl = document.getElementById('page-shipping-cost');
+        const taxCostEl = document.getElementById('page-tax-cost');
+        const totalEl = document.getElementById('page-total');
+        const shippingMsg = document.getElementById('page-shipping-msg');
+        const shippingBar = document.getElementById('page-shipping-bar');
+        const shippingPct = document.getElementById('page-shipping-pct');
+        const checkoutBtn = document.getElementById('page-checkout-btn');
+
+        const promoInputGroup = document.getElementById('promo-input-group');
+        const promoAppliedBadge = document.getElementById('promo-applied-badge');
+        const appliedCodeLabel = document.getElementById('applied-code-label');
+        const discountRow = document.getElementById('promo-discount-row');
+        const discountVal = document.getElementById('page-discount');
+        const discountTitle = document.getElementById('page-discount-title');
+        const promoStatus = document.getElementById('promo-status-msg');
+
+        if (!container) return;
+
+        if (cart.length === 0) {
+          container.innerHTML = '';
+          emptyState.classList.remove('hidden');
+          checkoutBtn.classList.add('opacity-50', 'pointer-events-none');
+          subtotalEl.textContent = formatPrice(0);
+          totalEl.textContent = formatPrice(0);
+          if (taxCostEl) taxCostEl.textContent = formatPrice(0);
+          shippingMsg.textContent = `Add items worth ${formatPrice(FREE_SHIPPING_THRESHOLD)} for Free Delivery`;
+          shippingBar.style.width = '0%';
+          shippingPct.textContent = '0%';
+          discountRow?.classList.add('hidden');
+          return;
+        }
+
+        emptyState.classList.add('hidden');
+        checkoutBtn.classList.remove('opacity-50', 'pointer-events-none');
+
+        // Check if there is a saved coupon
+        const savedCode = getSavedCouponCode();
+        if (savedCode) {
+          const valRes = await validateCoupon(savedCode, cart, auth?.currentUser?.email, auth?.currentUser?.uid);
+          if (valRes.valid) {
+            activeCouponOffer = valRes.offer;
+            if (promoInputGroup) promoInputGroup.classList.add('hidden');
+            if (promoAppliedBadge) promoAppliedBadge.classList.remove('hidden');
+            if (appliedCodeLabel) appliedCodeLabel.textContent = `${valRes.code} applied ✓`;
+            if (promoStatus) promoStatus.classList.add('hidden');
+          } else {
+            activeCouponOffer = null;
+            if (promoInputGroup) promoInputGroup.classList.remove('hidden');
+            if (promoAppliedBadge) promoAppliedBadge.classList.add('hidden');
+            if (promoStatus) {
+              promoStatus.className = 'text-[11px] mt-1.5 text-amber-600 font-bold';
+              promoStatus.textContent = `Coupon ${savedCode} removed: ${valRes.error}`;
+              promoStatus.classList.remove('hidden');
+            }
+            removeSavedCouponCode();
+          }
+        } else {
+          activeCouponOffer = null;
+          if (promoInputGroup) promoInputGroup.classList.remove('hidden');
+          if (promoAppliedBadge) promoAppliedBadge.classList.add('hidden');
+        }
+
+        // Complete price breakdown calculation
+        const totals = calculateOrderTotals(cart, activeCouponOffer, 5.00, FREE_SHIPPING_THRESHOLD);
+
+        // Free shipping progress bar
+        const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - totals.subtotal);
+        const pct = Math.min(100, Math.round((totals.subtotal / FREE_SHIPPING_THRESHOLD) * 100));
+
+        if (totals.shipping === 0) {
+          shippingMsg.innerHTML = '<span class="text-emerald-800 font-bold">🎉 YOU UNLOCKED FREE EXPRESS SHIPPING</span>';
+          shippingCostEl.textContent = 'FREE';
+          shippingBar.style.width = '100%';
+          shippingBar.classList.replace('bg-[#0B0B0B]', 'bg-[#C7FF2E]');
+          shippingPct.textContent = '100%';
+        } else {
+          shippingMsg.innerHTML = `Add <strong class="text-[#0B0B0B]">${formatPrice(remaining)}</strong> more for <strong>FREE DELIVERY</strong>`;
+          shippingCostEl.textContent = formatPrice(totals.shipping);
+          shippingBar.style.width = `${pct}%`;
+          shippingBar.classList.replace('bg-[#C7FF2E]', 'bg-[#0B0B0B]');
+          shippingPct.textContent = `${pct}%`;
+        }
+
+        subtotalEl.textContent = formatPrice(totals.subtotal);
+        if (taxCostEl) taxCostEl.textContent = formatPrice(totals.tax);
+        totalEl.textContent = formatPrice(totals.total);
+
+        if (totals.discount > 0) {
+          discountRow?.classList.remove('hidden');
+          if (discountVal) discountVal.textContent = `-${formatPrice(totals.discount)}`;
+          if (discountTitle && activeCouponOffer) {
+            discountTitle.textContent = `Discount (${activeCouponOffer.couponCode || 'PROMO'})`;
+          }
+        } else {
+          discountRow?.classList.add('hidden');
+        }
+
+        container.innerHTML = cart.map((item, idx) => {
+          const itemImg = extractProductImageUrl(item.image || item.productImage || item.thumbnail);
+          return `
+          <div class="py-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
+            <div class="flex gap-4 items-center flex-1">
+              <div class="w-20 h-26 bg-[#E8E6E1] border border-[#0B0B0B]/10 overflow-hidden shrink-0 flex items-center justify-center relative">
+                ${itemImg ? `
+                  <img src="${itemImg}" class="w-full h-full object-cover" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden');" />
+                  <div class="hidden w-full h-full flex items-center justify-center bg-[#E8E6E1] text-[#6B6B6B]">
+                    <i class="fa-solid fa-shirt text-[#6B6B6B]"></i>
+                  </div>
+                ` : `<i class="fa-solid fa-shirt text-[#6B6B6B]"></i>`}
+              </div>
+              <div>
+                <a href="/product-details.html?id=${item.id}" class="font-editorial text-sm font-bold uppercase text-[#0B0B0B] hover:underline">${item.name}</a>
+                <div class="text-xs text-[#6B6B6B] mt-1 space-x-3">
+                  <span>Size: <strong class="text-[#0B0B0B]">${extractSizeLabel(item.size || item.selectedSize) || 'Standard'}</strong></span>
+                  <span>•</span>
+                  <span>Color: <strong class="text-[#0B0B0B]">${item.color || item.selectedColor}</strong></span>
+                </div>
+                <div class="font-editorial text-xs font-bold text-[#0B0B0B] mt-1">${formatPrice(item.price)} each</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between w-full sm:w-auto sm:gap-8">
+              <div class="inline-flex items-center border border-[#0B0B0B] bg-white">
+                <button data-page-qty="-1" data-idx="${idx}" class="w-8 h-8 flex items-center justify-center text-xs hover:bg-[#F7F5F0]">-</button>
+                <span class="w-10 text-center text-xs font-bold text-[#0B0B0B]">${item.quantity}</span>
+                <button data-page-qty="1" data-idx="${idx}" class="w-8 h-8 flex items-center justify-center text-xs hover:bg-[#F7F5F0]">+</button>
+              </div>
+
+              <div class="font-editorial font-bold text-base text-[#0B0B0B] min-w-[70px] text-right">
+                ${formatPrice(Number(item.price) * item.quantity)}
+              </div>
+
+              <button data-page-remove="${idx}" class="text-[#6B6B6B] hover:text-[#0B0B0B] p-2 text-xs" title="Remove">
+                ✕
+              </button>
+            </div>
+          </div>
+          `;
+        }).join('');
+
+        container.querySelectorAll('[data-page-qty]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-idx'));
+            const delta = parseInt(btn.getAttribute('data-page-qty'));
+            updateQuantity(idx, delta);
+          });
+        });
+
+        container.querySelectorAll('[data-page-remove]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-page-remove'));
+            removeFromCart(idx);
+          });
+        });
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        window.renderCartPage();
+
+        const promoBtn = document.getElementById('apply-promo-btn');
+        const promoInput = document.getElementById('promo-input');
+        const promoStatus = document.getElementById('promo-status-msg');
+        const removePromoBtn = document.getElementById('remove-promo-btn');
+
+        promoBtn?.addEventListener('click', async () => {
+          const code = promoInput.value.trim().toUpperCase();
+          if (!code) {
+            promoStatus.className = 'text-[11px] mt-1.5 text-red-600 font-bold';
+            promoStatus.textContent = 'Please enter a coupon code.';
+            promoStatus.classList.remove('hidden');
+            return;
+          }
+
+          promoBtn.disabled = true;
+          promoBtn.textContent = '...';
+
+          const cart = getCart();
+          const valRes = await validateCoupon(code, cart, auth?.currentUser?.email, auth?.currentUser?.uid);
+          promoBtn.disabled = false;
+          promoBtn.textContent = 'Apply';
+
+          if (valRes.valid) {
+            saveCouponCode(valRes.code);
+            promoStatus.className = 'text-[11px] mt-1.5 text-emerald-800 font-bold';
+            promoStatus.textContent = `${valRes.code} applied ✓`;
+            promoStatus.classList.remove('hidden');
+            promoInput.value = '';
+            await window.renderCartPage();
+          } else {
+            promoStatus.className = 'text-[11px] mt-1.5 text-red-600 font-bold';
+            promoStatus.textContent = `✕ ${valRes.error}`;
+            promoStatus.classList.remove('hidden');
+          }
+        });
+
+        // Allow Enter key to apply coupon
+        promoInput?.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            promoBtn?.click();
+          }
+        });
+
+        removePromoBtn?.addEventListener('click', async () => {
+          removeSavedCouponCode();
+          if (promoStatus) {
+            promoStatus.className = 'text-[11px] mt-1.5 text-[#6B6B6B] font-bold';
+            promoStatus.textContent = 'Coupon removed.';
+            promoStatus.classList.remove('hidden');
+            setTimeout(() => promoStatus.classList.add('hidden'), 2500);
+          }
+          await window.renderCartPage();
+        });
+      });
+    </script>
+  </body>
+</html>
