@@ -1,32 +1,23 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBF7RX_FeVfsBZiLDK3om6dG3dhYweH9Dc",
-  authDomain: "webs-39bd2.firebaseapp.com",
-  projectId: "webs-39bd2",
-  storageBucket: "webs-39bd2.firebasestorage.app",
-  messagingSenderId: "312273897490",
-  appId: "1:312273897490:web:d0bfac34205709e0b070cb",
-  measurementId: "G-8KSFRL0ENE"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import { 
+  fetchProductsFromFirestore,
+  ensureShopperAuth
+} from '../js/firebase-init.js';
 
 async function main() {
-  console.log("Fetching products from Firestore...");
-  const snap = await getDocs(collection(db, 'products'));
-  console.log(`Found ${snap.size} documents in 'products' collection.`);
-  snap.forEach(doc => {
+  console.log("Connecting and fetching real products from Firestore...");
+  await ensureShopperAuth();
+  const products = await fetchProductsFromFirestore();
+  console.log(`Found ${products.length} published products in 'products' collection.`);
+  products.forEach(p => {
     console.log("-----------------------------------------");
-    console.log(`Doc ID: ${doc.id}`);
-    console.log("Data:", JSON.stringify(doc.data(), null, 2));
+    console.log(`Product ID: ${p.id} | Name: ${p.name} | Price: $${p.price} | Stock: ${p.stock}`);
+    console.log(`Thumbnail: ${p.thumbnail ? p.thumbnail.slice(0, 60) + '...' : 'None'}`);
+    console.log(`Sizes:`, p.sizes);
   });
   process.exit(0);
 }
 
 main().catch(err => {
-  console.error("Error fetching products:", err);
+  console.error("Error inspecting products:", err);
   process.exit(1);
 });

@@ -16,12 +16,10 @@ service cloud.firestore {
 
     function isAdmin() {
       return isSignedIn() && (
+        request.auth.token.email == 'baijitsk860@gmail.com' ||
+        (request.auth.token.email != null && request.auth.token.email.lower() == 'baijitsk860@gmail.com') ||
         request.auth.token.admin == true ||
-        request.auth.token.role == 'admin' ||
-        (request.auth.token.email != null && (
-          request.auth.token.email == 'admin@youngstupid.com' ||
-          request.auth.token.email.matches('.*@youngstupid[.]com')
-        ))
+        request.auth.token.role == 'admin'
       );
     }
 
@@ -32,34 +30,33 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
-    // Reviews: Publicly readable for approved reviews. Authenticated users can create/update.
+    // Reviews: Publicly readable for approved reviews. Customers can create; admins moderate.
     match /reviews/{reviewId} {
       allow read: if true;
       allow create: if isSignedIn();
-      allow update: if isSignedIn();
-      allow delete: if isSignedIn();
+      allow update, delete: if isAdmin() || (isSignedIn() && request.auth.uid == resource.data.userId);
     }
 
-    // Return Requests: Customers can create/view return claims; staff can review/update.
+    // Return Requests: Customers can create; admins and customer can view; admins update/resolve.
     match /returnRequests/{requestId} {
-      allow read: if true;
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == resource.data.userId);
       allow create: if isSignedIn();
-      allow update: if isSignedIn();
-      allow delete: if isSignedIn();
+      allow update, delete: if isAdmin();
     }
 
     // User Profiles & subcollections
     match /users/{userId} {
-      allow get: if isOwner(userId);
-      allow create, update: if isOwner(userId);
-      allow delete: if false;
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+      allow create, update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
 
       match /cart/{itemId} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if isOwner(userId) || isAdmin();
       }
 
       match /wishlist/{productId} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if isOwner(userId) || isAdmin();
       }
     }
 
@@ -79,18 +76,17 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
-    // Leads: Public can subscribe to drop notifications.
+    // Leads: Public can subscribe to drop notifications; admins can read and manage.
     match /leads/{leadId} {
       allow create: if true;
-      allow read, update, delete: if false;
+      allow read, update, delete: if isAdmin();
     }
 
-    // Support Tickets: Customers can create tickets and track status; staff/admin can reply and resolve.
+    // Support Tickets: Customers can create tickets; admins manage and resolve.
     match /supportTickets/{ticketId} {
-      allow read: if true;
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == resource.data.userId);
       allow create: if true;
-      allow update: if true;
-      allow delete: if isSignedIn();
+      allow update, delete: if isAdmin();
     }
 
     // FAQs: Publicly readable for customer knowledge base; manageable by store admins.

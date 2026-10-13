@@ -23,13 +23,14 @@ import {
   mapFirestoreProductDoc,
   isProductPublic,
   fetchProductsFromFirestore,
-  fetchProductByIdFromFirestore
+  fetchProductByIdFromFirestore,
+  ensureShopperAuth
 } from '../js/firebase-init.js';
 
 async function verify() {
-  console.log("=== STEP 1: AUTHENTICATING AS ADMINISTRATOR ===");
-  await signInWithEmailAndPassword(auth, 'admin@youngstupid.com', 'Admin123456!');
-  console.log("Admin authenticated successfully:", auth.currentUser?.email);
+  console.log("=== STEP 1: AUTHENTICATING SESSION ===");
+  const user = await ensureShopperAuth();
+  console.log("Authenticated successfully (UID:", user?.uid, ")");
 
   console.log("\n=== STEP 2: VERIFYING REAL FIRESTORE STOREFRONT PRODUCTS ===");
   const products = await fetchProductsFromFirestore();

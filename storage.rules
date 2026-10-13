@@ -1,0 +1,23 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Product imagery: Public shoppers can read/download product photos.
+    // Uploads, updates, and deletions strictly restricted to authorized administrator baijitsk860@gmail.com.
+    match /products/{productId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null && (
+        request.auth.token.email == 'baijitsk860@gmail.com' ||
+        (request.auth.token.email != null && request.auth.token.email.lower() == 'baijitsk860@gmail.com') ||
+        request.auth.token.admin == true ||
+        request.auth.token.role == 'admin'
+      );
+    }
+
+    // Customer review photo uploads
+    match /reviews/{reviewId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+

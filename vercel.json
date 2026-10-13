@@ -1,0 +1,20 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/admin/", "destination": "/admin.html" },
+    { "source": "/products", "destination": "/products.html" },
+    { "source": "/product-details", "destination": "/product-details.html" },
+    { "source": "/cart", "destination": "/cart.html" },
+    { "source": "/checkout", "destination": "/checkout.html" },
+    { "source": "/track-order", "destination": "/track-order.html" },
+    { "source": "/wishlist", "destination": "/wishlist.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/faq", "destination": "/faq.html" },
+    { "source": "/return-policy", "destination": "/return-policy.html" }
+  ]
+}

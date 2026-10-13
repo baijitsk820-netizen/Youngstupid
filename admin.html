@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | YOUNG & STUPID Streetwear</title>
+    <meta name="robots" content="noindex, nofollow" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body class="bg-[#F7F5F0] text-[#171717] antialiased min-h-screen flex flex-col font-sans">
+
+    <!-- Toast Notification Container -->
+    <div id="admin-toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- INITIAL AUTH VERIFICATION OVERLAY -->
+    <div id="auth-gate-overlay" class="fixed inset-0 z-[90] bg-[#F7F5F0] flex items-center justify-center p-4">
+      <div class="max-w-md w-full bg-white border border-[#0B0B0B] p-8 shadow-2xl animate-fade-up">
+        <div class="flex items-center gap-2 mb-6">
+          <span class="font-editorial text-2xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+          <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+          <span class="text-[10px] font-bold tracking-widest text-[#6B6B6B] uppercase">ADMIN ARCHIVE</span>
+        </div>
+
+        <div id="gate-checking-view" class="text-center py-8">
+          <div class="inline-block animate-spin text-2xl text-[#0B0B0B] mb-3">◌</div>
+          <p class="font-editorial text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">VERIFYING SECURITY PRIVILEGES...</p>
+          <p class="text-[11px] text-[#6B6B6B] mt-1">Connecting to Cloud Firestore & Firebase Auth</p>
+        </div>
+
+        <div id="gate-login-view" class="hidden">
+          <div class="border-l-2 border-[#0B0B0B] pl-3 mb-6">
+            <h2 class="font-editorial text-base font-bold uppercase tracking-tight">RESTRICTED ACCESS</h2>
+            <p class="text-xs text-[#6B6B6B] mt-0.5">Authorized administrator sign-in required (<span class="font-bold text-[#0B0B0B]">baijitsk860@gmail.com</span>).</p>
+          </div>
+
+          <form id="admin-login-form" class="space-y-4">
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Admin Email</label>
+              <input 
+                type="email" 
+                id="admin-email-input" 
+                required 
+                placeholder="baijitsk860@gmail.com" 
+                class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" 
+              />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Password</label>
+              <input 
+                type="password" 
+                id="admin-password-input" 
+                required 
+                placeholder="••••••••••••" 
+                class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-3 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" 
+              />
+            </div>
+            <button 
+              type="submit" 
+              id="admin-signin-btn" 
+              class="w-full bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-3.5 font-editorial font-bold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>AUTHENTICATE</span>
+              <span class="text-[#C7FF2E]">→</span>
+            </button>
+          </form>
+
+          <div class="relative my-6 text-center">
+            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-[#E8E6E1]"></div></div>
+            <span class="relative bg-white px-3 text-[10px] font-bold text-[#6B6B6B] uppercase">OR</span>
+          </div>
+
+          <button 
+            type="button" 
+            id="admin-google-btn" 
+            class="w-full border border-[#0B0B0B]/20 hover:border-[#0B0B0B] bg-white py-3 text-xs font-bold text-[#0B0B0B] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
+            <span>Continue with Google</span>
+          </button>
+
+          <div class="mt-6 pt-4 border-t border-[#E8E6E1] flex justify-between items-center text-[11px]">
+            <a href="/index.html" class="text-[#6B6B6B] hover:text-[#0B0B0B] font-semibold">← Return to Storefront</a>
+            <span class="text-[#6B6B6B]">Single Admin Node</span>
+          </div>
+        </div>
+
+        <div id="gate-denied-view" class="hidden text-center py-6">
+          <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="fa-solid fa-lock text-lg"></i>
+          </div>
+          <h3 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">ACCESS RESTRICTED</h3>
+          <p id="gate-denied-email" class="text-xs text-[#6B6B6B] mt-1 mb-2">Access strictly limited to authorized administrator (<strong class="text-[#0B0B0B]">baijitsk860@gmail.com</strong>).</p>
+          <div id="gate-redirect-countdown" class="text-[11px] font-bold text-red-600 mb-4">Redirecting to homepage in 4s...</div>
+          <div class="flex gap-2 justify-center">
+            <button id="gate-switch-btn" class="bg-[#0B0B0B] text-white px-4 py-2 text-xs font-editorial font-bold uppercase cursor-pointer">
+              SWITCH ACCOUNT
+            </button>
+            <a href="/index.html" class="border border-[#0B0B0B] px-4 py-2 text-xs font-editorial font-bold uppercase hover:bg-[#F7F5F0]">
+              GO TO STORE
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN ADMIN DASHBOARD SHELL -->
+    <div id="admin-shell" class="hidden flex-1 flex min-h-screen">
+      
+      <!-- DESKTOP / MOBILE SIDEBAR -->
+      <aside id="admin-sidebar" class="w-64 bg-white border-r border-[#0B0B0B]/10 flex flex-col justify-between fixed lg:static inset-y-0 left-0 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-200">
+        <div>
+          <!-- Brand Header -->
+          <div class="p-6 border-b border-[#0B0B0B]/10 flex items-center justify-between">
+            <a href="/admin" class="flex items-center gap-2">
+              <span class="font-editorial text-xl font-bold tracking-tighter text-[#0B0B0B]">YOUNG & STUPID</span>
+              <span class="w-1.5 h-1.5 bg-[#C7FF2E]"></span>
+            </a>
+            <button id="sidebar-close-btn" class="lg:hidden text-[#6B6B6B] hover:text-[#0B0B0B] text-sm">✕</button>
+          </div>
+
+          <div class="px-6 py-3 bg-[#F7F5F0] border-b border-[#0B0B0B]/10 flex items-center justify-between text-[11px]">
+            <span class="font-bold text-[#6B6B6B] uppercase tracking-wider">ENVIRONMENT</span>
+            <span class="font-extrabold uppercase text-[#0B0B0B] flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              FIRESTORE LIVE
+            </span>
+          </div>
+
+          <!-- Navigation Menu -->
+          <nav class="p-4 space-y-1">
+            <button data-tab="dashboard" class="sidebar-nav-btn active w-full flex items-center gap-3 px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#0B0B0B] bg-[#0B0B0B] text-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <i class="fa-solid fa-chart-line text-sm w-4"></i>
+              <span>DASHBOARD</span>
+            </button>
+            <button data-tab="products" class="sidebar-nav-btn w-full flex items-center justify-between px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <span class="flex items-center gap-3">
+                <i class="fa-solid fa-shirt text-sm w-4"></i>
+                <span>PRODUCTS</span>
+              </span>
+              <span id="badge-products-count" class="text-[10px] font-bold text-[#6B6B6B]">0</span>
+            </button>
+            <button data-tab="orders" class="sidebar-nav-btn w-full flex items-center justify-between px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <span class="flex items-center gap-3">
+                <i class="fa-solid fa-box text-sm w-4"></i>
+                <span>ORDERS</span>
+              </span>
+              <span id="badge-orders-count" class="text-[10px] font-bold text-[#6B6B6B]">0</span>
+            </button>
+            <button data-tab="customers" class="sidebar-nav-btn w-full flex items-center justify-between px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <span class="flex items-center gap-3">
+                <i class="fa-solid fa-users text-sm w-4"></i>
+                <span>CUSTOMERS</span>
+              </span>
+              <span id="badge-customers-count" class="text-[10px] font-bold text-[#6B6B6B]">0</span>
+            </button>
+            <button data-tab="reviews" class="sidebar-nav-btn w-full flex items-center justify-between px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <span class="flex items-center gap-3">
+                <i class="fa-solid fa-star text-sm w-4"></i>
+                <span>REVIEWS</span>
+              </span>
+              <span id="badge-reviews-count" class="text-[10px] font-bold text-[#6B6B6B]">0</span>
+            </button>
+            <button data-tab="returns" class="sidebar-nav-btn w-full flex items-center justify-between px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <span class="flex items-center gap-3">
+                <i class="fa-solid fa-arrow-rotate-left text-sm w-4"></i>
+                <span>RETURNS</span>
+              </span>
+              <span id="badge-returns-count" class="text-[10px] font-bold text-[#6B6B6B]">0</span>
+            </button>
+            <button data-tab="support" class="sidebar-nav-btn w-full flex items-center justify-between px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <span class="flex items-center gap-3">
+                <i class="fa-solid fa-headset text-sm w-4"></i>
+                <span>SUPPORT</span>
+              </span>
+              <span id="badge-support-count" class="text-[10px] font-bold text-[#6B6B6B]">0</span>
+            </button>
+            <button data-tab="reports" class="sidebar-nav-btn w-full flex items-center gap-3 px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <i class="fa-solid fa-receipt text-sm w-4"></i>
+              <span>PAYMENTS & REPORTS</span>
+            </button>
+            <button data-tab="settings" class="sidebar-nav-btn w-full flex items-center gap-3 px-4 py-3 text-xs font-editorial font-bold uppercase tracking-wider text-[#6B6B6B] hover:text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors text-left cursor-pointer">
+              <i class="fa-solid fa-sliders text-sm w-4"></i>
+              <span>SETTINGS</span>
+            </button>
+          </nav>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-[#0B0B0B]/10 space-y-3">
+          <a href="/index.html" target="_blank" class="w-full flex items-center justify-between px-3 py-2 border border-[#0B0B0B]/20 text-[11px] font-bold uppercase text-[#0B0B0B] hover:bg-[#F7F5F0] transition-colors">
+            <span>Customer Storefront</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+          <button id="admin-logout-btn" class="w-full flex items-center justify-between px-3 py-2 bg-[#0B0B0B] text-white text-[11px] font-editorial font-bold uppercase tracking-wider hover:bg-black transition-colors cursor-pointer">
+            <span>Sign Out Admin</span>
+            <i class="fa-solid fa-right-from-bracket text-[10px]"></i>
+          </button>
+        </div>
+      </aside>
+
+      <!-- CONTENT AREA -->
+      <div class="flex-1 flex flex-col min-w-0">
+        
+        <!-- TOPBAR -->
+        <header class="bg-white border-b border-[#0B0B0B]/10 px-4 md:px-8 py-4 flex items-center justify-between sticky top-0 z-30">
+          <div class="flex items-center gap-3">
+            <button id="sidebar-toggle-btn" class="lg:hidden text-lg text-[#0B0B0B] p-1.5 hover:bg-[#F7F5F0]">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <h1 id="current-tab-title" class="font-editorial text-lg md:text-xl font-bold uppercase tracking-tight text-[#0B0B0B]">
+              DASHBOARD OVERVIEW
+            </h1>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="hidden sm:flex items-center gap-2 text-xs text-[#6B6B6B]">
+              <span class="w-2 h-2 rounded-full bg-[#C7FF2E] border border-[#0B0B0B]"></span>
+              <span class="font-bold text-[#0B0B0B]" id="admin-user-display">baijitsk860@gmail.com</span>
+            </div>
+            <button id="refresh-data-btn" title="Refresh Live Data" class="p-2 border border-[#0B0B0B]/20 hover:border-[#0B0B0B] bg-white text-xs font-bold text-[#0B0B0B] flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-rotate text-xs"></i>
+              <span class="hidden md:inline">SYNC</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- VIEW CONTAINER -->
+        <main class="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full space-y-8">
+
+          <!-- ================= TAB 1: DASHBOARD ================= -->
+          <section id="tab-dashboard" class="admin-tab-pane space-y-8">
+            
+            <!-- Welcome Alert Banner -->
+            <div class="bg-white border border-[#0B0B0B] p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
+              <div>
+                <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 bg-[#C7FF2E] text-[#0B0B0B] tracking-widest">
+                  SUPER ADMIN PORTAL
+                </span>
+                <h2 class="font-editorial text-2xl font-bold uppercase text-[#0B0B0B] mt-1">
+                  YOUNG STUPID COMMAND CENTER
+                </h2>
+                <p class="text-xs text-[#6B6B6B] mt-0.5">Real-time telemetry and order operations for Firestore project <strong class="text-[#0B0B0B]">webs-39bd2</strong>.</p>
+              </div>
+
+              <div class="flex gap-2 w-full sm:w-auto">
+                <button id="quick-add-product-btn" class="flex-1 sm:flex-none bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-4 py-2.5 text-xs font-editorial font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer">
+                  <i class="fa-solid fa-plus text-[10px] text-[#C7FF2E]"></i>
+                  <span>DROP NEW PRODUCT</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- PRIMARY KPI METRICS GRID -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#6B6B6B]">FINANCIAL & ORDER METRICS</h3>
+                <span class="text-[11px] text-[#6B6B6B]">Actual Database Records Only</span>
+              </div>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <div class="bg-white border border-[#0B0B0B]/10 p-5">
+                  <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#6B6B6B]">TOTAL SALES</span>
+                    <i class="fa-solid fa-dollar-sign text-xs text-[#6B6B6B]"></i>
+                  </div>
+                  <div id="stat-total-sales" class="font-editorial text-2xl md:text-3xl font-bold text-[#0B0B0B] mt-2">$0.00</div>
+                  <div class="text-[10px] text-[#6B6B6B] mt-1 flex items-center gap-1">
+                    <span class="text-emerald-700 font-bold">Lifetime Verified</span>
+                  </div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-5">
+                  <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#6B6B6B]">TODAY'S SALES</span>
+                    <i class="fa-solid fa-calendar-day text-xs text-[#6B6B6B]"></i>
+                  </div>
+                  <div id="stat-today-sales" class="font-editorial text-2xl md:text-3xl font-bold text-[#0B0B0B] mt-2">$0.00</div>
+                  <div class="text-[10px] text-[#6B6B6B] mt-1">Since 00:00 UTC Today</div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-5">
+                  <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#6B6B6B]">TOTAL ORDERS</span>
+                    <i class="fa-solid fa-bag-shopping text-xs text-[#6B6B6B]"></i>
+                  </div>
+                  <div id="stat-total-orders" class="font-editorial text-2xl md:text-3xl font-bold text-[#0B0B0B] mt-2">0</div>
+                  <div id="stat-orders-breakdown" class="text-[10px] text-[#6B6B6B] mt-1">0 confirmed</div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-5">
+                  <div class="flex justify-between items-start">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-[#6B6B6B]">PENDING ACTION</span>
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  </div>
+                  <div id="stat-pending-orders" class="font-editorial text-2xl md:text-3xl font-bold text-amber-900 mt-2">0</div>
+                  <div class="text-[10px] text-amber-700 mt-1 font-semibold">Orders awaiting fulfillment</div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- FULFILLMENT PIPELINE COUNTERS -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="font-editorial text-xs font-bold uppercase tracking-widest text-[#6B6B6B]">FULFILLMENT PIPELINE</h3>
+                <span class="text-[11px] text-[#6B6B6B]">Current Order Statuses</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                
+                <div class="bg-white border border-[#0B0B0B]/10 p-3.5 text-center">
+                  <div class="text-[10px] font-bold uppercase text-[#6B6B6B]">PROCESSING</div>
+                  <div id="stat-processing-orders" class="font-editorial text-xl font-bold text-indigo-900 mt-1">0</div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-3.5 text-center">
+                  <div class="text-[10px] font-bold uppercase text-[#6B6B6B]">SHIPPED</div>
+                  <div id="stat-shipped-orders" class="font-editorial text-xl font-bold text-purple-900 mt-1">0</div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-3.5 text-center">
+                  <div class="text-[10px] font-bold uppercase text-[#6B6B6B]">DELIVERED</div>
+                  <div id="stat-delivered-orders" class="font-editorial text-xl font-bold text-emerald-900 mt-1">0</div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-3.5 text-center">
+                  <div class="text-[10px] font-bold uppercase text-[#6B6B6B]">CANCELLED</div>
+                  <div id="stat-cancelled-orders" class="font-editorial text-xl font-bold text-red-700 mt-1">0</div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-3.5 text-center">
+                  <div class="text-[10px] font-bold uppercase text-[#6B6B6B]">RETURNS</div>
+                  <div id="stat-return-requests" class="font-editorial text-xl font-bold text-rose-800 mt-1">0</div>
+                </div>
+
+                <div class="bg-white border border-[#0B0B0B]/10 p-3.5 text-center">
+                  <div class="text-[10px] font-bold uppercase text-[#6B6B6B]">REVIEWS</div>
+                  <div id="stat-total-reviews" class="font-editorial text-xl font-bold text-[#0B0B0B] mt-1">0</div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 2-COLUMN SECTION: RECENT ORDERS & TOP PRODUCTS -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              
+              <!-- Recent Orders Table -->
+              <div class="lg:col-span-8 bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+                <div class="flex justify-between items-center pb-3 border-b border-[#E8E6E1]">
+                  <div>
+                    <h3 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">RECENT LIVE ORDERS</h3>
+                    <p class="text-[11px] text-[#6B6B6B]">Directly from Firestore collection `orders`</p>
+                  </div>
+                  <button data-tab="orders" class="text-[11px] font-bold uppercase text-[#0B0B0B] hover:underline cursor-pointer">
+                    View All →
+                  </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-xs">
+                    <thead>
+                      <tr class="border-b border-[#E8E6E1] text-[10px] font-bold uppercase text-[#6B6B6B]">
+                        <th class="py-2.5">ORDER ID</th>
+                        <th class="py-2.5">CUSTOMER</th>
+                        <th class="py-2.5">TOTAL</th>
+                        <th class="py-2.5">STATUS</th>
+                        <th class="py-2.5">DATE</th>
+                        <th class="py-2.5 text-right">ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dashboard-recent-orders-tbody">
+                      <tr>
+                        <td colspan="6" class="py-8 text-center text-[#6B6B6B]">Loading orders from Firestore...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Store Catalog Summary -->
+              <div class="lg:col-span-4 bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+                <div class="flex justify-between items-center pb-3 border-b border-[#E8E6E1]">
+                  <h3 class="font-editorial text-sm font-bold uppercase tracking-wider text-[#0B0B0B]">CATALOG SNAPSHOT</h3>
+                  <button data-tab="products" class="text-[11px] font-bold uppercase text-[#0B0B0B] hover:underline cursor-pointer">Manage →</button>
+                </div>
+
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center text-xs py-2 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Active Products</span>
+                    <strong id="dash-active-products" class="text-[#0B0B0B] font-bold">0</strong>
+                  </div>
+                  <div class="flex justify-between items-center text-xs py-2 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Total Registered Customers</span>
+                    <strong id="dash-total-customers" class="text-[#0B0B0B] font-bold">0</strong>
+                  </div>
+                  <div class="flex justify-between items-center text-xs py-2 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Open Support Tickets</span>
+                    <strong id="dash-open-tickets" class="text-[#0B0B0B] font-bold">0</strong>
+                  </div>
+                  <div class="flex justify-between items-center text-xs py-2">
+                    <span class="text-[#6B6B6B]">Return Claims Pending</span>
+                    <strong id="dash-pending-returns" class="text-[#0B0B0B] font-bold">0</strong>
+                  </div>
+                </div>
+
+                <div class="pt-3">
+                  <button id="dash-new-drop-cta" class="w-full bg-[#0B0B0B] text-white py-3 text-xs font-editorial font-bold uppercase tracking-widest hover:bg-black transition-colors cursor-pointer">
+                    ADD NEW PIECE TO CATALOG
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- ================= TAB 2: PRODUCTS MANAGEMENT ================= -->
+          <section id="tab-products" class="admin-tab-pane hidden space-y-6">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white border border-[#0B0B0B]/10 p-5">
+              <div>
+                <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">PRODUCT CATALOG MANAGEMENT</h2>
+                <p class="text-xs text-[#6B6B6B]">Create, edit, upload product photos, manage sizes, colors, and stock in Firestore.</p>
+              </div>
+              <button id="open-add-product-modal-btn" class="bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] px-5 py-3 text-xs font-editorial font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-plus text-[#C7FF2E] text-xs"></i>
+                <span>ADD NEW PRODUCT</span>
+              </button>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="bg-white border border-[#0B0B0B]/10 p-4 flex flex-col md:flex-row gap-3 items-center justify-between">
+              <div class="relative w-full md:w-80">
+                <input 
+                  type="text" 
+                  id="admin-products-search" 
+                  placeholder="Search products by title, SKU, category..." 
+                  class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" 
+                />
+                <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-xs text-[#6B6B6B]"></i>
+              </div>
+
+              <div class="flex items-center gap-3 w-full md:w-auto">
+                <select id="admin-category-filter" class="bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs text-[#0B0B0B] focus:outline-none">
+                  <option value="all">ALL CATEGORIES</option>
+                  <!-- Populated from products -->
+                </select>
+
+                <select id="admin-status-filter" class="bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs text-[#0B0B0B] focus:outline-none">
+                  <option value="all">ALL STATUSES</option>
+                  <option value="published">PUBLISHED (ACTIVE)</option>
+                  <option value="draft">DRAFT / INACTIVE</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Products List Table -->
+            <div class="bg-white border border-[#0B0B0B]/10 overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-[#F7F5F0] border-b border-[#0B0B0B]/10 text-[10px] font-bold uppercase text-[#6B6B6B]">
+                    <tr>
+                      <th class="p-4">PRODUCT</th>
+                      <th class="p-4">CATEGORY</th>
+                      <th class="p-4">PRICE</th>
+                      <th class="p-4">STOCK</th>
+                      <th class="p-4">SIZES</th>
+                      <th class="p-4">STATUS</th>
+                      <th class="p-4 text-right">ACTIONS</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-products-tbody" class="divide-y divide-[#E8E6E1]">
+                    <tr>
+                      <td colspan="7" class="p-8 text-center text-[#6B6B6B]">Loading products...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- ================= TAB 3: ORDERS MANAGEMENT ================= -->
+          <section id="tab-orders" class="admin-tab-pane hidden space-y-6">
+            
+            <div class="bg-white border border-[#0B0B0B]/10 p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">CUSTOMER ORDERS & FULFILLMENT</h2>
+                <p class="text-xs text-[#6B6B6B]">Real-time orders stored in Firestore. Update tracking, change status, and view customer details.</p>
+              </div>
+              <div class="text-xs text-[#6B6B6B]">
+                Total Orders: <strong id="orders-total-count" class="text-[#0B0B0B]">0</strong>
+              </div>
+            </div>
+
+            <!-- Status Tabs Bar -->
+            <div class="flex flex-wrap gap-2 border-b border-[#0B0B0B]/10 pb-2" id="orders-status-filter-pills">
+              <button data-status="ALL" class="order-tab-btn active px-3 py-1.5 text-xs font-bold uppercase bg-[#0B0B0B] text-white">ALL</button>
+              <button data-status="PENDING" class="order-tab-btn px-3 py-1.5 text-xs font-bold uppercase bg-white border border-[#0B0B0B]/20 text-[#6B6B6B]">PENDING</button>
+              <button data-status="CONFIRMED" class="order-tab-btn px-3 py-1.5 text-xs font-bold uppercase bg-white border border-[#0B0B0B]/20 text-[#6B6B6B]">CONFIRMED</button>
+              <button data-status="PROCESSING" class="order-tab-btn px-3 py-1.5 text-xs font-bold uppercase bg-white border border-[#0B0B0B]/20 text-[#6B6B6B]">PROCESSING</button>
+              <button data-status="SHIPPED" class="order-tab-btn px-3 py-1.5 text-xs font-bold uppercase bg-white border border-[#0B0B0B]/20 text-[#6B6B6B]">SHIPPED</button>
+              <button data-status="DELIVERED" class="order-tab-btn px-3 py-1.5 text-xs font-bold uppercase bg-white border border-[#0B0B0B]/20 text-[#6B6B6B]">DELIVERED</button>
+              <button data-status="CANCELLED" class="order-tab-btn px-3 py-1.5 text-xs font-bold uppercase bg-white border border-[#0B0B0B]/20 text-[#6B6B6B]">CANCELLED</button>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="bg-white border border-[#0B0B0B]/10 overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-[#F7F5F0] border-b border-[#0B0B0B]/10 text-[10px] font-bold uppercase text-[#6B6B6B]">
+                    <tr>
+                      <th class="p-4">ORDER ID</th>
+                      <th class="p-4">CUSTOMER</th>
+                      <th class="p-4">ITEMS</th>
+                      <th class="p-4">AMOUNT</th>
+                      <th class="p-4">PAYMENT</th>
+                      <th class="p-4">FULFILLMENT</th>
+                      <th class="p-4">DATE</th>
+                      <th class="p-4 text-right">ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-orders-tbody" class="divide-y divide-[#E8E6E1]">
+                    <tr>
+                      <td colspan="8" class="p-8 text-center text-[#6B6B6B]">Loading orders...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- ================= TAB 4: CUSTOMERS ================= -->
+          <section id="tab-customers" class="admin-tab-pane hidden space-y-6">
+            <div class="bg-white border border-[#0B0B0B]/10 p-5">
+              <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">REGISTERED CUSTOMERS & PROFILES</h2>
+              <p class="text-xs text-[#6B6B6B]">Shopper accounts and order history in Cloud Firestore.</p>
+            </div>
+
+            <div class="bg-white border border-[#0B0B0B]/10 p-4">
+              <input 
+                type="text" 
+                id="admin-customers-search" 
+                placeholder="Search customers by name or email..." 
+                class="w-full max-w-md bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" 
+              />
+            </div>
+
+            <div class="bg-white border border-[#0B0B0B]/10 overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-[#F7F5F0] border-b border-[#0B0B0B]/10 text-[10px] font-bold uppercase text-[#6B6B6B]">
+                    <tr>
+                      <th class="p-4">CUSTOMER</th>
+                      <th class="p-4">EMAIL</th>
+                      <th class="p-4">PHONE</th>
+                      <th class="p-4">TOTAL ORDERS</th>
+                      <th class="p-4">LIFETIME SPEND</th>
+                      <th class="p-4">JOINED</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-customers-tbody" class="divide-y divide-[#E8E6E1]">
+                    <tr>
+                      <td colspan="6" class="p-8 text-center text-[#6B6B6B]">Loading customers...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= TAB 5: REVIEWS MODERATION ================= -->
+          <section id="tab-reviews" class="admin-tab-pane hidden space-y-6">
+            <div class="bg-white border border-[#0B0B0B]/10 p-5">
+              <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">PRODUCT REVIEWS MODERATION</h2>
+              <p class="text-xs text-[#6B6B6B]">Moderate verified customer reviews, ratings, and customer uploaded photos.</p>
+            </div>
+
+            <div id="admin-reviews-container" class="space-y-4">
+              <div class="p-8 text-center bg-white border border-[#0B0B0B]/10 text-[#6B6B6B] text-xs">
+                Loading reviews from Firestore...
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= TAB 6: RETURNS & REFUNDS ================= -->
+          <section id="tab-returns" class="admin-tab-pane hidden space-y-6">
+            <div class="bg-white border border-[#0B0B0B]/10 p-5">
+              <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">RETURN & REFUND REQUESTS</h2>
+              <p class="text-xs text-[#6B6B6B]">Review claims submitted through the customer Return & Refund portal.</p>
+            </div>
+
+            <div id="admin-returns-container" class="space-y-4">
+              <div class="p-8 text-center bg-white border border-[#0B0B0B]/10 text-[#6B6B6B] text-xs">
+                Loading return requests...
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= TAB 7: SUPPORT TICKETS ================= -->
+          <section id="tab-support" class="admin-tab-pane hidden space-y-6">
+            <div class="bg-white border border-[#0B0B0B]/10 p-5">
+              <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">CUSTOMER SUPPORT INQUIRIES</h2>
+              <p class="text-xs text-[#6B6B6B]">Manage messages received from customer contact forms.</p>
+            </div>
+
+            <div id="admin-tickets-container" class="space-y-4">
+              <div class="p-8 text-center bg-white border border-[#0B0B0B]/10 text-[#6B6B6B] text-xs">
+                Loading support tickets...
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= TAB 8: PAYMENTS & REPORTS ================= -->
+          <section id="tab-reports" class="admin-tab-pane hidden space-y-6">
+            <div class="bg-white border border-[#0B0B0B]/10 p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">PAYMENTS & REVENUE INTELLIGENCE</h2>
+                <p class="text-xs text-[#6B6B6B]">Server-verified transactions, Razorpay signature audits, and currency reports.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <select id="reports-date-filter" class="bg-[#F7F5F0] border border-[#0B0B0B]/20 px-3 py-2 text-xs text-[#0B0B0B] focus:outline-none">
+                  <option value="all">All Time</option>
+                  <option value="today">Today</option>
+                  <option value="7days">Last 7 Days</option>
+                  <option value="30days">Last 30 Days</option>
+                  <option value="month">This Month</option>
+                </select>
+                <button id="export-report-btn" class="bg-[#0B0B0B] text-white px-3 py-2 text-xs font-editorial font-bold uppercase hover:bg-black">
+                  EXPORT CSV
+                </button>
+              </div>
+            </div>
+
+            <!-- Reports Metrics -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-white border border-[#0B0B0B]/10 p-5">
+                <span class="text-[10px] font-bold uppercase text-[#6B6B6B]">TOTAL GROSS REVENUE</span>
+                <div id="report-gross-rev" class="font-editorial text-3xl font-bold text-[#0B0B0B] mt-2">$0.00</div>
+                <div class="text-[10px] text-emerald-800 font-semibold mt-1">Verified Orders</div>
+              </div>
+              <div class="bg-white border border-[#0B0B0B]/10 p-5">
+                <span class="text-[10px] font-bold uppercase text-[#6B6B6B]">AVERAGE ORDER VALUE (AOV)</span>
+                <div id="report-aov" class="font-editorial text-3xl font-bold text-[#0B0B0B] mt-2">$0.00</div>
+                <div class="text-[10px] text-[#6B6B6B] mt-1">Per successful transaction</div>
+              </div>
+              <div class="bg-white border border-[#0B0B0B]/10 p-5">
+                <span class="text-[10px] font-bold uppercase text-[#6B6B6B]">TOTAL TRANSACTIONS</span>
+                <div id="report-tx-count" class="font-editorial text-3xl font-bold text-[#0B0B0B] mt-2">0</div>
+                <div class="text-[10px] text-[#6B6B6B] mt-1">Confirmed orders</div>
+              </div>
+            </div>
+
+            <!-- Transactions Table -->
+            <div class="bg-white border border-[#0B0B0B]/10 overflow-hidden">
+              <div class="p-4 border-b border-[#0B0B0B]/10 font-editorial text-xs font-bold uppercase text-[#0B0B0B]">
+                TRANSACTION AUDIT LOG
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-[#F7F5F0] border-b border-[#0B0B0B]/10 text-[10px] font-bold uppercase text-[#6B6B6B]">
+                    <tr>
+                      <th class="p-4">ORDER ID</th>
+                      <th class="p-4">CUSTOMER</th>
+                      <th class="p-4">METHOD</th>
+                      <th class="p-4">CURRENCY</th>
+                      <th class="p-4">TOTAL</th>
+                      <th class="p-4">PAYMENT STATUS</th>
+                      <th class="p-4">TIMESTAMP</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-reports-tbody" class="divide-y divide-[#E8E6E1]">
+                    <tr>
+                      <td colspan="7" class="p-8 text-center text-[#6B6B6B]">No transactions in selected range.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= TAB 9: SETTINGS ================= -->
+          <section id="tab-settings" class="admin-tab-pane hidden space-y-6">
+            <div class="bg-white border border-[#0B0B0B]/10 p-5">
+              <h2 class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">STORE & SECURITY SETTINGS</h2>
+              <p class="text-xs text-[#6B6B6B]">System infrastructure and authorized administrator configuration.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              <div class="bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+                <h3 class="font-editorial text-sm font-bold uppercase text-[#0B0B0B] pb-2 border-b border-[#E8E6E1]">
+                  ADMIN SECURITY PRIVILEGES
+                </h3>
+                <div class="space-y-2 text-xs">
+                  <div class="flex justify-between py-1.5 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Designated Super Admin</span>
+                    <strong class="text-[#0B0B0B]">baijitsk860@gmail.com</strong>
+                  </div>
+                  <div class="flex justify-between py-1.5 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Security Enforcement</span>
+                    <span class="text-emerald-700 font-bold">Server + Rules (Strict)</span>
+                  </div>
+                  <div class="flex justify-between py-1.5 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Public Admin Signup</span>
+                    <span class="text-red-700 font-bold">Disabled (Enforced)</span>
+                  </div>
+                  <div class="flex justify-between py-1.5">
+                    <span class="text-[#6B6B6B]">Current Session</span>
+                    <span id="settings-session-email" class="font-bold text-[#0B0B0B]">Authenticated</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white border border-[#0B0B0B]/10 p-6 space-y-4">
+                <div class="flex justify-between items-center pb-2 border-b border-[#E8E6E1]">
+                  <h3 class="font-editorial text-sm font-bold uppercase text-[#0B0B0B]">
+                    FIREBASE & PAYMENT INFRASTRUCTURE
+                  </h3>
+                  <button id="test-storage-btn" class="bg-[#0B0B0B] text-white hover:bg-black px-3 py-1 text-[10px] font-editorial font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-cloud-arrow-up text-[9px] text-[#C7FF2E]"></i>
+                    <span>TEST STORAGE</span>
+                  </button>
+                </div>
+                <div class="space-y-2 text-xs">
+                  <div class="flex justify-between py-1.5 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Firebase Project ID</span>
+                    <strong class="text-[#0B0B0B]">webs-39bd2</strong>
+                  </div>
+                  <div class="flex justify-between py-1.5 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Storage Bucket</span>
+                    <span id="settings-storage-bucket-display" class="font-bold text-[#0B0B0B]">webs-39bd2.firebasestorage.app</span>
+                  </div>
+                  <div class="flex justify-between py-1.5 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Cloud Storage Status</span>
+                    <span id="settings-storage-status-tag" class="text-amber-800 font-bold flex items-center gap-1">
+                      <span class="w-2 h-2 rounded-full bg-amber-500"></span> Check Required
+                    </span>
+                  </div>
+                  <div class="flex justify-between py-1.5 border-b border-[#E8E6E1]/60">
+                    <span class="text-[#6B6B6B]">Razorpay Signature Check</span>
+                    <span class="text-emerald-700 font-bold">Server SHA-256 Enabled</span>
+                  </div>
+                  <div class="flex justify-between py-1.5">
+                    <span class="text-[#6B6B6B]">Database Status</span>
+                    <span class="text-emerald-700 font-bold">Connected & Reactive</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- ================= MODAL: ADD / EDIT PRODUCT ================= -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-white border border-[#0B0B0B] w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 md:p-8 animate-fade-up relative">
+        <button id="close-product-modal" class="absolute top-6 right-6 text-sm font-bold text-[#6B6B6B] hover:text-[#0B0B0B]">✕</button>
+        
+        <div class="border-b border-[#E8E6E1] pb-4 mb-6">
+          <span id="product-modal-mode-tag" class="text-[9px] font-extrabold uppercase px-2 py-0.5 bg-[#0B0B0B] text-white">NEW PRODUCT</span>
+          <h2 id="product-modal-title" class="font-editorial text-xl font-bold uppercase text-[#0B0B0B] mt-1">DROP A NEW PIECE</h2>
+        </div>
+
+        <form id="product-form" class="space-y-6">
+          <input type="hidden" id="form-product-id" />
+
+          <!-- Title & Category -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Product Title *</label>
+              <input type="text" id="p-title" required placeholder='e.g. "OVERSIZED ACID WASH VINTAGE TEE"' class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Category *</label>
+              <div class="flex gap-2">
+                <input type="text" id="p-category" required placeholder="Graphic Tees, Hoodies, Vintage Acid..." class="flex-1 bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing & Stock -->
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Selling Price ($) *</label>
+              <input type="number" id="p-price" step="0.01" required placeholder="55.00" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Compare-at Price ($)</label>
+              <input type="number" id="p-compare-price" step="0.01" placeholder="75.00" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Total Stock (Units) *</label>
+              <input type="number" id="p-stock" required placeholder="25" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">SKU</label>
+              <input type="text" id="p-sku" placeholder="YS-TEE-001" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Product Description</label>
+            <textarea id="p-desc" rows="3" placeholder="Heavyweight 280-320 GSM combed cotton. Pre-shrunk drop shoulder streetwear silhouette." class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]"></textarea>
+          </div>
+
+          <!-- Badges & Visibility Toggles -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2 border-t border-[#E8E6E1]">
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Badge Text</label>
+              <input type="text" id="p-badge" placeholder="NEW DROP, BEST SELLER, etc." class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none focus:border-[#0B0B0B]" />
+            </div>
+            <div class="flex items-center gap-2 pt-6">
+              <input type="checkbox" id="p-published" checked class="w-4 h-4 accent-[#0B0B0B]" />
+              <label for="p-published" class="text-xs font-bold uppercase text-[#0B0B0B] cursor-pointer">PUBLISHED</label>
+            </div>
+            <div class="flex items-center gap-2 pt-6">
+              <input type="checkbox" id="p-bestseller" class="w-4 h-4 accent-[#0B0B0B]" />
+              <label for="p-bestseller" class="text-xs font-bold uppercase text-[#0B0B0B] cursor-pointer">BEST SELLER</label>
+            </div>
+            <div class="flex items-center gap-2 pt-6">
+              <input type="checkbox" id="p-newarrival" class="w-4 h-4 accent-[#0B0B0B]" />
+              <label for="p-newarrival" class="text-xs font-bold uppercase text-[#0B0B0B] cursor-pointer">NEW ARRIVAL</label>
+            </div>
+            <div class="flex items-center gap-2 pt-2 col-span-full">
+              <input type="checkbox" id="p-featured" class="w-4 h-4 accent-[#0B0B0B]" />
+              <label for="p-featured" class="text-xs font-bold uppercase text-[#0B0B0B] cursor-pointer">FEATURED PRODUCT (HOMEPAGE SPOTLIGHT)</label>
+            </div>
+          </div>
+
+          <!-- SIZES SELECTION (Requirement: XS, S, M, L, XL, 2XL, 3XL) -->
+          <div class="pt-2 border-t border-[#E8E6E1]">
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B]">Available Sizes *</label>
+              <button type="button" id="select-all-sizes-btn" class="text-[10px] text-[#0B0B0B] font-bold uppercase hover:underline">Select All</button>
+            </div>
+            <div class="flex flex-wrap gap-2" id="size-checkboxes-container">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- COLORS WITH NATIVE COLOR PICKER -->
+          <div class="pt-2 border-t border-[#E8E6E1]">
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B]">Color Options & Hex Picker</label>
+              <button type="button" id="add-color-option-btn" class="text-[10px] bg-[#0B0B0B] text-white px-2 py-1 font-bold uppercase hover:bg-black cursor-pointer">
+                + Add Color
+              </button>
+            </div>
+            <div id="colors-list-container" class="space-y-2">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- DIRECT DEVICE IMAGE UPLOAD SECTION -->
+          <div class="pt-2 border-t border-[#E8E6E1] space-y-3">
+            <div class="flex justify-between items-center">
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B]">Product Imagery *</label>
+                <p class="text-[10px] text-[#6B6B6B]">Upload photos directly from your computer or phone. High-res front/back streetwear photos supported.</p>
+              </div>
+              <span id="upload-status-indicator" class="text-[11px] font-bold text-emerald-800 hidden">Upload Ready</span>
+            </div>
+
+            <!-- Upload Drop Area -->
+            <div id="drop-zone" class="border-2 border-dashed border-[#0B0B0B]/30 hover:border-[#0B0B0B] bg-[#F7F5F0] p-6 text-center transition-colors cursor-pointer relative">
+              <input type="file" id="p-image-file-input" multiple accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" />
+              <i class="fa-solid fa-cloud-arrow-up text-2xl text-[#6B6B6B] mb-2"></i>
+              <p class="text-xs font-bold uppercase text-[#0B0B0B]">Click or Drag Product Photos Here</p>
+              <p class="text-[10px] text-[#6B6B6B] mt-0.5">Supports PNG, JPG, WEBP • Unlimited product gallery angles</p>
+            </div>
+
+            <!-- Upload Progress Bar -->
+            <div id="upload-progress-box" class="hidden space-y-1">
+              <div class="flex justify-between text-[10px] font-bold uppercase text-[#0B0B0B]">
+                <span id="upload-progress-label">Uploading to Firebase Storage...</span>
+                <span id="upload-progress-pct">0%</span>
+              </div>
+              <div class="w-full bg-[#E8E6E1] h-1.5 overflow-hidden">
+                <div id="upload-progress-bar" class="bg-[#0B0B0B] h-full transition-all duration-150" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <!-- Previews & Gallery List -->
+            <div id="image-previews-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <!-- Image cards populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Submit Buttons -->
+          <div class="pt-4 border-t border-[#E8E6E1] flex gap-3">
+            <button type="button" id="cancel-product-modal-btn" class="flex-1 border border-[#0B0B0B] py-3 text-xs font-editorial font-bold uppercase hover:bg-[#F7F5F0] transition-colors cursor-pointer">
+              CANCEL
+            </button>
+            <button type="submit" id="save-product-btn" class="flex-2 bg-[#0B0B0B] hover:bg-black text-[#F7F5F0] py-3 text-xs font-editorial font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2 cursor-pointer">
+              <span id="save-product-btn-text">SAVE PRODUCT TO FIRESTORE</span>
+              <span class="text-[#C7FF2E]">→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= MODAL: ORDER DETAILS & FULFILLMENT ================= -->
+    <div id="order-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-white border border-[#0B0B0B] w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 animate-fade-up relative">
+        <button id="close-order-modal" class="absolute top-6 right-6 text-sm font-bold text-[#6B6B6B] hover:text-[#0B0B0B]">✕</button>
+        
+        <div class="border-b border-[#E8E6E1] pb-4 mb-6">
+          <div class="flex items-center gap-2">
+            <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 bg-[#0B0B0B] text-white">ORDER RECORD</span>
+            <span id="modal-order-id" class="font-editorial text-lg font-bold text-[#0B0B0B]">YS-00000</span>
+          </div>
+          <p id="modal-order-timestamp" class="text-xs text-[#6B6B6B] mt-1">Placed on Oct 12, 2026</p>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Customer & Delivery -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#F7F5F0] p-4 border border-[#0B0B0B]/10 text-xs">
+            <div>
+              <span class="font-bold text-[#6B6B6B] uppercase block text-[10px]">CUSTOMER INFO</span>
+              <strong id="modal-cust-name" class="text-[#0B0B0B] block mt-1">Customer Name</strong>
+              <div id="modal-cust-email" class="text-[#6B6B6B]">customer@example.com</div>
+              <div id="modal-cust-phone" class="text-[#6B6B6B]">+1 (555) 000-0000</div>
+            </div>
+            <div>
+              <span class="font-bold text-[#6B6B6B] uppercase block text-[10px]">SHIPPING ADDRESS</span>
+              <div id="modal-cust-address" class="text-[#0B0B0B] mt-1">Address Details</div>
+            </div>
+          </div>
+
+          <!-- Items Ordered -->
+          <div>
+            <h4 class="font-editorial text-xs font-bold uppercase tracking-wider text-[#6B6B6B] mb-2">ORDERED ITEMS</h4>
+            <div id="modal-order-items-list" class="space-y-2 border border-[#E8E6E1] divide-y divide-[#E8E6E1]">
+              <!-- Items populated here -->
+            </div>
+            <div class="flex justify-between items-center pt-3 text-sm font-bold font-editorial">
+              <span>ORDER TOTAL:</span>
+              <span id="modal-order-total" class="text-base text-[#0B0B0B]">$0.00</span>
+            </div>
+          </div>
+
+          <!-- FULFILLMENT & STATUS UPDATE FORM -->
+          <form id="order-update-form" class="space-y-4 pt-4 border-t border-[#E8E6E1]">
+            <h4 class="font-editorial text-xs font-bold uppercase tracking-wider text-[#0B0B0B]">UPDATE FULFILLMENT & TRACKING</h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Order Status *</label>
+                <select id="modal-order-status-select" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none">
+                  <option value="PENDING">PENDING</option>
+                  <option value="CONFIRMED">CONFIRMED</option>
+                  <option value="PROCESSING">PROCESSING</option>
+                  <option value="SHIPPED">SHIPPED</option>
+                  <option value="DELIVERED">DELIVERED</option>
+                  <option value="CANCELLED">CANCELLED</option>
+                  <option value="RETURN_REQUESTED">RETURN REQUESTED</option>
+                  <option value="RETURNED">RETURNED</option>
+                  <option value="REFUNDED">REFUNDED</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Courier Service</label>
+                <input type="text" id="modal-order-courier" placeholder="USPS, FedEx, DHL, BlueDart..." class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Tracking Number</label>
+              <input type="text" id="modal-order-tracking" placeholder="e.g. 9400100000000000000000" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-[#6B6B6B] mb-1">Internal Admin Note</label>
+              <input type="text" id="modal-order-note" placeholder="Fulfillment batch #4, custom print packaging" class="w-full bg-[#F7F5F0] border border-[#0B0B0B]/20 p-2.5 text-xs text-[#0B0B0B] focus:outline-none" />
+            </div>
+
+            <div class="pt-2 flex gap-3">
+              <button type="submit" class="w-full bg-[#0B0B0B] hover:bg-black text-white py-3 text-xs font-editorial font-bold uppercase tracking-wider transition-colors cursor-pointer">
+                SAVE ORDER UPDATES
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= CONFIRMATION DIALOG MODAL ================= -->
+    <div id="confirm-modal" class="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-white border border-[#0B0B0B] max-w-sm w-full p-6 text-center animate-fade-up">
+        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+          <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+        </div>
+        <h3 id="confirm-modal-title" class="font-editorial text-base font-bold uppercase text-[#0B0B0B]">CONFIRM ACTION</h3>
+        <p id="confirm-modal-message" class="text-xs text-[#6B6B6B] mt-1 mb-6">Are you sure you want to proceed?</p>
+        <div class="flex gap-2">
+          <button id="confirm-modal-cancel" class="flex-1 border border-[#0B0B0B] py-2.5 text-xs font-bold uppercase hover:bg-[#F7F5F0] cursor-pointer">
+            CANCEL
+          </button>
+          <button id="confirm-modal-proceed" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2.5 text-xs font-bold uppercase cursor-pointer">
+            PROCEED
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= FIREBASE STORAGE SETUP GUIDE MODAL ================= -->
+    <div id="storage-setup-modal" class="fixed inset-0 z-[85] bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+      <div class="bg-white border-2 border-[#0B0B0B] max-w-xl w-full p-6 md:p-8 animate-fade-up relative max-h-[90vh] overflow-y-auto">
+        <button id="close-storage-setup-modal" class="absolute top-6 right-6 text-sm font-bold text-[#6B6B6B] hover:text-[#0B0B0B]">✕</button>
+
+        <div class="flex items-center gap-3 pb-4 border-b border-[#E8E6E1]">
+          <div class="w-10 h-10 bg-amber-100 text-amber-900 border border-amber-300 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-cloud-arrow-up text-base"></i>
+          </div>
+          <div>
+            <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 bg-[#0B0B0B] text-[#C7FF2E]">ACTION REQUIRED</span>
+            <h3 class="font-editorial text-base font-bold uppercase text-[#0B0B0B] mt-0.5">ENABLE FIREBASE CLOUD STORAGE</h3>
+          </div>
+        </div>
+
+        <div class="mt-4 space-y-4 text-xs">
+          <p class="text-[#0B0B0B]">
+            Firebase Storage is not yet active for project <strong class="font-bold">webs-39bd2</strong>. In Firebase projects, Cloud Storage requires a one-time activation in the Firebase Console before images can be stored.
+          </p>
+
+          <div class="bg-[#F7F5F0] border border-[#0B0B0B]/10 p-4 space-y-3">
+            <div class="font-bold font-editorial text-xs uppercase text-[#0B0B0B]">3-STEP ACTIVATION STEPS:</div>
+            
+            <div class="flex gap-3">
+              <span class="w-5 h-5 rounded-full bg-[#0B0B0B] text-white flex items-center justify-center text-[10px] font-bold shrink-0">1</span>
+              <div>
+                <strong class="text-[#0B0B0B]">Open Firebase Console Storage:</strong>
+                <p class="text-[11px] text-[#6B6B6B] mt-0.5">Go to your project's Storage dashboard: <a href="https://console.firebase.google.com/project/webs-39bd2/storage" target="_blank" class="text-[#0B0B0B] underline font-bold">console.firebase.google.com/project/webs-39bd2/storage</a></p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="w-5 h-5 rounded-full bg-[#0B0B0B] text-white flex items-center justify-center text-[10px] font-bold shrink-0">2</span>
+              <div>
+                <strong class="text-[#0B0B0B]">Click "Get Started":</strong>
+                <p class="text-[11px] text-[#6B6B6B] mt-0.5">Click the "Get started" button, select "Start in production mode", choose your Cloud Storage bucket location (e.g., us-central1 or asia-east1), and click Done.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="w-5 h-5 rounded-full bg-[#0B0B0B] text-white flex items-center justify-center text-[10px] font-bold shrink-0">3</span>
+              <div>
+                <strong class="text-[#0B0B0B]">Set Storage Security Rules:</strong>
+                <p class="text-[11px] text-[#6B6B6B] mt-0.5">Go to the <strong>Rules</strong> tab and ensure products are publicly readable and editable by <code class="bg-white px-1 border border-[#0B0B0B]/20 font-mono">baijitsk860@gmail.com</code> (see <code class="bg-white px-1 border border-[#0B0B0B]/20 font-mono">storage.rules</code> in this repo).</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="storage-check-result" class="hidden p-3 border text-xs font-semibold"></div>
+
+          <div class="pt-3 border-t border-[#E8E6E1] flex flex-col sm:flex-row gap-2">
+            <a href="https://console.firebase.google.com/project/webs-39bd2/storage" target="_blank" class="flex-1 bg-[#0B0B0B] hover:bg-black text-white py-3 px-4 text-center font-editorial font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+              <span>OPEN FIREBASE CONSOLE</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </a>
+            <button id="modal-recheck-storage-btn" class="flex-1 border-2 border-[#0B0B0B] hover:bg-[#F7F5F0] py-3 px-4 text-center font-editorial font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-rotate text-xs"></i>
+              <span>TEST STORAGE NOW</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/admin.js"></script>
+  </body>
+</html>

@@ -64,7 +64,10 @@
             </div>
           </div>
 
-          <div class="flex items-center gap-3 w-full sm:w-auto">
+          <div class="flex items-center gap-3 w-full sm:w-auto" id="dash-action-buttons">
+            <a id="dash-admin-btn" href="/admin" class="hidden flex-1 sm:flex-none bg-[#C7FF2E] text-[#0B0B0B] border border-[#0B0B0B] px-4 py-2.5 text-xs font-editorial font-bold uppercase text-center hover:bg-black hover:text-white transition-colors">
+              <i class="fa-solid fa-shield-halved mr-1.5"></i> Admin Panel
+            </a>
             <a href="/wishlist.html" class="flex-1 sm:flex-none border border-[#0B0B0B] px-4 py-2.5 text-xs font-editorial font-bold uppercase text-center hover:bg-[#F7F5F0]">
               <i class="fa-regular fa-heart mr-1.5"></i> Saved Pieces
             </a>
@@ -72,6 +75,21 @@
               Sign Out
             </button>
           </div>
+        </div>
+
+        <!-- Admin Privilege Banner (Visible only for authorized admin) -->
+        <div id="dash-admin-banner" class="hidden mb-6 p-4 bg-[#0B0B0B] text-white border-2 border-[#C7FF2E] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#C7FF2E] animate-pulse"></span>
+              <span class="text-[10px] font-extrabold uppercase tracking-widest text-[#C7FF2E]">AUTHORIZED ADMINISTRATOR</span>
+            </div>
+            <div class="font-editorial text-sm font-bold uppercase mt-1">Security Authenticated: baijitsk860@gmail.com</div>
+          </div>
+          <a href="/admin" class="bg-[#C7FF2E] text-[#0B0B0B] hover:bg-white px-5 py-2.5 font-editorial text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors">
+            <span>ENTER ADMIN DASHBOARD</span>
+            <span>→</span>
+          </a>
         </div>
 
         <!-- 2-Column Section: Profile Editor & Order History -->
@@ -349,6 +367,17 @@
 
         formView.classList.add('hidden');
         loggedInView.classList.remove('hidden');
+
+        const isAdmin = user && (user.email || '').toLowerCase().trim() === 'baijitsk860@gmail.com';
+        const adminBtn = document.getElementById('dash-admin-btn');
+        const adminBanner = document.getElementById('dash-admin-banner');
+        if (isAdmin) {
+          adminBtn?.classList.remove('hidden');
+          adminBanner?.classList.remove('hidden');
+        } else {
+          adminBtn?.classList.add('hidden');
+          adminBanner?.classList.add('hidden');
+        }
 
         document.getElementById('dash-user-name').textContent = profile?.displayName || user.displayName || 'COLLECTOR';
         document.getElementById('dash-user-email').textContent = user.email;

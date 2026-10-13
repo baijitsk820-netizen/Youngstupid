@@ -8,7 +8,8 @@ import {
   sendPasswordResetEmail,
   signOut as fbSignOut, 
   onAuthStateChanged,
-  updateProfile
+  updateProfile,
+  signInAnonymously
 } from 'firebase/auth';
 import { 
   getFirestore, 
@@ -25,16 +26,31 @@ import {
   limit,
   getDocFromServer
 } from 'firebase/firestore';
-import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytes, uploadBytesResumable } from 'firebase/storage';
+export { ref, getDownloadURL, uploadBytes, uploadBytesResumable, getStorage };
+
+export function formatPrice(amount, currency = 'USD') {
+  const num = Number(amount) || 0;
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: (currency || 'USD').toUpperCase()
+    }).format(num);
+  } catch (e) {
+    return `$${num.toFixed(2)}`;
+  }
+}
+
+export const AUTHORIZED_ADMIN_EMAIL = 'baijitsk860@gmail.com';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyBF7RX_FeVfsBZiLDK3om6dG3dhYweH9Dc",
-  authDomain: "webs-39bd2.firebaseapp.com",
-  projectId: "webs-39bd2",
-  storageBucket: "webs-39bd2.firebasestorage.app",
-  messagingSenderId: "312273897490",
-  appId: "1:312273897490:web:d0bfac34205709e0b070cb",
-  measurementId: "G-8KSFRL0ENE"
+  apiKey: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FIREBASE_API_KEY) || "AIzaSyBF7RX_FeVfsBZiLDK3om6dG3dhYweH9Dc",
+  authDomain: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FIREBASE_AUTH_DOMAIN) || "webs-39bd2.firebaseapp.com",
+  projectId: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FIREBASE_PROJECT_ID) || "webs-39bd2",
+  storageBucket: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FIREBASE_STORAGE_BUCKET) || "webs-39bd2.firebasestorage.app",
+  messagingSenderId: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FIREBASE_MESSAGING_SENDER_ID) || "312273897490",
+  appId: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FIREBASE_APP_ID) || "1:312273897490:web:d0bfac34205709e0b070cb",
+  measurementId: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FIREBASE_MEASUREMENT_ID) || "G-8KSFRL0ENE"
 };
 
 // Initialize Firebase SDK reusing existing initialization if possible
@@ -43,6 +59,144 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
+
+/**
+ * Validates, uploads, and retrieves download URL for product images.
+ * Adheres strictly to security rules and admin authorization for baijitsk860@gmail.com.
+ * Returns detailed diagnostic errors if Cloud Storage is not yet enabled in the Firebase Console.
+ */
+export async function uploadProductImageToStorage(productId, file, options = {}, onProgress = null) {
+  if (!file) {
+    throw new Error('No image file selected for upload.');
+  }
+
+  // 1. File type validation (JPG, JPEG, PNG, WebP)
+  const validMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+  const hasValidExt = /\.(jpe?g|png|webp)$/i.test(file.name || '');
+  if (!validMimeTypes.includes((file.type || '').toLowerCase()) && !hasValidExt) {
+    throw new Error(`Invalid file format: "${file.name}". Only JPG, JPEG, PNG, and WebP are allowed.`);
+  }
+
+  // 2. File size limit (10 MB per image)
+  const MAX_SIZE_BYTES = 10 * 1024 * 1024;
+  if (file.size > MAX_SIZE_BYTES) {
+    const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+    throw new Error(`File "${file.name}" exceeds 10 MB limit (${sizeMb} MB). Please choose an image under 10 MB.`);
+  }
+
+  // 3. Admin authorization verification
+  const currentUser = auth.currentUser;
+  if (!currentUser) {
+    throw new Error('Authentication required. Please sign in as baijitsk860@gmail.com before uploading product photos.');
+  }
+  const email = (currentUser.email || '').toLowerCase().trim();
+  if (email !== AUTHORIZED_ADMIN_EMAIL.toLowerCase()) {
+    throw new Error(`Unauthorized. Only ${AUTHORIZED_ADMIN_EMAIL} is authorized to upload product media.`);
+  }
+
+  // 4. Clean storage path
+  const cleanName = (file.name || 'product_photo.jpg').replace(/[^a-zA-Z0-9._-]/g, '_');
+  const timestamp = Date.now();
+  const randomSuffix = Math.random().toString(36).substring(2, 7);
+  const storagePath = `products/${productId}/images/${timestamp}_${randomSuffix}_${cleanName}`;
+
+  const runUpload = async (targetStorage) => {
+    const fileRef = ref(targetStorage, storagePath);
+    const metadata = {
+      contentType: file.type || 'image/jpeg',
+      customMetadata: {
+        productId,
+        uploadedBy: email,
+        viewType: options.viewType || 'front',
+        originalName: file.name
+      }
+    };
+
+    const uploadTask = uploadBytesResumable(fileRef, file, metadata);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          if (typeof onProgress === 'function' && snapshot.totalBytes > 0) {
+            const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            onProgress({
+              percent: pct,
+              bytesTransferred: snapshot.bytesTransferred,
+              totalBytes: snapshot.totalBytes,
+              file
+            });
+          }
+        },
+        (error) => reject(error),
+        async () => {
+          try {
+            const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+            resolve({
+              downloadUrl,
+              storagePath,
+              fileName: file.name,
+              size: file.size,
+              type: file.type
+            });
+          } catch (urlErr) {
+            reject(urlErr);
+          }
+        }
+      );
+    });
+  };
+
+  // Attempt upload using primary storage instance
+  try {
+    return await runUpload(storage);
+  } catch (err) {
+    const isBucketNotFound = err.code === 'storage/bucket-not-found' ||
+      (err.message && err.message.includes('bucket-not-found')) ||
+      (err.serverResponse && err.serverResponse.includes('404'));
+
+    if (isBucketNotFound) {
+      // Try alternative bucket name format (appspot.com vs firebasestorage.app)
+      const currentBucket = firebaseConfig.storageBucket || '';
+      const altBucket = currentBucket.includes('firebasestorage.app')
+        ? currentBucket.replace('.firebasestorage.app', '.appspot.com')
+        : currentBucket.replace('.appspot.com', '.firebasestorage.app');
+
+      if (altBucket && altBucket !== currentBucket) {
+        try {
+          const altStorage = getStorage(app, `gs://${altBucket}`);
+          const altRes = await runUpload(altStorage);
+          return altRes;
+        } catch (altErr) {
+          // Both bucket formats not found
+        }
+      }
+
+      const storageInitErr = new Error(
+        `Firebase Cloud Storage is not yet initialized for project "${firebaseConfig.projectId}".\n\n` +
+        `To enable Storage in Firebase Console:\n` +
+        `1. Open https://console.firebase.google.com/project/${firebaseConfig.projectId}/storage\n` +
+        `2. Click "Get Started" to create the storage bucket.\n` +
+        `3. Select production mode and your preferred region.\n` +
+        `4. Click "Done" and deploy storage.rules.`
+      );
+      storageInitErr.code = 'storage/bucket-not-found';
+      storageInitErr.projectId = firebaseConfig.projectId;
+      storageInitErr.consoleUrl = `https://console.firebase.google.com/project/${firebaseConfig.projectId}/storage`;
+      throw storageInitErr;
+    }
+
+    if (err.code === 'storage/unauthorized') {
+      const authErr = new Error(
+        `Firebase Storage write permission denied. Verify you are logged in as ${AUTHORIZED_ADMIN_EMAIL} and storage.rules allows uploads.`
+      );
+      authErr.code = 'storage/unauthorized';
+      throw authErr;
+    }
+
+    throw err;
+  }
+}
 
 // Error handler conforming to FirestoreErrorInfo spec
 export const OperationType = {
@@ -649,6 +803,29 @@ export function isProductPublic(data) {
   return true;
 }
 
+let shopperAuthPromise = null;
+export async function ensureShopperAuth() {
+  if (auth.currentUser) return auth.currentUser;
+  if (!shopperAuthPromise) {
+    shopperAuthPromise = new Promise((resolve) => {
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        unsubscribe();
+        if (user) {
+          resolve(user);
+        } else {
+          try {
+            const res = await signInAnonymously(auth);
+            resolve(res.user);
+          } catch (e) {
+            resolve(null);
+          }
+        }
+      });
+    });
+  }
+  return shopperAuthPromise;
+}
+
 /**
  * Fetches real products from Cloud Firestore collection `products`.
  * Returns actual documents stored in the database.
@@ -656,6 +833,7 @@ export function isProductPublic(data) {
 export async function fetchProductsFromFirestore() {
   const path = 'products';
   try {
+    await ensureShopperAuth();
     const snap = await getDocs(collection(db, 'products'));
     const products = [];
     snap.forEach(docSnap => {
@@ -676,23 +854,26 @@ export async function fetchProductsFromFirestore() {
  */
 export function subscribeToProductsFromFirestore(callback) {
   const path = 'products';
-  try {
-    return onSnapshot(collection(db, 'products'), (snap) => {
-      const products = [];
-      snap.forEach(docSnap => {
-        const data = docSnap.data();
-        if (!isProductPublic(data)) return;
-        products.push(mapFirestoreProductDoc(docSnap));
+  let unsub = () => {};
+  ensureShopperAuth().then(() => {
+    try {
+      unsub = onSnapshot(collection(db, 'products'), (snap) => {
+        const products = [];
+        snap.forEach(docSnap => {
+          const data = docSnap.data();
+          if (!isProductPublic(data)) return;
+          products.push(mapFirestoreProductDoc(docSnap));
+        });
+        callback(products);
+      }, (err) => {
+        handleFirestoreError(err, OperationType.LIST, path);
+        callback([]);
       });
-      callback(products);
-    }, (err) => {
+    } catch (err) {
       handleFirestoreError(err, OperationType.LIST, path);
-      callback([]);
-    });
-  } catch (err) {
-    handleFirestoreError(err, OperationType.LIST, path);
-    return () => {};
-  }
+    }
+  });
+  return () => unsub();
 }
 
 /**
@@ -701,6 +882,7 @@ export function subscribeToProductsFromFirestore(callback) {
 export async function fetchProductByIdFromFirestore(productId) {
   const path = `products/${productId}`;
   try {
+    await ensureShopperAuth();
     const docSnap = await getDoc(doc(db, 'products', productId));
     if (docSnap.exists()) {
       const data = docSnap.data();
@@ -719,26 +901,29 @@ export async function fetchProductByIdFromFirestore(productId) {
  */
 export function subscribeToProductByIdFromFirestore(productId, callback) {
   const path = `products/${productId}`;
-  try {
-    return onSnapshot(doc(db, 'products', productId), (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        if (!isProductPublic(data)) {
-          callback(null);
+  let unsub = () => {};
+  ensureShopperAuth().then(() => {
+    try {
+      unsub = onSnapshot(doc(db, 'products', productId), (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (!isProductPublic(data)) {
+            callback(null);
+          } else {
+            callback(mapFirestoreProductDoc(docSnap));
+          }
         } else {
-          callback(mapFirestoreProductDoc(docSnap));
+          callback(null);
         }
-      } else {
+      }, (err) => {
+        handleFirestoreError(err, OperationType.GET, path);
         callback(null);
-      }
-    }, (err) => {
+      });
+    } catch (err) {
       handleFirestoreError(err, OperationType.GET, path);
-      callback(null);
-    });
-  } catch (err) {
-    handleFirestoreError(err, OperationType.GET, path);
-    return () => {};
-  }
+    }
+  });
+  return () => unsub();
 }
 
 /**
@@ -767,10 +952,87 @@ export async function uploadProductImageToStorage(file, productId, options = {})
 
 /**
  * Saves or updates a product document in Cloud Firestore `products/{productId}`.
- * Merges new fields while preserving existing document data and timestamps.
+ * Strictly validates required fields and sizes before persisting to prevent broken records.
+ * Integrates with server-side admin API and client Firestore SDK.
  */
 export async function saveProductToFirestore(productId, productData) {
+  if (!productId || typeof productId !== 'string') {
+    throw new Error('Product ID is required.');
+  }
+  if (!productData || typeof productData !== 'object') {
+    throw new Error('Product data payload is required.');
+  }
+
+  const name = (productData.name || productData.title || '').trim();
+  if (!name) {
+    throw new Error('Product title/name is required.');
+  }
+
+  const price = Number(productData.price);
+  if (isNaN(price) || price < 0) {
+    throw new Error('A valid product price is required.');
+  }
+
+  const category = (productData.category || '').trim();
+  if (!category) {
+    throw new Error('Product category is required.');
+  }
+
+  // Sanitize sizes to prevent [object Object] artifacts
+  let sizes = [];
+  if (Array.isArray(productData.sizes) && productData.sizes.length > 0) {
+    sizes = productData.sizes.map(s => extractSizeLabel(s)).filter(Boolean);
+  }
+  if (sizes.length === 0 && Array.isArray(productData.sizeLabels)) {
+    sizes = productData.sizeLabels.map(s => extractSizeLabel(s)).filter(Boolean);
+  }
+  if (sizes.length === 0) {
+    sizes = ['S', 'M', 'L', 'XL'];
+  }
+
+  const thumbnail = productData.thumbnail || productData.primaryImage || 
+    (Array.isArray(productData.images) && productData.images.length > 0 ? extractProductImageUrl(productData.images[0]) : '');
+
+  const now = new Date().toISOString();
   const path = `products/${productId}`;
+
+  // Try server-side admin endpoint if authenticated
+  if (auth.currentUser) {
+    try {
+      const idToken = await auth.currentUser.getIdToken();
+      const srvRes = await fetch('/api/admin/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${idToken}`
+        },
+        body: JSON.stringify({
+          productId,
+          productData: {
+            ...productData,
+            name,
+            title: name,
+            category,
+            price,
+            sizes,
+            sizeLabels: sizes,
+            thumbnail,
+            primaryImage: thumbnail
+          }
+        })
+      });
+      if (srvRes.ok) {
+        const srvData = await srvRes.json();
+        if (srvData.success) {
+          return srvData.product;
+        }
+      }
+    } catch (srvErr) {
+      console.warn('Server product save notice (falling back to direct Firestore SDK):', srvErr);
+    }
+  }
+
+  // Client Firestore SDK write (enforced by firestore.rules)
   try {
     const prodRef = doc(db, 'products', productId);
     const existingSnap = await getDoc(prodRef);
@@ -779,10 +1041,18 @@ export async function saveProductToFirestore(productId, productData) {
     const updated = {
       ...existingData,
       ...productData,
-      updatedAt: new Date().toISOString()
+      name,
+      title: name,
+      category,
+      price,
+      sizes,
+      sizeLabels: sizes,
+      thumbnail,
+      primaryImage: thumbnail,
+      updatedAt: now
     };
     if (!existingSnap.exists() && !updated.createdAt) {
-      updated.createdAt = new Date().toISOString();
+      updated.createdAt = now;
     }
     await setDoc(prodRef, updated, { merge: true });
     return updated;
@@ -1639,3 +1909,290 @@ export async function deleteFaqFromFirestore(faqId) {
     return false;
   }
 }
+
+// ==================== ADMIN OPERATIONS ====================
+
+/**
+ * Fetches all products including inactive, draft, and hidden items for admin management.
+ */
+export async function getAllProductsAdmin() {
+  const path = 'products';
+  try {
+    const snap = await getDocs(collection(db, 'products'));
+    const products = [];
+    snap.forEach(docSnap => {
+      products.push(mapFirestoreProductDoc(docSnap));
+    });
+    return products;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, path);
+    return [];
+  }
+}
+
+/**
+ * Subscribes to all products for the admin panel with real-time updates.
+ */
+export function subscribeToProductsAdmin(callback) {
+  const path = 'products';
+  try {
+    return onSnapshot(collection(db, 'products'), (snap) => {
+      const products = [];
+      snap.forEach(docSnap => {
+        products.push(mapFirestoreProductDoc(docSnap));
+      });
+      callback(products);
+    }, (err) => {
+      handleFirestoreError(err, OperationType.LIST, path);
+      callback([]);
+    });
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, path);
+    return () => {};
+  }
+}
+
+/**
+ * Deletes a product document from Firestore: products/{productId}
+ */
+export async function deleteProductFromFirestore(productId) {
+  if (!productId) return false;
+  const path = `products/${productId}`;
+  try {
+    await deleteDoc(doc(db, 'products', productId));
+    return true;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.DELETE, path);
+    throw err;
+  }
+}
+
+/**
+ * Fetches all customer orders from Firestore: orders
+ */
+export async function getAllOrdersFromFirestore() {
+  const path = 'orders';
+  try {
+    const q = query(collection(db, 'orders'), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    const orders = [];
+    snap.forEach(docSnap => {
+      orders.push({ id: docSnap.id, ...docSnap.data() });
+    });
+    return orders;
+  } catch (err) {
+    // If indexing is needed or order query fails, fallback to unordered listing
+    try {
+      const snap = await getDocs(collection(db, 'orders'));
+      const orders = [];
+      snap.forEach(docSnap => {
+        orders.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      orders.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      return orders;
+    } catch (fallbackErr) {
+      handleFirestoreError(fallbackErr, OperationType.LIST, path);
+      return [];
+    }
+  }
+}
+
+/**
+ * Subscribes to real-time updates on all customer orders for the admin dashboard.
+ */
+export function subscribeToOrders(callback) {
+  const path = 'orders';
+  try {
+    return onSnapshot(collection(db, 'orders'), (snap) => {
+      const orders = [];
+      snap.forEach(docSnap => {
+        orders.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      orders.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+      callback(orders);
+    }, (err) => {
+      handleFirestoreError(err, OperationType.LIST, path);
+      callback([]);
+    });
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, path);
+    return () => {};
+  }
+}
+
+/**
+ * Updates an order status, tracking info, courier, or administrative notes.
+ */
+export async function updateOrderStatusInFirestore(orderId, updates) {
+  if (!orderId) throw new Error('Order ID is required');
+  const path = `orders/${orderId}`;
+  try {
+    const payload = {
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    await setDoc(doc(db, 'orders', orderId), payload, { merge: true });
+    return payload;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, path);
+    throw err;
+  }
+}
+
+/**
+ * Fetches all registered customer profiles from Firestore: users
+ */
+export async function getAllUsersFromFirestore() {
+  const path = 'users';
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+    const users = [];
+    snap.forEach(docSnap => {
+      const data = docSnap.data();
+      users.push({
+        uid: docSnap.id,
+        id: docSnap.id,
+        displayName: data.displayName || data.name || 'Collector',
+        email: data.email || '',
+        phone: data.phone || data.phoneNumber || '',
+        shippingAddress: data.shippingAddress || '',
+        createdAt: data.createdAt || '',
+        updatedAt: data.updatedAt || ''
+      });
+    });
+    return users;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, path);
+    return [];
+  }
+}
+
+/**
+ * Fetches all product reviews from Firestore for admin moderation.
+ */
+export async function getAllReviewsAdmin() {
+  const path = 'reviews';
+  try {
+    const snap = await getDocs(collection(db, 'reviews'));
+    const reviews = [];
+    snap.forEach(docSnap => {
+      reviews.push({ id: docSnap.id, ...docSnap.data() });
+    });
+    reviews.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    return reviews;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, path);
+    return [];
+  }
+}
+
+/**
+ * Updates a product review approval status (approved / rejected / pending).
+ */
+export async function updateReviewStatusInFirestore(reviewId, status) {
+  if (!reviewId) throw new Error('Review ID is required');
+  const path = `reviews/${reviewId}`;
+  try {
+    await setDoc(doc(db, 'reviews', reviewId), {
+      status,
+      approved: status === 'approved',
+      updatedAt: new Date().toISOString()
+    }, { merge: true });
+    return true;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, path);
+    throw err;
+  }
+}
+
+/**
+ * Deletes a product review from Firestore: reviews/{reviewId}
+ */
+export async function deleteReviewFromFirestore(reviewId) {
+  if (!reviewId) return false;
+  const path = `reviews/${reviewId}`;
+  try {
+    await deleteDoc(doc(db, 'reviews', reviewId));
+    return true;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.DELETE, path);
+    throw err;
+  }
+}
+
+/**
+ * Fetches all customer return/refund requests: returnRequests
+ */
+export async function getAllReturnRequestsFromFirestore() {
+  const path = 'returnRequests';
+  try {
+    const snap = await getDocs(collection(db, 'returnRequests'));
+    const requests = [];
+    snap.forEach(docSnap => {
+      requests.push({ id: docSnap.id, ...docSnap.data() });
+    });
+    requests.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    return requests;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, path);
+    return [];
+  }
+}
+
+/**
+ * Updates a return request status and admin notes.
+ */
+export async function updateReturnRequestInFirestore(requestId, updates) {
+  if (!requestId) throw new Error('Request ID is required');
+  const path = `returnRequests/${requestId}`;
+  try {
+    const payload = {
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    await setDoc(doc(db, 'returnRequests', requestId), payload, { merge: true });
+    return payload;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, path);
+    throw err;
+  }
+}
+
+/**
+ * Fetches all customer support inquiry tickets: supportTickets
+ */
+export async function getAllSupportTicketsFromFirestore() {
+  const path = 'supportTickets';
+  try {
+    const snap = await getDocs(collection(db, 'supportTickets'));
+    const tickets = [];
+    snap.forEach(docSnap => {
+      tickets.push({ id: docSnap.id, ...docSnap.data() });
+    });
+    tickets.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    return tickets;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.LIST, path);
+    return [];
+  }
+}
+
+/**
+ * Updates a support ticket status and admin reply.
+ */
+export async function updateSupportTicketInFirestore(ticketId, updates) {
+  if (!ticketId) throw new Error('Ticket ID is required');
+  const path = `supportTickets/${ticketId}`;
+  try {
+    const payload = {
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    await setDoc(doc(db, 'supportTickets', ticketId), payload, { merge: true });
+    return payload;
+  } catch (err) {
+    handleFirestoreError(err, OperationType.WRITE, path);
+    throw err;
+  }
+}
+

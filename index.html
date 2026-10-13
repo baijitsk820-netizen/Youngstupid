@@ -9,6 +9,7 @@
     <meta property="og:description" content="Official store for YOUNG & STUPID. Heavyweight 280-320 GSM combed cotton drop collections." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="google-site-verification" content="0e8O7ks8kDKZKgXDbMMQM0AuIXJUGwEhyGK_3unlJmU" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -647,16 +648,23 @@
           }
 
           if (filtered.length === 0) {
+            const isCatalogEmpty = products.length === 0;
             grid.innerHTML = `
               <div class="col-span-full p-12 text-center bg-white border border-[#0B0B0B]/10">
                 <div class="w-12 h-12 border border-[#0B0B0B]/20 bg-[#F7F5F0] flex items-center justify-center mx-auto mb-3">
-                  <i class="fa-solid fa-filter text-base text-[#6B6B6B]"></i>
+                  <i class="fa-solid fa-shirt text-base text-[#6B6B6B]"></i>
                 </div>
-                <h3 class="font-editorial text-sm font-bold uppercase text-[#0B0B0B]">NO PIECES IN "${activeCategory}"</h3>
-                <p class="text-xs text-[#6B6B6B] mt-1 mb-4">No drops currently matched this category filter.</p>
-                <button id="reset-filter-to-all" class="bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-4 py-2 font-editorial text-[11px] font-bold uppercase tracking-widest transition-colors cursor-pointer">
-                  VIEW ALL DROPS
-                </button>
+                <h3 class="font-editorial text-sm font-bold uppercase text-[#0B0B0B]">${isCatalogEmpty ? 'NEW ARCHIVE COLLECTION IN PRODUCTION' : `NO PIECES IN "${activeCategory}"`}</h3>
+                <p class="text-xs text-[#6B6B6B] mt-1 mb-4">${isCatalogEmpty ? 'No published streetwear drops currently in Firestore. Check back soon or drop a new piece via the Admin Panel.' : 'No drops currently matched this category filter.'}</p>
+                ${!isCatalogEmpty ? `
+                  <button id="reset-filter-to-all" class="bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-4 py-2 font-editorial text-[11px] font-bold uppercase tracking-widest transition-colors cursor-pointer">
+                    VIEW ALL DROPS
+                  </button>
+                ` : `
+                  <a href="/login.html" class="inline-block bg-[#0B0B0B] text-[#F7F5F0] hover:bg-black px-5 py-2.5 font-editorial text-[11px] font-bold uppercase tracking-widest transition-colors">
+                    COLLECTOR LOGIN →
+                  </a>
+                `}
               </div>
             `;
             document.getElementById('reset-filter-to-all')?.addEventListener('click', () => {

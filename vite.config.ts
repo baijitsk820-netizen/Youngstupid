@@ -26,6 +26,7 @@ export default defineConfig(() => {
           returnPolicy: path.resolve(__dirname, 'return-policy.html'),
           contact: path.resolve(__dirname, 'contact.html'),
           faq: path.resolve(__dirname, 'faq.html'),
+          admin: path.resolve(__dirname, 'admin.html'),
         },
       },
     },
